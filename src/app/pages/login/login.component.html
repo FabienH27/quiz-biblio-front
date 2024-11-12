@@ -1,0 +1,43 @@
+<section class="flex flex-col items-center mt-48">
+  <section class="bg-gray-700 mx-auto py-5 font-bold px-14 max-w-sm">
+    <h1 class="text-white pb-5 text-3xl text-center">Log in</h1>
+    <form class="form-group" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <label class="text-white" for="email">Email <span class="text-red-500">*</span></label>
+      <input
+        class="form-input"
+        name="email"
+        type="email"
+        formControlName="email"
+        placeholder="Email"
+        required
+        autofocus
+      />
+      @if (email?.invalid && (email?.dirty || email?.touched)) {
+        @if (email?.hasError('required')) {
+          <p class="text-red-500">Email fied is required.</p>
+        }
+        @if (email?.hasError('email')) {
+          <p class="text-red-500 font-semibold">Email is invalid</p>
+        }
+      }
+      <label class="text-white" for="email">Password <span class="text-red-500">*</span></label>
+      <input
+        class="form-input"
+        type="password"
+        formControlName="password"
+        placeholder="Password"
+      />
+      @if (password?.invalid && (password?.dirty || password?.touched)) {
+        @if (password?.hasError('required')) {
+          <p class="text-red-500">Password fied is required.</p>
+        }
+      }
+      <button
+        class="text-white bg-teal-500 px-8 py-3 mt-5 rounded-md hover:outline-none hover:bg-white hover:text-teal-500 block mx-auto w-full outline-none focus:bg-white focus:text-teal-500"
+      >
+        Log in
+      </button>
+    </form>
+  </section>
+  <span class="font-display text-white text-sm my-2">You don't have an account? <a routerLink="/register" class="hover:underline">Register</a></span>
+</section>
