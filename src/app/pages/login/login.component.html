@@ -1,8 +1,8 @@
 <section class="flex flex-col items-center mt-48">
-  <section class="bg-gray-700 mx-auto py-5 font-bold px-14 max-w-sm">
+  <section class="bg-gray-700 mx-auto py-5 px-14 max-w-sm">
     <h1 class="text-white pb-5 text-3xl text-center">Log in</h1>
     <form class="form-group" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <label class="text-white" for="email">Email <span class="text-red-500">*</span></label>
+      <label class="text-white font-bold" for="email">Email <span class="text-red-500">*</span></label>
       <input
         class="form-input"
         name="email"
@@ -12,7 +12,7 @@
         required
         autofocus
       />
-      @if (email?.invalid && (email?.dirty || email?.touched)) {
+      @if (email?.invalid && (email?.dirty && email?.touched)) {
         @if (email?.hasError('required')) {
           <p class="text-red-500">Email fied is required.</p>
         }
@@ -20,14 +20,14 @@
           <p class="text-red-500 font-semibold">Email is invalid</p>
         }
       }
-      <label class="text-white" for="email">Password <span class="text-red-500">*</span></label>
+      <label class="text-white font-bold" for="email">Password <span class="text-red-500">*</span></label>
       <input
         class="form-input"
         type="password"
         formControlName="password"
         placeholder="Password"
       />
-      @if (password?.invalid && (password?.dirty || password?.touched)) {
+      @if (password?.invalid && (password?.dirty && password?.touched)) {
         @if (password?.hasError('required')) {
           <p class="text-red-500">Password fied is required.</p>
         }
