@@ -1,20 +1,18 @@
 import { Injectable } from '@angular/core';
+import { AlertLevel } from '../types/alert-levels';
+import { Subject } from 'rxjs';
+import { AlertInfo } from '../types/alert-info';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AlertService {
 
-  constructor() { }
+  private alertSubject = new Subject<AlertInfo>();
+  alert$ = this.alertSubject.asObservable();
 
-  displayState = false;
-
-  doSomething(){
-    this.displayState = true;
-  }
-
-  getState(){
-    return this.displayState;
+  showAlert(message: string, level: AlertLevel = "info"){
+    this.alertSubject.next({level, message});
   }
 
 }

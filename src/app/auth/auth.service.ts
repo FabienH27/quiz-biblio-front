@@ -11,7 +11,7 @@ import { AlertService } from '../services/alert.service';
 })
 export class AuthService {
 
-  port = 32768;
+  port = 32770;
   httpClient = inject(HttpClient);
   baseUrl = `https://localhost:${this.port}/api`; //TODO : move to config
 
@@ -25,12 +25,12 @@ export class AuthService {
   }
 
   login(data: any) {
-    return this.httpClient.post(`${this.baseUrl}/auth/login`, data)
+    return this.httpClient.post(`${this.baseUrl}/Auth/login`, data)
       .pipe(tap((result) => {
         const token = (result as any).token;
         localStorage.setItem('authUser', token);
         this.userTokenSource.next(token);
-        this.alertService.doSomething();
+        this.alertService.showAlert("Successfully logged in!");
       }));
   }
 
