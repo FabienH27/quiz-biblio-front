@@ -31,10 +31,12 @@
       class="flex-grow pb-4 md:pb-0 hidden md:flex justify-center md:justify-end md:flex-row items-center"
     >
       @if (userInfo$ | async; as userInfo) {
+      <a class="text-teal-500 mx-5 hover:text-teal-100" routerLink="/admin" *isGranted="'ADMINISTRATOR'">Admin Panel</a>
       <p class="text-white">{{ userInfo.userName }}</p>
       <a
+        (click)="logout()"
         routerLink="logout"
-        class="text-teal-500 mx-5 self-center text-center px-5 py-2 font-semibold rounded-lg hover:text-white"
+        class="text-slate-400 mx-5 self-center text-center px-5 font-semibold border-l-2 border-slate-400 hover:text-white"
         >Log out</a
       >
       } @else {

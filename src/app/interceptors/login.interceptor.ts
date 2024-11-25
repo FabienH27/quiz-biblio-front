@@ -7,7 +7,7 @@ export function loginInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn)
     const alertService = inject(AlertService);
 
     return next(req).pipe(catchError((err: HttpErrorResponse) => {
-        console.log(err);
+        console.error(err);
         alertService.showAlert("An error occured while logging in. Please retry later.", "error");
         throw err;
     }));

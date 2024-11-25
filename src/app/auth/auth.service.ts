@@ -7,6 +7,7 @@ import { jwtDecode } from 'jwt-decode';
 import { AlertService } from '../services/alert.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class AuthService {
 
   port = 32768;
   httpClient = inject(HttpClient);
-  baseUrl = `https://localhost:${this.port}/api`; //TODO : move to config
+  baseUrl = environment.apiUrl; //TODO : move to config
 
   alertService = inject(AlertService);
   router = inject(Router);
@@ -24,8 +25,6 @@ export class AuthService {
     this.getUserInfoFromLocalStorage()
   );
   userInfo$ = this.userInfoSubject.asObservable();
-
-  localStorageKey = 'userInfo';
 
   register(data: any) {
     return this.httpClient.post(`${this.baseUrl}/auth/register`, data);
@@ -43,7 +42,7 @@ export class AuthService {
     this.httpClient.post(`${this.baseUrl}/auth/logout`, {}, { withCredentials: true}).subscribe({
       next: () => {
         this.userInfoSubject.next(null);
-        localStorage.removeItem(this.localStorageKey);
+        localStorage.removeItem('userInfo');
         this.alertService.showAlert("Successfully logged out!");
       },
       error: err => console.error(err)
@@ -57,11 +56,11 @@ export class AuthService {
 
   setUserInfo(userInfo: { userName: string; userId: string }): void {
     this.userInfoSubject.next(userInfo);
-    localStorage.setItem(this.localStorageKey, JSON.stringify(userInfo));
+    localStorage.setItem('userInfo', JSON.stringify(userInfo));
   }
 
   private getUserInfoFromLocalStorage(): { userName: string; userId: string } | null {
-    const userInfo = localStorage.getItem(this.localStorageKey);
+    const userInfo = localStorage.getItem('userInfo');
     return userInfo ? JSON.parse(userInfo) : null;
   }
 
