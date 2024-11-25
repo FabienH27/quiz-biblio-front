@@ -30,8 +30,8 @@
     <nav
       class="flex-grow pb-4 md:pb-0 hidden md:flex justify-center md:justify-end md:flex-row items-center"
     >
-      @if (isLoggedIn) {
-      <p class="text-white">{{ userName }}</p>
+      @if (userInfo$ | async; as userInfo) {
+      <p class="text-white">{{ userInfo.userName }}</p>
       <a
         routerLink="logout"
         class="text-teal-500 mx-5 self-center text-center px-5 py-2 font-semibold rounded-lg hover:text-white"
