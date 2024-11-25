@@ -1,27 +1,24 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
-import { AlertService } from '../../services/alert.service';
+import { Observable } from 'rxjs';
+import { AsyncPipe, JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [ RouterLink, RouterLinkActive ],
+  imports: [ RouterLink, RouterLinkActive, AsyncPipe],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss'
 })
 export class MenuComponent {
 
-  userService = inject(AuthService);
+  authService = inject(AuthService);
 
-  isUserAuthenticated = false;
+  userInfo$: Observable<{userName: string, userId: string} | null>;
 
-  get isLoggedIn(){
-    return this.userService.isLoggedIn();
-  }
-
-  get userName(){
-    return this.userService.getUsername();
+  constructor(){
+    this.userInfo$ = this.authService.userInfo$;
   }
 
 }
