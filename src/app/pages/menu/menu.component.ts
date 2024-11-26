@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
-import { Observable } from 'rxjs';
-import { AsyncPipe, JsonPipe } from '@angular/common';
+import { Observable, of } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 import { RbacService } from '../../auth/rbac.service';
 import { IsGrantedDirective } from '../../components/is-granted/is-granted.directive';
+import { Roles } from '../../types/roles';
 
 @Component({
   selector: 'app-menu',
@@ -19,22 +20,24 @@ export class MenuComponent {
   router = inject(Router);
   readonly rbacService = inject(RbacService);
 
-  userInfo$: Observable<{userName: string, userId: string} | null>;
+  userInfo$: Observable<{userName: string, userId: string} | null> = of(null);
 
   constructor(){
-    this.userInfo$ = this.authService.userInfo$;
+    if(this.isUserAuthenticated){
+      this.userInfo$ = this.authService.userInfo$;
+    }
 
     this.rbacService.setRoles([
       {
         id: 1,
         name: 'User',
-        uid: 'USER',
+        uid: Roles.USER,
         extends: null
       },
       {
         id: 3,
         name: 'Administrator',
-        uid: 'ADMINISTRATOR',
+        uid: Roles.ADMINISTRATOR,
         extends: 2
       }
     ]);
@@ -44,7 +47,7 @@ export class MenuComponent {
       role: {
         id: 3,
         name: 'Administrator',
-        uid: 'ADMINISTRATOR',
+        uid: Roles.ADMINISTRATOR,
         extends: 2
       }
     });
@@ -53,6 +56,10 @@ export class MenuComponent {
   logout(){
     this.authService.logout();
     return this.router.navigate(['']);
+  }
+
+  get isUserAuthenticated(){
+    return this.authService.isUserAuthenticated.value;
   }
 
 }

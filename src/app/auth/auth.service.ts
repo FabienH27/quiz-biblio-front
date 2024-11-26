@@ -1,11 +1,9 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { switchMap, tap } from 'rxjs/operators';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { jwtDecode } from 'jwt-decode';
+import { catchError, filter, switchMap, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { AlertService } from '../services/alert.service';
-import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 
@@ -14,17 +12,29 @@ import { environment } from '../../environments/environment';
 })
 export class AuthService {
 
-  port = 32768;
   httpClient = inject(HttpClient);
-  baseUrl = environment.apiUrl; //TODO : move to config
+  baseUrl = environment.apiUrl;
 
   alertService = inject(AlertService);
   router = inject(Router);
 
-  private userInfoSubject = new BehaviorSubject<{ userName: string; userId: string } | null>(
-    this.getUserInfoFromLocalStorage()
-  );
-  userInfo$ = this.userInfoSubject.asObservable();
+  private userInfoSubject = new BehaviorSubject<{ userName: string; userId: string } | null>(null);
+  userInfo$ = this.userInfoSubject.asObservable().pipe(filter((user) => !!user));
+
+  isUserAuthenticated = new BehaviorSubject<boolean>(false);
+
+  private cachedUser: { userName: string; userId: string } | null = null;
+
+  constructor(){
+    const savedUser = localStorage.getItem('userInfo');
+
+    if(savedUser){
+      this.userInfoSubject.next(JSON.parse(savedUser));
+      this.isUserAuthenticated.next(true);
+    }else{
+      this.isUserAuthenticated.next(false);
+    }
+  }
 
   register(data: any) {
     return this.httpClient.post(`${this.baseUrl}/auth/register`, data);
@@ -34,7 +44,7 @@ export class AuthService {
     return this.httpClient.post(`${this.baseUrl}/auth/login`, data, { withCredentials: true})
       .pipe(tap(() => {
         this.alertService.showAlert("Successfully logged in!");
-        this.router.navigate(['/']);
+        this.isUserAuthenticated.next(true);
       }));
   }
 
@@ -43,6 +53,8 @@ export class AuthService {
       next: () => {
         this.userInfoSubject.next(null);
         localStorage.removeItem('userInfo');
+        this.cachedUser = null;
+        this.isUserAuthenticated.next(false);
         this.alertService.showAlert("Successfully logged out!");
       },
       error: err => console.error(err)
@@ -50,18 +62,27 @@ export class AuthService {
   }  
 
   getUserInfo(): Observable<{userName: string, userId: string}> {
+    if(this.cachedUser){
+      return of(this.cachedUser);
+    }
+    
     const url = `${this.baseUrl}/auth/user-info`;
-    return this.httpClient.get<{userName: string, userId: string}>(url, {withCredentials: true });
+    return this.httpClient.get<{userName: string, userId: string}>(url, {withCredentials: true })
+      .pipe(
+        tap((user) => {
+          this.cachedUser = user;
+          this.userInfoSubject.next(user);
+        }),
+        catchError((error) => {
+          console.error('error fetching user', error);
+          throw error;
+        })
+      )
   }
 
   setUserInfo(userInfo: { userName: string; userId: string }): void {
     this.userInfoSubject.next(userInfo);
     localStorage.setItem('userInfo', JSON.stringify(userInfo));
-  }
-
-  private getUserInfoFromLocalStorage(): { userName: string; userId: string } | null {
-    const userInfo = localStorage.getItem('userInfo');
-    return userInfo ? JSON.parse(userInfo) : null;
   }
 
   loginAndFetchUserInfo(credentials: any): Observable<{userName: string, userId: string}> {

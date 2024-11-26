@@ -4,10 +4,12 @@ import { LoginComponent } from './pages/login/login.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { adminGuard } from './auth/admin.guard';
+import { authInterceptor } from './interceptors/auth.interceptor';
+import { loginInterceptor } from './interceptors/login.interceptor';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    { path: 'admin', component: AdminComponent, canActivate: [adminGuard]},
+    { path: 'admin', component: AdminComponent, canActivate: [adminGuard, authInterceptor, loginInterceptor]},
     { path: '**', component: HomeComponent},
 ];

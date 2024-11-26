@@ -1,4 +1,4 @@
-const port = 32768;
+const port = 44360;
 
 export const environment = {
     production: true,

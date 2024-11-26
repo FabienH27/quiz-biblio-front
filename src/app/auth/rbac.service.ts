@@ -21,13 +21,22 @@ export class RbacService {
     }
   }
 
+  getByValue(map: any, searchValue: string) {
+    for (let [key, value] of map.entries()) {
+      if (value === searchValue)
+        return key;
+    }
+  }
+
   /**
    * If the server returned an authenticated user,
    * then by default we will check it for access rights
    * @param user
    */
-  setAuthenticatedUser(user: User) {
-    this._authenticatedUser = user;
+  setAuthenticatedUser(simpleUser: User) {
+    // const user : User = {id: simpleUser.id, role: simpleUser.role} 
+
+    this._authenticatedUser = simpleUser;
   }
 
   /**
