@@ -30,9 +30,9 @@
     <nav
       class="flex-grow pb-4 md:pb-0 hidden md:flex justify-center md:justify-end md:flex-row items-center"
     >
-      @if (isUserAuthenticated) {
+      @if (userInfo$ | async; as userInfo) {
           <a class="text-teal-500 mx-5 hover:text-teal-100" routerLink="/admin" *isGranted="'ADMINISTRATOR'">Admin Panel</a>
-          <p class="text-white">{{ (userInfo$ | async)?.userName }}</p>
+          <p class="text-white">{{ userInfo.userName }}</p>
           <a
             (click)="logout()"
             routerLink="logout"

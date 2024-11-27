@@ -23,22 +23,18 @@ export class MenuComponent {
   userInfo$: Observable<{userName: string, userId: string} | null> = of(null);
 
   constructor(){
-    if(this.isUserAuthenticated){
-      this.userInfo$ = this.authService.userInfo$;
-    }
+    this.userInfo$ = this.authService.userData$;
 
     this.rbacService.setRoles([
       {
         id: 1,
         name: 'User',
         uid: Roles.USER,
-        extends: null
       },
       {
         id: 3,
         name: 'Administrator',
         uid: Roles.ADMINISTRATOR,
-        extends: 2
       }
     ]);
     this.rbacService.setAuthenticatedUser({
@@ -48,7 +44,6 @@ export class MenuComponent {
         id: 3,
         name: 'Administrator',
         uid: Roles.ADMINISTRATOR,
-        extends: 2
       }
     });
   }
@@ -58,8 +53,8 @@ export class MenuComponent {
     return this.router.navigate(['']);
   }
 
-  get isUserAuthenticated(){
-    return this.authService.isUserAuthenticated.value;
-  }
+  // get isUserAuthenticated(){
+    // return this.authService.isUserAuthenticated.value;
+  // }
 
 }

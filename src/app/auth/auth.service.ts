@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { catchError, filter, switchMap, tap } from 'rxjs/operators';
+import { catchError, filter, first, shareReplay, switchMap, take, tap } from 'rxjs/operators';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { AlertService } from '../services/alert.service';
 import { Router } from '@angular/router';
@@ -18,22 +18,17 @@ export class AuthService {
   alertService = inject(AlertService);
   router = inject(Router);
 
-  private userInfoSubject = new BehaviorSubject<{ userName: string; userId: string } | null>(null);
-  userInfo$ = this.userInfoSubject.asObservable().pipe(filter((user) => !!user));
-
-  isUserAuthenticated = new BehaviorSubject<boolean>(false);
-
   private cachedUser: { userName: string; userId: string } | null = null;
 
-  constructor(){
-    const savedUser = localStorage.getItem('userInfo');
+  private userDataSubject = new BehaviorSubject<{ userName: string; userId: string } | null>(null);
+  userData$ = this.userDataSubject.asObservable();
 
-    if(savedUser){
-      this.userInfoSubject.next(JSON.parse(savedUser));
-      this.isUserAuthenticated.next(true);
-    }else{
-      this.isUserAuthenticated.next(false);
-    }
+  constructor(){
+
+    //unsubscribe is not necessary because it is a finite observable.
+    this.getUserInfo()
+      .pipe()
+      .subscribe(userInfo => this.userDataSubject.next(userInfo));
   }
 
   register(data: any) {
@@ -44,17 +39,15 @@ export class AuthService {
     return this.httpClient.post(`${this.baseUrl}/auth/login`, data, { withCredentials: true})
       .pipe(tap(() => {
         this.alertService.showAlert("Successfully logged in!");
-        this.isUserAuthenticated.next(true);
       }));
   }
 
   logout() {
     this.httpClient.post(`${this.baseUrl}/auth/logout`, {}, { withCredentials: true}).subscribe({
       next: () => {
-        this.userInfoSubject.next(null);
+        this.userDataSubject.next(null);
         localStorage.removeItem('userInfo');
         this.cachedUser = null;
-        this.isUserAuthenticated.next(false);
         this.alertService.showAlert("Successfully logged out!");
       },
       error: err => console.error(err)
@@ -62,6 +55,7 @@ export class AuthService {
   }  
 
   getUserInfo(): Observable<{userName: string, userId: string}> {
+    
     if(this.cachedUser){
       return of(this.cachedUser);
     }
@@ -70,18 +64,18 @@ export class AuthService {
     return this.httpClient.get<{userName: string, userId: string}>(url, {withCredentials: true })
       .pipe(
         tap((user) => {
-          this.cachedUser = user;
-          this.userInfoSubject.next(user);
+          this.userDataSubject.next(user);
         }),
         catchError((error) => {
-          console.error('error fetching user', error);
+          this.userDataSubject.next(null);
+          localStorage.removeItem('userInfo');
           throw error;
         })
-      )
+      );
   }
 
   setUserInfo(userInfo: { userName: string; userId: string }): void {
-    this.userInfoSubject.next(userInfo);
+    this.userDataSubject.next(userInfo);
     localStorage.setItem('userInfo', JSON.stringify(userInfo));
   }
 
