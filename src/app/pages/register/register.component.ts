@@ -35,13 +35,7 @@ export class RegisterComponent {
 
   onSubmit() {    
     if (this.registerForm.valid) {      
-      console.log(this.registerForm.value);
-      this.authService.register(this.registerForm.value).subscribe((data: any) => {
-        console.log(data);
-        // if (this.authService.isLoggedIn()) {
-        //   this.router.navigate(['/admin']);
-        // }
-      });
+      this.authService.register(this.registerForm.value);
     }
   }
 
