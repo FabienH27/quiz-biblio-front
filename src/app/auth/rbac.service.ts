@@ -1,5 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Role, User } from '../types/roles';
+import { inject, Injectable } from '@angular/core';
+import { Role, UserRoleResponse, User, RoleResponse } from '../types/roles';
+import { BehaviorSubject, lastValueFrom, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +11,13 @@ export class RbacService {
 
   private _roles = new Map();
   private _authenticatedUser!: User;
+
+  httpClient = inject(HttpClient);
+
+  baseUrl = environment.apiUrl;
+
+  //all roles
+  private rolesSubject = new BehaviorSubject<RoleResponse | null>(null);
   
   constructor() { }
 
@@ -15,9 +25,9 @@ export class RbacService {
    * For each role find its parent roles and make a flat array
    * @param roles
    */
-  setRoles(roles: Role[]) {
+  setRoles(roles: Role[]) {    
     for (const role of roles) {
-      this._roles.set(role.uid, this._flatten(role, roles));
+      this._roles.set(role.uid, role);
     }
   }
 
@@ -28,14 +38,22 @@ export class RbacService {
     }
   }
 
+  //fetch all roles
+  fetchRoles(): Observable<RoleResponse> {
+    return this.httpClient.get<RoleResponse>(`${this.baseUrl}/rbac/roles`, {withCredentials: true});
+  };
+
+  //get all roles
+  getRoles(): Observable<RoleResponse | null>{
+    return this.rolesSubject.asObservable();
+  }
+
   /**
    * If the server returned an authenticated user,
    * then by default we will check it for access rights
    * @param user
    */
   setAuthenticatedUser(simpleUser: User) {
-    // const user : User = {id: simpleUser.id, role: simpleUser.role} 
-
     this._authenticatedUser = simpleUser;
   }
 
@@ -59,28 +77,6 @@ export class RbacService {
       return false;
     }
 
-    return this._roles.get(user.role.uid).includes(roleOrPermission);
-  }
-
-  /**
-   * Make a flat array of parent roles for quick search
-   * @param forRole
-   * @param allRoles
-   * @private
-   */
-  private _flatten(forRole: Role, allRoles: Role[]): string[] {
-    let results: string[] = [forRole.uid];
-
-    for (const role of allRoles) {
-      if (forRole.extends === role.id) {
-        const parentRole = allRoles.find(r => r.id === forRole.extends);
-
-        if (parentRole) {
-          results = [...results, ...this._flatten(parentRole, allRoles)];
-        }
-      }
-    }
-
-    return results;
+    return this._roles.get(user.role.uid).uid === roleOrPermission;
   }
 }

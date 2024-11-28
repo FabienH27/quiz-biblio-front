@@ -6,6 +6,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { AlertService } from '../services/alert.service';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
+import { User } from '../types/user';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +19,9 @@ export class AuthService {
   alertService = inject(AlertService);
   router = inject(Router);
 
-  private cachedUser: { userName: string; userId: string } | null = null;
+  private cachedUser: User | null = null;
 
-  private userDataSubject = new BehaviorSubject<{ userName: string; userId: string } | null>(null);
+  private userDataSubject = new BehaviorSubject<User | null>(null);
   userData$ = this.userDataSubject.asObservable();
 
   constructor(){
@@ -52,18 +53,19 @@ export class AuthService {
       },
       error: err => console.error(err)
     });
-  }  
+  }
 
-  getUserInfo(): Observable<{userName: string, userId: string}> {
+  getUserInfo(): Observable<User> {
     
     if(this.cachedUser){
       return of(this.cachedUser);
     }
     
     const url = `${this.baseUrl}/auth/user-info`;
-    return this.httpClient.get<{userName: string, userId: string}>(url, {withCredentials: true })
+    return this.httpClient.get<User>(url, {withCredentials: true })
       .pipe(
         tap((user) => {
+          localStorage.setItem('userInfo', JSON.stringify(user));
           this.userDataSubject.next(user);
         }),
         catchError((error) => {
@@ -74,12 +76,12 @@ export class AuthService {
       );
   }
 
-  setUserInfo(userInfo: { userName: string; userId: string }): void {
+  setUserInfo(userInfo: User): void {
     this.userDataSubject.next(userInfo);
     localStorage.setItem('userInfo', JSON.stringify(userInfo));
   }
 
-  loginAndFetchUserInfo(credentials: any): Observable<{userName: string, userId: string}> {
+  loginAndFetchUserInfo(credentials: any): Observable<User> {
     return this.login(credentials).pipe(
       switchMap(() => this.getUserInfo()),
       tap(userInfo => this.setUserInfo(userInfo))

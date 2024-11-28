@@ -1,13 +1,14 @@
 export enum Roles {
-  ADMINISTRATOR = 'ADMINISTRATOR',
+  ADMINISTRATOR = 'ADMIN',
   USER = 'USER',
 }
 
 export interface Role {
-  id: number;
-  name: string;
   uid: Roles; // ADMINISTRATOR, STAFF, USER
-  extends?: number | null; // id of the role to be extended
+}
+
+export interface RoleResponse{
+  roles: Role[];
 }
 
 export interface User {
@@ -20,4 +21,8 @@ export interface SimpleUser{
   id: string;
   name: string;
   role: Roles;
+}
+
+export interface UserRoleResponse{
+  role: string;
 }
