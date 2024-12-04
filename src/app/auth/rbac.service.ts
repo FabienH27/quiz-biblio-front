@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Role, RoleResponse } from '../types/roles';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { User } from '../types/user';
@@ -16,11 +16,6 @@ export class RbacService {
   httpClient = inject(HttpClient);
 
   baseUrl = environment.apiUrl;
-
-  //all roles
-  private rolesSubject = new BehaviorSubject<RoleResponse | null>(null);
-  
-  constructor() { }
 
   /**
    * For each role find its parent roles and make a flat array
@@ -39,15 +34,13 @@ export class RbacService {
     }
   }
 
-  //fetch all roles
+  /**
+   * fetch all roles
+   * @returns all roles
+   */
   fetchRoles(): Observable<RoleResponse> {
     return this.httpClient.get<RoleResponse>(`${this.baseUrl}/rbac/roles`, {withCredentials: true});
   };
-
-  //get all roles
-  getRoles(): Observable<RoleResponse | null>{
-    return this.rolesSubject.asObservable();
-  }
 
   /**
    * If the server returned an authenticated user,
@@ -59,9 +52,9 @@ export class RbacService {
   }
 
   /**
-   *
-   * @param roleOrPermission
-   * @param user
+   * check if the user is granted a given permission
+   * @param roleOrPermission permission to have
+   * @param user user on which the check is performed 
    */
   isGranted(roleOrPermission: string, user?: User): boolean {
 

@@ -3,6 +3,6 @@ import { RbacService } from '../rbac.service';
 import { inject } from '@angular/core';
 import { Roles } from '../../types/roles';
 
-export const adminGuard: CanActivateFn = (route, state) => {
+export const adminGuard: CanActivateFn = () => {
   return inject(RbacService).isGranted(Roles.ADMINISTRATOR);
 };
