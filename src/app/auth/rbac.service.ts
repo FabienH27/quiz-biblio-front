@@ -60,6 +60,7 @@ export class RbacService {
 
     // if no special user is passed for checking,
     // we check the authenticated user.
+
     if (!user) {
       user = this._authenticatedUser;
     }

@@ -5,6 +5,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { RbacService } from './auth/rbac.service';
+import { provideNgIconsConfig } from '@ng-icons/core';
 
 function preloadRoles(rbacService: RbacService) {
   return () => new Promise<void>((resolve, reject) => {
@@ -27,6 +28,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(),
     provideAnimationsAsync(),
-    {provide: APP_INITIALIZER, useFactory: preloadRoles, deps: [RbacService], multi: true},
+    {provide: APP_INITIALIZER, useFactory: preloadRoles, deps: [RbacService], multi: true}
   ],
 };
