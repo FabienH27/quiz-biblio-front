@@ -1,0 +1,24 @@
+<div>
+  <button>
+    <span class="side-button text-teal-50">
+      <ng-icon
+        name="heroCheckBadge"
+        size="1.5em"
+        strokeWidth=".12em"
+        class="mr-2"
+      ></ng-icon>
+      Valid ?
+    </span>
+  </button>
+  <input [(ngModel)]="proposal.text" type="text" placeholder="Proposal" class="proposal" />
+  <button>
+    <span class="side-button">      
+      <ng-icon
+        name="heroTrash"
+        size="1.5em"
+        strokeWidth=".12em"
+        class="mr-2 text-red-800 "
+      ></ng-icon>
+    </span>
+  </button>
+</div>

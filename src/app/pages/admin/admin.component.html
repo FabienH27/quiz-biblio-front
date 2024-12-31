@@ -2,32 +2,52 @@
   <div class="flex justify-between mt-10">
     <div>
       <h1 class="text-4xl font-title font-extrabold">Admin Panel</h1>
-      <p class="font-normal mt-2">Create your quizzes</p>
+      <p class="font-normal mt-2 font-display">Create your quizzes</p>
     </div>
     <div>
-      <button class="flex text-lg bg-teal-600 px-4 py-2 rounded-full hover:bg-white hover:text-teal-500 transition-colors duration-150">
-        <ng-icon name="heroPlus" size="1.5em" strokeWidth=".12em" class="mr-2"></ng-icon> 
+      <a
+        routerLink="create"
+        routerLinkActive="active"
+        class="cursor-pointer flex text-lg bg-teal-600 px-4 py-2 rounded-full hover:bg-white hover:text-teal-500 transition-colors duration-150"
+      >
+        <ng-icon
+          name="heroPlus"
+          size="1.5em"
+          strokeWidth=".12em"
+          class="mr-2"
+        ></ng-icon>
         <p>New Quiz</p>
-      </button>
+      </a>
     </div>
   </div>
 
   <div class="flex justify-between mt-10">
-      <h2 class="text-3xl font-title font-bold section-title">My quizzes</h2>
-      <div class="flex items-center">
-          <button class="flex text-sm bg-slate-600 px-4 py-2 items-center rounded-full hover:bg-white hover:text-slate-600 transition-colors duration-150">
-            <ng-icon name="heroPlus" size="1.5em" strokeWidth=".12em" class="mr-2"></ng-icon> 
-            <p>Import</p>
-          </button>
-          <!-- TODO: Help button -->
-          <!-- <button>
+    <h2 class="text-3xl font-title font-bold section-title">My quizzes</h2>
+    <div class="flex items-center">
+      <button
+        class="flex text-sm bg-slate-600 px-4 py-2 items-center rounded-full hover:bg-white hover:text-slate-600 transition-colors duration-150"
+      >
+        <ng-icon
+          name="heroPlus"
+          size="1.5em"
+          strokeWidth=".12em"
+          class="mr-2"
+        ></ng-icon>
+        <p>Import</p>
+      </button>
+      <!-- TODO: Help button -->
+      <!-- <button>
               <ng-icon name="heroQuestionMarkCircleSolid" size="1.5em" class="ml-2 text-white"></ng-icon>
           </button> -->
-      </div>
+    </div>
   </div>
 
   <!--Quizzes list -->
   <div>
-
+    @for (quiz of quizList; track $index) {
+    {{ quiz }}
+    } @empty {
+    <p class="text-slate-500 text-center mt-8">No quiz found.</p>
+    }
   </div>
 </div>

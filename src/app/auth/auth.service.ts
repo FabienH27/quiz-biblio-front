@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { catchError, first, tap } from 'rxjs/operators';
 import { BehaviorSubject, of } from 'rxjs';

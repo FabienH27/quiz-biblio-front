@@ -1,0 +1,17 @@
+<div class="bg-slate-700 p-10">
+    <div class="flex items-center">
+        <app-image-selection></app-image-selection>
+        <input type="text" placeholder="Question" class="text-2xl bg-slate-600 p-2 mx-2 text-white focus">
+    </div>
+
+    <div class="flex items-center">
+        <p class="text-white">Answer</p>
+        <textarea></textarea>
+    </div>
+
+    <div>
+        @for (item of [0,2]; track item) {
+            <quiz-creation-question-proposal></quiz-creation-question-proposal>
+        }
+    </div>
+</div>

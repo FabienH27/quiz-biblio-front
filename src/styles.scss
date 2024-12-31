@@ -2,3 +2,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.focus{
+    @apply focus:outline-teal-700 focus:outline outline-none;
+}
