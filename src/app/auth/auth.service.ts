@@ -24,12 +24,12 @@ export class AuthService {
   private userDataSubject = new BehaviorSubject<User | null>(null);
   userData$ = this.userDataSubject.asObservable();
 
-  constructor(){
+  constructor() {
 
     //unsubscribe is not necessary because it is a finite observable.
-    this.getUserInfo()
-      .pipe()
-      .subscribe(userInfo => this.userDataSubject.next(userInfo));
+    // this.getUserInfo()
+    //   .pipe()
+    //   .subscribe(userInfo => this.userDataSubject.next(userInfo));
   }
 
   register(data: any) {
@@ -37,14 +37,14 @@ export class AuthService {
   }
 
   login(data: any) {
-    return this.httpClient.post(`${this.baseUrl}/auth/login`, data, { withCredentials: true})
+    return this.httpClient.post(`${this.baseUrl}/auth/login`, data, { withCredentials: true })
       .pipe(tap(() => {
         this.alertService.showAlert("Successfully logged in!");
       }));
   }
 
   logout() {
-    this.httpClient.post(`${this.baseUrl}/auth/logout`, {}, { withCredentials: true}).subscribe({
+    this.httpClient.post(`${this.baseUrl}/auth/logout`, {}, { withCredentials: true }).subscribe({
       next: () => {
         this.userDataSubject.next(null);
         localStorage.removeItem('userInfo');
@@ -55,36 +55,63 @@ export class AuthService {
     });
   }
 
-  getUserInfo(): Observable<User> {
-    
-    if(this.cachedUser){
-      return of(this.cachedUser);
-    }
-    
-    const url = `${this.baseUrl}/auth/user-info`;
-    return this.httpClient.get<User>(url, {withCredentials: true })
-      .pipe(
-        tap((user) => {
-          localStorage.setItem('userInfo', JSON.stringify(user));
-          this.userDataSubject.next(user);
-        }),
-        catchError((error) => {
-          this.userDataSubject.next(null);
-          localStorage.removeItem('userInfo');
-          throw error;
-        })
-      );
-  }
+  // getUserInfo(): Observable<User> {
+  //   if (this.cachedUser) {
+  //     return of(this.cachedUser);
+  //   }
 
-  setUserInfo(userInfo: User): void {
-    this.userDataSubject.next(userInfo);
-    localStorage.setItem('userInfo', JSON.stringify(userInfo));
-  }
+  //   const url = `${this.baseUrl}/auth/user-info`;
+  //   return this.httpClient.get<User>(url, { withCredentials: true })
+  //     .pipe(
+  //       tap((user) => {
+  //         localStorage.setItem('userInfo', JSON.stringify(user));
+  //         this.userDataSubject.next(user);
+  //       }),
+  //       catchError((error) => {
+  //         this.userDataSubject.next(null);
+  //         localStorage.removeItem('userInfo');
+  //         throw error;
+  //       })
+  //     );
+  // }
 
-  loginAndFetchUserInfo(credentials: any): Observable<User> {
+  // setUserInfo(userInfo: User): void {
+  //   this.userDataSubject.next(userInfo);
+  //   localStorage.setItem('userInfo', JSON.stringify(userInfo));
+  // }
+
+  loginAndFetchUserInfo(credentials: any): Observable<User | null> {
     return this.login(credentials).pipe(
-      switchMap(() => this.getUserInfo()),
-      tap(userInfo => this.setUserInfo(userInfo))
+      switchMap(() => this.fetchUser()),
     );
   }
+
+  private userSubject = new BehaviorSubject<User | null>(null);
+  user$ = this.userSubject.asObservable();
+
+  isLoggedIn(): boolean {
+    //TODO: to be tweaked
+    return !!localStorage.getItem('userInfo');
+  }
+
+  fetchUserInfo(): Observable<User> {
+    const url = `${this.baseUrl}/auth/user-info`;
+    return this.httpClient.get<User>(url, { withCredentials: true });
+  }
+
+  fetchUser(): Observable<User | null> {
+    // Fetch user only if not already loaded
+    if (!this.userSubject.value) {
+      this.httpClient.get<User>(`${this.baseUrl}/auth/user-info`, { withCredentials: true }).subscribe(
+        (user) => this.userSubject.next(user),
+        (error) => {
+          console.error('Failed to fetch user', error);
+          this.userSubject.next(null);
+        }
+      );
+    }
+    return this.user$;
+  }
+
+
 }
