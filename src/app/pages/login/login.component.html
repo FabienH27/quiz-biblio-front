@@ -1,7 +1,7 @@
 <section class="flex flex-col items-center mt-48">
   <section class="bg-gray-700 mx-auto py-5 px-14 max-w-sm">
     <h1 class="text-white pb-5 text-3xl text-center">Log in</h1>
-    <form class="form-group" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <form class="form-group" [formGroup]="loginForm" (submit)="onSubmit()">
       <label class="text-white font-bold" for="email">Email <span class="text-red-500">*</span></label>
       <input
         class="form-input"

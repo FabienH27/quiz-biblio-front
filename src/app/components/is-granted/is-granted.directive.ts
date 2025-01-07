@@ -1,6 +1,6 @@
 import { Directive, inject, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 import { RbacService } from '../../auth/rbac.service';
-import { User } from '../../types/roles';
+import { User } from '../../types/user';
 
 @Directive({
   selector: '[isGranted]',

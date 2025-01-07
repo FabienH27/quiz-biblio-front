@@ -14,13 +14,7 @@ export interface RoleResponse{
 export interface User {
   id: string;
   name: string;
-  role: Role;
-}
-
-export interface SimpleUser{
-  id: string;
-  name: string;
-  role: Roles;
+  role: string;
 }
 
 export interface UserRoleResponse{

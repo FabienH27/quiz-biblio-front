@@ -1,8 +1,9 @@
 import { inject, Injectable } from '@angular/core';
-import { Role, UserRoleResponse, User, RoleResponse } from '../types/roles';
-import { BehaviorSubject, lastValueFrom, Observable } from 'rxjs';
+import { Role, RoleResponse } from '../types/roles';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { User } from '../types/user';
 
 @Injectable({
   providedIn: 'root'
@@ -63,6 +64,7 @@ export class RbacService {
    * @param user
    */
   isGranted(roleOrPermission: string, user?: User): boolean {
+
     // if no special user is passed for checking,
     // we check the authenticated user.
     if (!user) {
@@ -73,10 +75,10 @@ export class RbacService {
       return false;
     }
 
-    if (!this._roles.has(user.role.uid)) {
+    if (!this._roles.has(user.role)) {
       return false;
     }
 
-    return this._roles.get(user.role.uid).uid === roleOrPermission;
+    return this._roles.get(user.role).uid === roleOrPermission;
   }
 }
