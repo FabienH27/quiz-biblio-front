@@ -1,18 +1,20 @@
 import { inject } from '@angular/core';
 import { ResolveFn } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
-import { catchError, Observable, of, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { User } from '../types/user';
+import { RbacService } from '../auth/rbac.service';
 
-export const userResolver: ResolveFn<User | null> = () : Observable<User | null> => {
-  const authService = inject(AuthService);
+export const userResolver: ResolveFn<User | null> = (): Observable<User | null> => {
+    const authService = inject(AuthService);
+    const rbacService = inject(RbacService);
 
-  if(authService.isLoggedIn()){
-    return authService.fetchUserInfo().pipe(
-      catchError(() => of(null))
-    );
-  }else{
-    return of(null);
-  }
-
+    return authService.getUserInfo()
+        .pipe(
+            tap(user => {
+                if (user != null) {
+                    rbacService.setAuthenticatedUser(user);
+                }
+            })
+        )
 };

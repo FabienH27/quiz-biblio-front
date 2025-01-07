@@ -9,6 +9,8 @@ import {
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import { Observable, switchMap, tap } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +22,7 @@ import { Observable, switchMap, tap } from 'rxjs';
 export class LoginComponent {
   authService = inject(AuthService);
   router = inject(Router);
+  alertService = inject(AlertService);
   
   protected loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -35,11 +38,18 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    if (this.loginForm.valid) {
-      this.authService.loginAndFetchUserInfo(this.loginForm.value).subscribe({
-        next: () => this.router.navigate(['/']),
-        error: err => console.error('Login failed', err)
-      })
+    const fieldsValid = !!this.email?.value && !!this.password?.value;
+
+    if(this.loginForm.valid && fieldsValid){
+      this.authService.login({ email: this.email.value, password: this.password.value}).subscribe({
+          next: () => {
+            this.router.navigate(['/']);
+            this.alertService.showAlert("Successfully logged in!");
+          },
+          error: (error: HttpErrorResponse) => {
+            console.error(error);
+          }
+      });
     }
   }
 }
