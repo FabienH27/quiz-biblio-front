@@ -1,26 +1,28 @@
 import { Component, Input } from '@angular/core';
-import { Proposal } from '../../../../../types/quiz';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroCheckBadge, heroTrash } from '@ng-icons/heroicons/outline';
-import { FormsModule } from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { heroCheckBadgeSolid } from '@ng-icons/heroicons/solid';
 
 @Component({
   selector: 'quiz-creation-question-proposal',
   standalone: true,
-  imports: [NgIcon, FormsModule],
-  providers: [provideIcons({heroTrash, heroCheckBadge})],
+  imports: [NgIcon, ReactiveFormsModule],
+  providers: [provideIcons({ heroTrash, heroCheckBadge, heroCheckBadgeSolid })],
   templateUrl: './quiz-creation-proposal.component.html',
   styleUrl: './quiz-creation-proposal.component.scss'
 })
 export class QuizCreationProposalComponent {
 
-  @Input() proposal: Proposal;
+  @Input() formGroup!: FormGroup;
+  @Input() index!: number;
 
-  constructor(){
-    this.proposal = {
-      text: null,
-      isValid: false
-    };
+  get isCorrect(){
+    return this.formGroup.get('isCorrect');
+  }
+
+  get text(){
+    return this.formGroup.get('proposalText');
   }
 
 }

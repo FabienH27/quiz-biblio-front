@@ -1,24 +1,25 @@
-<div>
-  <button>
-    <span class="side-button text-teal-50">
+<div class="flex items-center" [formGroup]="formGroup">
+  <div>
+    <input type="checkbox" [name]="'prop-'+index" formControlName="isCorrect" id="is-valid" class="hidden" >
+    <label for="is-valid" class="side-button text-teal-50 text-sm w-12" [class.selected]="isCorrect">
       <ng-icon
-        name="heroCheckBadge"
+        [name]="isCorrect ? 'heroCheckBadgeSolid' : 'heroCheckBadge'"
         size="1.5em"
         strokeWidth=".12em"
-        class="mr-2"
       ></ng-icon>
-      Valid ?
-    </span>
-  </button>
-  <input [(ngModel)]="proposal.text" type="text" placeholder="Proposal" class="proposal" />
-  <button>
+      Valid @if (!isCorrect) {?} 
+    </label>
+  </div>
+  <input formControlName="text" type="text" placeholder="Proposal" class="proposal focus" />
+  <input type="button" id="delete">
+  <label for="delete">
     <span class="side-button">      
       <ng-icon
         name="heroTrash"
-        size="1.5em"
+        size="1.2em"
         strokeWidth=".12em"
-        class="mr-2 text-red-800 "
+        class="ml-2 text-red-500"
       ></ng-icon>
     </span>
-  </button>
+  </label>
 </div>

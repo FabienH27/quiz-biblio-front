@@ -1,11 +1,32 @@
-<div class="max-w-screen-xl mx-auto">
-
-    <form class="text-white flex my-12">
-        <div class="mx-10 my-auto">
-            <app-image-selection [color]="'secondary'"></app-image-selection>
+<form class="text-white my-12 max-w-screen-xl mx-auto" [formGroup]="quizForm">
+  <div class="flex">
+    <div class="mx-10 my-auto">
+      <app-image-selection [color]="'secondary'"></app-image-selection>
+    </div>
+    <textarea
+      id="title"
+      formControlName="title"
+      placeholder="Quiz title"
+      class="p-4 text-white bg-slate-700 text-2xl focus w-1/2 placeholder-slate-500"
+      maxlength="110"
+    ></textarea>
+  </div>
+  <div formArrayName="questions">
+    <div *ngFor="let question of questions.controls; let i = index" [formGroupName]="i">
+      <!-- <quiz-creation-question [formGroup]="question" [index]="i"></quiz-creation-question> -->
+    </div>
+    <!-- @for (question of questions.controls; track $index) { -->
+      <!-- <div [formGroupName]="$index">
+        <div>
+          <label for="question">Question</label>
+          <input formControlName="question" />
         </div>
-        <textarea id="title" placeholder="Quiz title" class="p-4 text-white bg-slate-700 text-xl focus w-1/2 placeholder-slate-500" maxlength="110" ></textarea>
-    </form>
+      </div> -->
 
-    <quiz-creation-question></quiz-creation-question>
-</div>
+      <!-- <quiz-creation-question
+      [formGroupName]="$index"
+      [index]="$index"
+    ></quiz-creation-question> -->
+    <!-- } -->
+  </div>
+</form>

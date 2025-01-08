@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import { Observable, of } from 'rxjs';
@@ -25,7 +25,9 @@ export class MenuComponent {
 
   userData$: Observable<User | null> = this.authService.user$;
 
-  user: User | null = null;
+  // user: User | null = null;
+
+  @Input() user: User = {} as User; 
 
   logout(){
     this.authService.logout();

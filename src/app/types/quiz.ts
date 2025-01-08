@@ -15,3 +15,19 @@ export type Quiz = {
     image: string | null;
     questions:  Question[];
 }
+
+export const defaultQuestion: Question = {
+    details: null,
+    image: null,
+    proposals: [
+        {
+            isValid: false,
+            text: null
+        },
+        {
+            isValid: false,
+            text: null
+        }
+    ],
+    question: null
+}
