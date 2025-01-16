@@ -1,5 +1,5 @@
-<form class="text-white my-12 max-w-screen-xl mx-auto" [formGroup]="quizForm">
-  <div class="flex">
+<form [formGroup]="form" class="text-white my-12 max-w-screen-xl mx-auto">
+  <div class="flex justify-center mb-10">
     <div class="mx-10 my-auto">
       <app-image-selection [color]="'secondary'"></app-image-selection>
     </div>
@@ -11,22 +11,10 @@
       maxlength="110"
     ></textarea>
   </div>
-  <div formArrayName="questions">
-    <div *ngFor="let question of questions.controls; let i = index" [formGroupName]="i">
-      <!-- <quiz-creation-question [formGroup]="question" [index]="i"></quiz-creation-question> -->
-    </div>
-    <!-- @for (question of questions.controls; track $index) { -->
-      <!-- <div [formGroupName]="$index">
-        <div>
-          <label for="question">Question</label>
-          <input formControlName="question" />
-        </div>
-      </div> -->
 
-      <!-- <quiz-creation-question
-      [formGroupName]="$index"
-      [index]="$index"
-    ></quiz-creation-question> -->
-    <!-- } -->
-  </div>
+  @for (question of questionsArray.controls; track $index) {
+    <create-question [questionIndex]="$index"></create-question>
+    }
 </form>
+
+<p class="text-white">{{ form.value | json }}</p>

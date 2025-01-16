@@ -1,0 +1,24 @@
+<div class="bg-slate-700 py-6 px-8 text-white my-4" [formGroup]="form">
+    <div class="flex items-center">
+        <span class="w-1/12"><app-image-selection></app-image-selection></span>
+        <input type="text" placeholder="Question" formControlName="questionText" class="text-2xl bg-slate-600 p-2 mx-2 text-white focus">
+    </div>
+
+    <div class="flex mt-2">
+        <p class="text-teal-200 mr-4 w-1/12">Answer : </p>
+        <textarea class="focus w-full bg-slate-600 p-2" maxlength="255" formControlName="answer" placeholder="Explain the answer"></textarea>
+    </div>
+
+    <div class="grid grid-cols-2 justify-items-center mt-8">
+        @for (proposal of proposalsArray.controls; track $index) {
+            <create-proposal [proposalIndex]="$index"></create-proposal>
+        }
+    </div>
+
+    <button class="mx-auto block mt-8">
+        <ng-icon
+        name="heroPlusCircle"
+        ></ng-icon>
+        Add proposal
+    </button>
+</div>

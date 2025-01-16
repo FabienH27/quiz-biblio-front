@@ -1,6 +1,6 @@
-<div class="flex items-center" [formGroup]="formGroup">
+<div class="flex items-center" [formGroup]="form">
   <div>
-    <input type="checkbox" [name]="'prop-'+index" formControlName="isCorrect" id="is-valid" class="hidden" >
+    <input type="checkbox" [name]="'prop-'+proposalIndex" formControlName="isCorrect" id="is-valid" class="hidden" >
     <label for="is-valid" class="side-button text-teal-50 text-sm w-12" [class.selected]="isCorrect">
       <ng-icon
         [name]="isCorrect ? 'heroCheckBadgeSolid' : 'heroCheckBadge'"
@@ -10,7 +10,7 @@
       Valid @if (!isCorrect) {?} 
     </label>
   </div>
-  <input formControlName="text" type="text" placeholder="Proposal" class="proposal focus" />
+  <input formControlName="proposal" type="text" placeholder="Proposal" class="proposal focus" />
   <input type="button" id="delete">
   <label for="delete">
     <span class="side-button">      
