@@ -1,25 +1,27 @@
 <div class="flex items-center" [formGroup]="form">
   <div>
-    <input type="checkbox" [name]="'prop-'+proposalIndex" formControlName="isCorrect" id="is-valid" class="hidden" >
-    <label for="is-valid" class="side-button text-teal-50 text-sm w-12" [class.selected]="isCorrect">
+    <label [class.selected]="isCorrect" class="side-button text-teal-50 text-sm w-12 select-none">
+      <input type="checkbox" class="hidden" [checked]="isCorrect" (change)="onCorrectChange($event)">
       <ng-icon
         [name]="isCorrect ? 'heroCheckBadgeSolid' : 'heroCheckBadge'"
         size="1.5em"
         strokeWidth=".12em"
       ></ng-icon>
-      Valid @if (!isCorrect) {?} 
+      Valid @if (!isCorrect) {?}
     </label>
   </div>
-  <input formControlName="proposal" type="text" placeholder="Proposal" class="proposal focus" />
+  <input formControlName="text" type="text" [placeholder]="'Proposal '+(proposalIndex+1)" class="proposal focus" />
   <input type="button" id="delete">
-  <label for="delete">
-    <span class="side-button">      
-      <ng-icon
-        name="heroTrash"
-        size="1.2em"
-        strokeWidth=".12em"
-        class="ml-2 text-red-500"
-      ></ng-icon>
-    </span>
+  <label for="delete" class="w-6">
+    @if (proposalIndex > 1) {
+      <span class="side-button">  
+        <ng-icon
+          name="heroTrash"
+          size="1.2em"
+          strokeWidth=".12em"
+          class="ml-2 delete-btn"
+        ></ng-icon>
+      </span>
+    }
   </label>
 </div>

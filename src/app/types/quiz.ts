@@ -1,33 +1,45 @@
 export type Proposal = {
+    id: number | null;
     text: string | null;
-    isValid: boolean;
 }
 
 export type Question = {
-    question: string | null;
+    id: number | null;
+    text: string | null;
     image: string | null;
     details: string | null;
     proposals: Proposal[];
+    correctProposalIds: number[];
 }
 
 export type Quiz = {
+    id: number | null;
     title: string | null;
     image: string | null;
-    questions:  Question[];
+    questions: Question[];
 }
 
 export const defaultQuestion: Question = {
     details: null,
+    id: null,
     image: null,
     proposals: [
         {
-            isValid: false,
+            id: null,
             text: null
         },
         {
-            isValid: false,
+            id: null,
             text: null
         }
     ],
-    question: null
+    text: 'null',
+    correctProposalIds: []
+}
+
+export const defaultQuiz: Quiz = {
+    id: null,
+    title: null,
+    image: null,
+    questions: [defaultQuestion],
 }

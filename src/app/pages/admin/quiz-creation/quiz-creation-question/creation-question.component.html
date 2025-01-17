@@ -1,24 +1,51 @@
-<div class="bg-slate-700 py-6 px-8 text-white my-4" [formGroup]="form">
-    <div class="flex items-center">
-        <span class="w-1/12"><app-image-selection></app-image-selection></span>
-        <input type="text" placeholder="Question" formControlName="questionText" class="text-2xl bg-slate-600 p-2 mx-2 text-white focus">
+<div class="bg-slate-700 py-6 px-8 text-white my-12" [formGroup]="form">
+  <div class="flex justify-between">
+    <div class="flex items-center w-full">
+      <span class="w-1/12"><app-image-selection></app-image-selection></span>
+      <input
+        type="text"
+        placeholder="Question"
+        formControlName="text"
+        class="text-2xl bg-slate-600 p-2 mx-2 text-white focus"
+      />
     </div>
-
-    <div class="flex mt-2">
-        <p class="text-teal-200 mr-4 w-1/12">Answer : </p>
-        <textarea class="focus w-full bg-slate-600 p-2" maxlength="255" formControlName="answer" placeholder="Explain the answer"></textarea>
+    <div class="flex h-min">
+      <p class="text-2xl text-teal-500">#{{ questionIndex + 1 }}</p>
+      @if (questionIndex > 0) {
+          <button class="ml-4">
+            <ng-icon
+              size="1.2em"
+              strokeWidth=".12em"
+              name="heroTrash"
+              class="delete-btn !align-middle"
+            ></ng-icon>
+          </button>
+      }
     </div>
+  </div>
 
-    <div class="grid grid-cols-2 justify-items-center mt-8">
-        @for (proposal of proposalsArray.controls; track $index) {
-            <create-proposal [proposalIndex]="$index"></create-proposal>
-        }
-    </div>
+  <div class="flex mt-2">
+    <p class="text-teal-200 mr-4 w-1/12">Answer :</p>
+    <textarea
+      class="focus w-full bg-slate-600 p-2"
+      maxlength="255"
+      formControlName="details"
+      placeholder="Explain the answer"
+    ></textarea>
+  </div>
 
-    <button class="mx-auto block mt-8">
-        <ng-icon
-        name="heroPlusCircle"
-        ></ng-icon>
-        Add proposal
-    </button>
+  <div class="grid grid-cols-2 gap-4 justify-items-center mt-8">
+    @for (proposal of proposals.controls; track $index) {
+    <create-proposal [proposalIndex]="$index" (correctChange)="onProposalCorrectChange($index, $event)"></create-proposal>
+    }
+  </div>
+
+  <div class="mt-8">
+    @if (proposals.length < 4) {
+      <button class="mx-auto block" (click)="addProposal()">
+        <ng-icon name="heroPlusCircle" size="1.5em" strokeWidth=".12em" class="mx-2 !align-sub"></ng-icon>
+        <p class="text-lg inline">Add proposal</p>
+      </button>
+    }
+  </div>
 </div>

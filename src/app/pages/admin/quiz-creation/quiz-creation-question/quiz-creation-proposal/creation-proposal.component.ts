@@ -1,7 +1,7 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroCheckBadge, heroTrash } from '@ng-icons/heroicons/outline';
-import { ControlContainer, FormArray, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ControlContainer, FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { heroCheckBadgeSolid } from '@ng-icons/heroicons/solid';
 
 @Component({
@@ -12,7 +12,7 @@ import { heroCheckBadgeSolid } from '@ng-icons/heroicons/solid';
   templateUrl: './creation-proposal.component.html',
   styleUrl: './creation-proposal.component.scss'
 })
-export class CreateProposalComponent {
+export class CreateProposalComponent implements OnInit {
 
   form!: FormGroup;
   controlContainer = inject(ControlContainer);
@@ -20,16 +20,20 @@ export class CreateProposalComponent {
   proposals!: FormArray;
   formGroup!: FormGroup;
 
+  isCorrect = false;
+
   @Input() proposalIndex = 0;
 
-  ngOnInit(): void {
+  @Output() correctChange = new EventEmitter<boolean>();
+
+  ngOnInit(){
     this.proposals = this.controlContainer.control?.get(['proposals']) as FormArray;
     this.formGroup = this.proposals.at(this.proposalIndex) as FormGroup;
     this.form = this.formGroup;
   }
 
-  get isCorrect(){
-    return this.form.controls['isCorrect'].value;
+  onCorrectChange(event: Event){
+    this.isCorrect = (event.target as HTMLInputElement).checked;
+    this.correctChange.emit(this.isCorrect);
   }
-
 }
