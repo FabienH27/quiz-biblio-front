@@ -1,9 +1,9 @@
 import { CanActivateFn, Router } from '@angular/router';
-import { RbacService } from '../rbac.service';
 import { inject } from '@angular/core';
 import { Roles } from '../../types/roles';
-import { AuthService } from '../auth.service';
 import { first, map } from 'rxjs';
+import { AuthService } from '../../services/auth.service';
+import { RbacService } from '../../services/rbac.service';
 
 export const adminGuard: CanActivateFn = () => {
   const authService = inject(AuthService);
@@ -17,7 +17,7 @@ export const adminGuard: CanActivateFn = () => {
       if(user.role == Roles.ADMINISTRATOR){
         return true;
       }
-      // router.navigate(['login']);
+      router.navigate(['login']);
       return false;
     })
   );

@@ -4,7 +4,7 @@ import { provideHttpClient } from '@angular/common/http';
 
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { RbacService } from './auth/rbac.service';
+import { RbacService } from './services/rbac.service';
 
 function preloadRoles(rbacService: RbacService) {
   return () => new Promise<void>((resolve, reject) => {

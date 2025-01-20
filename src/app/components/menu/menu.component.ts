@@ -1,11 +1,11 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { AuthService } from '../../auth/auth.service';
 import { Observable, of } from 'rxjs';
-import { RbacService } from '../../auth/rbac.service';
 import { IsGrantedDirective } from '../../components/is-granted/is-granted.directive';
 import { User } from '../../types/user';
 import { AsyncPipe } from '@angular/common';
+import { RbacService } from '../../services/rbac.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-menu',

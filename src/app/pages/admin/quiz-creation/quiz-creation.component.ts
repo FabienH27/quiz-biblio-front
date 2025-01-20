@@ -71,8 +71,9 @@ export class QuizCreationComponent implements OnInit {
   }
 
   onSubmit() {
-    //TODO: correctProposalIds is required
-    // console.log(this.form.valid);
+    if(this.form.valid){
+      //send to api      
 
+    }
   }
 }
