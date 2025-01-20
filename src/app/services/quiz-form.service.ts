@@ -21,7 +21,7 @@ export class QuizFormService {
 
   createQuizForm(quiz?: Quiz): FormGroup{
     return this.fb.group({
-      id: [quiz?.id|| null ],
+      id: [quiz?.id || null ],
       title: [quiz?.title || '', [Validators.required]],
       questions: this.fb.array([
         this.createQuestionForm(),
@@ -45,7 +45,7 @@ export class QuizFormService {
 
   createProposalForm(proposal?: Proposal): FormGroup{
     return this.fb.group({
-      id: [proposal?.id],
+      id: [proposal?.id || null],
       text: [proposal?.text || '', [Validators.required]],
     });
   }

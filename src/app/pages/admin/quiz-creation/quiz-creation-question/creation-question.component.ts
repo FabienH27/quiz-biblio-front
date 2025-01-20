@@ -1,30 +1,32 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { ImageSelectionComponent } from "../../../../components/image-selection/image-selection.component";
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroPlusCircle, heroTrash } from '@ng-icons/heroicons/outline';
 import { ControlContainer, FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CreateProposalComponent } from './quiz-creation-proposal/creation-proposal.component';
 import { QuizFormService } from '../../../../services/quiz-form.service';
+import { JsonPipe, NgClass, NgIf } from '@angular/common';
 
 @Component({
   selector: 'create-question',
   standalone: true,
-  imports: [CreateProposalComponent, ImageSelectionComponent, NgIcon, ReactiveFormsModule],
+  imports: [CreateProposalComponent, ImageSelectionComponent, NgIcon, ReactiveFormsModule, NgIf, NgClass],
   providers: [provideIcons({ heroPlusCircle, heroTrash })],
   templateUrl: './creation-question.component.html',
   styleUrl: './creation-question.component.scss'
 })
 export class CreateQuestionComponent implements OnInit {
-
-  form!: FormGroup;
+  
   controlContainer = inject(ControlContainer);
   private formService = inject(QuizFormService);
 
+  form!: FormGroup;
+  formGroup!: FormGroup;
+  questions!: FormArray;
 
   @Input() questionIndex = 0;
 
-  questions!: FormArray;
-  formGroup!: FormGroup;
+  @Output() questionRemoval = new EventEmitter();
 
   get proposals() {
     const test = this.formGroup.get('proposals') as FormArray;
@@ -34,6 +36,18 @@ export class CreateQuestionComponent implements OnInit {
   get correctProposalIds() {
     const question = this.questions.at(this.questionIndex);
     return question.get('correctProposalIds');
+  }
+
+  get hasCorrectProposal(){
+    return this.correctProposalIds?.value.length == 0;
+  }
+
+  get questionText(){
+    return this.form.get('text');
+  }
+
+  get details(){
+    return this.form.get('details');
   }
 
   ngOnInit() {
@@ -63,4 +77,11 @@ export class CreateQuestionComponent implements OnInit {
     this.proposals.push(this.formService.createProposalForm());
   }
 
+  onProposalRemoval(proposalId: number){
+    this.proposals.removeAt(proposalId);
+  }
+
+  removeQuestion(questionId: number) {
+    this.questionRemoval.emit(questionId);
+  }
 }
