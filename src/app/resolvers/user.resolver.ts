@@ -8,7 +8,6 @@ import { RbacService } from '../auth/rbac.service';
 export const userResolver: ResolveFn<User | null> = (): Observable<User | null> => {
     const authService = inject(AuthService);
     const rbacService = inject(RbacService);
-
     return authService.getUserInfo()
         .pipe(
             tap(user => {

@@ -1,6 +1,6 @@
 <header class="pt-5">
   <div
-    class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-around md:flex-row md:px-6"
+    class="flex flex-col max-w-screen-xl mx-auto px-4 md:items-center md:justify-around md:flex-row md:px-6"
   >
     <div class="flex flex-row items-center justify-between">
       <a
@@ -30,6 +30,7 @@
     <nav
       class="flex-grow pb-4 md:pb-0 hidden md:flex justify-center md:justify-end md:flex-row items-center"
     >
+    {{user.userName}}
       @if (userData$ | async; as user) {
       <a
         class="text-teal-500 mx-5 hover:text-teal-100"
@@ -50,8 +51,8 @@
         routerLinkActive="active"
         ariaCurrentWhenActive="page"
         class="text-teal-500 mx-5 self-center text-center px-5 py-2 font-semibold rounded-lg hover:text-white"
-        >Log in</a
-      >
+        >Log in
+      </a>
       <a
         routerLink="register"
         routerLinkActive="active"

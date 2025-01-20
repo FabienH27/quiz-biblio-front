@@ -47,6 +47,7 @@ export class LoginComponent {
             this.alertService.showAlert("Successfully logged in!");
           },
           error: (error: HttpErrorResponse) => {
+            this.alertService.showAlert("An error occured while logging in.", 'error');
             console.error(error);
           }
       });
