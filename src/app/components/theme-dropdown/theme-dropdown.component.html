@@ -1,28 +1,6 @@
-<!-- <div class="flex justify-center items-center">
-  <p class="mr-8 text-teal-500 font-bold text-xl">Theme : </p>
-  <form [formGroup]="form" class="font-title text-slate-500">
-    <select formControlName="selectedOption" (change)="onOptionChange()" class="dropdown">
-      <option value="" disabled selected hidden>Please select theme(s)</option>
-      @for (option of options; track $index) {
-      <option [value]="option">{{ option }}</option>
-      }
-    </select>
-  </form>
-</div> -->
-
 <div class="flex justify-center items-center">
   <p class="mr-8 text-teal-500 font-bold text-xl">Theme :</p>
   <div class="w-1/4">
-    <app-multiselect [options]="options"></app-multiselect>
+    <app-multiselect [options]="options" [selectedOptions]="themes" (selectionChange)="onOptionChange($event)"></app-multiselect>
   </div>
-  <!-- <form [formGroup]="form" class="font-title text-slate-500">
-    <select formControlName="selectedOption" (change)="onOptionChange()" class="dropdown">
-      <option value="" disabled selected hidden>Please select theme(s)</option>
-      @for (option of options; track $index) {
-      <option [value]="option">{{ option }}</option>
-      }
-    </select>
-  </form> -->
 </div>
-
-<!-- <app-select-input [options]="options" label="Theme : " ></app-select-input> -->

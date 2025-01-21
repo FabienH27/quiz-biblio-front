@@ -9,6 +9,7 @@ type QuizPayload = Omit<Quiz, 'id' | 'questions'> & {
 export function prepareQuizPayload(quiz: Quiz): QuizPayload {
     return {
         title: quiz.title,
+        themes: quiz.themes,
         image: quiz.image ?? null,
         questions: quiz.questions.map((q) => ({
             ...q,

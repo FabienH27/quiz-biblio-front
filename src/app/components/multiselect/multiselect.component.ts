@@ -1,5 +1,5 @@
 import { NgClass, NgForOf, NgIf } from '@angular/common';
-import { Component, ElementRef, HostListener, inject, Input } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, inject, Input, Output } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroArrowDown, heroArrowUp } from '@ng-icons/heroicons/outline';
@@ -20,7 +20,11 @@ export class MultiSelectComponent {
   @Input() isDropdownOpen = false;
 
   @Input() options: string[] = [];
-  selectedOptions: string[] = [];
+  
+  
+  @Input() selectedOptions: string[] = [];
+
+  @Output() selectionChange = new EventEmitter<string[]>();
 
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
@@ -32,6 +36,7 @@ export class MultiSelectComponent {
     } else {
       this.selectedOptions.push(option);
     }
+    this.selectionChange.emit(this.selectedOptions);
   }
 
   @HostListener('document:click', ['$event'])

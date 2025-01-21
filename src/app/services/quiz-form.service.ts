@@ -22,6 +22,7 @@ export class QuizFormService {
   createQuizForm(quiz?: Quiz): FormGroup{
     return this.fb.group({
       id: [quiz?.id || null ],
+      themes: [quiz?.themes || []],
       title: [quiz?.title || '', [Validators.required]],
       questions: this.fb.array([
         this.createQuestionForm(),

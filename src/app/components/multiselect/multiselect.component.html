@@ -1,0 +1,34 @@
+<div class="relative w-full">
+  <button (click)="toggleDropdown()" class="dropdown" [ngClass]="isDropdownOpen ? 'border-slate-500' : 'border-slate-700'" >
+    <div class="flex justify-between">
+      <p [ngClass]="selectedOptions.length ? 'text-slate-300' : 'text-slate-500'" >
+        {{
+          selectedOptions.length
+            ? selectedOptions.join(", ")
+            : "Please select theme(s)"
+        }}
+      </p>
+      <p>
+        <ng-icon [ngClass]="isDropdownOpen ? 'text-slate-300' : 'text-slate-500'" [name]="isDropdownOpen ? 'heroArrowUp' : 'heroArrowDown'"></ng-icon>
+      </p>
+    </div>
+  </button>
+  <div
+    *ngIf="isDropdownOpen"
+    class="absolute bg-slate-800 shadow-lg z-10 w-full border-r-2 border-b-2 border-l-2 border-slate-500"
+  >
+    <ul>
+      <li *ngFor="let option of options" class="flex">
+        <label class="w-full text-slate-500 flex items-center cursor-pointer p-2 hover:bg-slate-700">
+          <input
+            type="checkbox"
+            [checked]="selectedOptions.includes(option)"
+            (change)="toggleOption(option)"
+            class="checkbox"
+          />
+          <p class="ml-2">{{ option }}</p>
+        </label>
+      </li>
+    </ul>
+  </div>
+</div>

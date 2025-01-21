@@ -14,6 +14,7 @@ export type Question = {
 
 export type Quiz = {
     id: number | null;
+    themes: string[];
     title: string;
     image: string | null;
     questions: Question[];
@@ -35,11 +36,4 @@ export const defaultQuestion: Question = {
     ],
     text: 'null',
     correctProposalIds: []
-}
-
-export const defaultQuiz: Quiz = {
-    id: null,
-    title: '',
-    image: null,
-    questions: [defaultQuestion],
 }
