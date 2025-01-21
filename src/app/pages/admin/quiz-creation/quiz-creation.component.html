@@ -23,6 +23,7 @@
     </div>
   </div>
 
+  <app-theme-dropdown></app-theme-dropdown>
 
   @for (question of questions.controls; track question.value) {
   <create-question
@@ -41,6 +42,7 @@
 
   <button
     type="submit"
+    [disabled]="form.invalid"
     class="!disabled:cursor-pointer block ml-auto bg-teal-500 px-5 py-3 hover:bg-white hover:text-teal-500 transition-colors 
     disabled:hover:text-teal-950 disabled:bg-teal-900 disabled:text-teal-950"
   >

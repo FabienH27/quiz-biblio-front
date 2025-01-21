@@ -1,0 +1,15 @@
+/* .dropdown-button {
+  @apply bg-gray-50 border border-gray-300 rounded-md px-3 py-2 focus:outline-none;
+}
+
+ul {
+  @apply divide-y divide-gray-200;
+}
+
+li {
+  @apply cursor-pointer;
+} */
+
+.dropdown {
+  @apply p-4 bg-slate-800 border-2 text-slate-500 w-full text-left;
+}

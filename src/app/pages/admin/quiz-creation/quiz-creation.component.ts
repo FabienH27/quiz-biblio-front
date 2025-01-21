@@ -8,11 +8,13 @@ import { heroPlusCircle } from '@ng-icons/heroicons/outline';
 import { Quiz } from '../../../types/quiz';
 import { QuizFormService } from '../../../services/quiz-form.service';
 import { heroBeakerSolid } from '@ng-icons/heroicons/solid';
+import { QuizService } from '../../../services/quiz.service';
+import { ThemeDropdownComponent } from "../../../components/theme-dropdown/theme-dropdown.component";
 
 @Component({
   selector: 'app-quiz-creation',
   standalone: true,
-  imports: [CreateQuestionComponent, ImageSelectionComponent, ReactiveFormsModule, JsonPipe, NgIcon, NgIf],
+  imports: [CreateQuestionComponent, ImageSelectionComponent, ReactiveFormsModule, JsonPipe, NgIcon, NgIf, ThemeDropdownComponent],
   providers: [provideIcons({ heroPlusCircle, heroBeakerSolid })],
   templateUrl: './quiz-creation.component.html',
   styleUrl: './quiz-creation.component.scss'
@@ -25,13 +27,7 @@ export class QuizCreationComponent implements OnInit {
 
   private fb = inject(FormBuilder);
   private formService = inject(QuizFormService);
-
-  data: Quiz = {
-    title: null,
-    image: null,
-    id: -1,
-    questions: []
-  };
+  private quizService = inject(QuizService);
 
   get questions(): FormArray {
     return this.form.get('questions') as FormArray;
@@ -72,7 +68,8 @@ export class QuizCreationComponent implements OnInit {
 
   onSubmit() {
     if(this.form.valid){
-      //send to api      
+      const formValue : Quiz = this.form.value;
+      this.quizService.createQuiz(formValue);
 
     }
   }
