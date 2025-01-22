@@ -36,7 +36,7 @@ export class ThemeDropdownComponent implements OnInit{
   ngOnInit(): void {
     this.themesControl = this.controlContainer.control?.get('themes') as FormControl;
     this.themes = this.themesControl.value;
-
+    this.themeSelection.setValue(this.themes);
   }
 
   onOptionChange(selectionOptions: string[]){

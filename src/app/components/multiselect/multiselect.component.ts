@@ -80,6 +80,9 @@ export class MultiSelectComponent implements ControlValueAccessor {
   onOptionClear(event: Event) {
     event.stopPropagation();
     this.selectedOptions = [];
+    this.onChange([]);
+    this.control.setValue([]);
+    this.selectionChange.emit([]);
   }
 
 }

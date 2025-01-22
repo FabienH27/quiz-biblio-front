@@ -1,4 +1,5 @@
 <div class="relative w-full">
+  {{control.value}}
   <button (click)="toggleDropdown()" class="dropdown" [ngClass]="isDropdownOpen ? 'border-slate-500' : 'border-slate-700'"
     [class.border-red-400]="control.dirty && control.invalid">
     <div class="flex justify-between">
