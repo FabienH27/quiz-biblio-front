@@ -1,24 +1,30 @@
 <div class="relative w-full">
-  {{control.value}}
-  <button (click)="toggleDropdown()" class="dropdown" [ngClass]="isDropdownOpen ? 'border-slate-500' : 'border-slate-700'"
-    [class.border-red-400]="control.dirty && control.invalid">
+  <button
+    (click)="toggleDropdown()"
+    class="dropdown"
+    [ngClass]="{
+      'border-red-400': isControlInvalid,
+      'border-slate-500': isDropdownOpen && !isControlInvalid,
+      'border-slate-700': !isDropdownOpen && !isControlInvalid
+    }"
+  >
     <div class="flex justify-between">
-      <p [ngClass]="selectedOptions.length ? 'text-slate-300' : 'text-slate-500'" >
-        {{
-          selectedOptions.length
-            ? selectedOptions.join(", ")
-            : placeholder
-        }}
+      <p
+        [ngClass]="selectedOptions.length ? 'text-slate-300' : 'text-slate-500'"
+      >
+        {{ selectedOptions.length ? selectOptions : placeholder }}
       </p>
       @if (selectedOptions.length === 0) {
-        <p>
-          <ng-icon [ngClass]="isDropdownOpen ? 'text-slate-300' : 'text-slate-500'" [name]="isDropdownOpen ? 'heroArrowUp' : 'heroArrowDown'"></ng-icon>
-        </p>
-      }
-      @else {
-        <button (click)="onOptionClear($event)">
-          <ng-icon name="heroXMark"></ng-icon>
-        </button>
+      <p>
+        <ng-icon
+          [ngClass]="isDropdownOpen ? 'text-slate-300' : 'text-slate-500'"
+          [name]="isDropdownOpen ? 'heroArrowUp' : 'heroArrowDown'"
+        ></ng-icon>
+      </p>
+      } @else {
+      <button (click)="onOptionClear($event)">
+        <ng-icon name="heroXMark"></ng-icon>
+      </button>
       }
     </div>
   </button>
@@ -27,18 +33,25 @@
     class="absolute bg-slate-800 shadow-lg z-10 w-full border-r-2 border-b-2 border-l-2 border-slate-500"
   >
     <ul>
-      <li *ngFor="let option of options">
-        <label class="w-full text-slate-500 flex items-center cursor-pointer p-2 hover:bg-slate-700">
-          <input
-            [id]="option"
-            type="checkbox"
-            [checked]="selectedOptions.includes(option)"
-            (change)="toggleOption(option)"
-            class="checkbox"
-          />
-          <p class="ml-2">{{ option }}</p>
-        </label>
-      </li>
+      @for (option of options; track $index) {
+        <li>
+          <label
+            class="w-full text-slate-500 flex items-center cursor-pointer p-2 hover:bg-slate-700"
+          >
+            <input
+              [id]="option"
+              type="checkbox"
+              [checked]="selectedOptions.includes(option)"
+              (change)="toggleOption(option)"
+              class="checkbox"
+            />
+            <p class="ml-2">{{ option }}</p>
+          </label>
+        </li>
+      }
+      @empty {
+        <p class="text-center text-slate-400 my-2">No result found.</p>
+      }
     </ul>
   </div>
 </div>

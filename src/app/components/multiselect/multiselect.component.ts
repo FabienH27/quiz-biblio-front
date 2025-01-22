@@ -4,7 +4,6 @@ import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, Validators } from
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroArrowDown, heroArrowUp, heroXMark } from '@ng-icons/heroicons/outline';
 
-
 @Component({
   selector: 'app-multiselect',
   standalone: true,
@@ -22,10 +21,25 @@ import { heroArrowDown, heroArrowUp, heroXMark } from '@ng-icons/heroicons/outli
 })
 export class MultiSelectComponent implements ControlValueAccessor {
 
-  @Input() options: string[] = [];
-
+  private elementRef = inject(ElementRef);
   selectedOptions: string[] = [];
   isDropdownOpen = false;
+  
+  @Input() options: string[] | null = null;
+  @Input() placeholder: string = '';
+  @Input() control = new FormControl([''], Validators.required);
+
+  @Output() selectionChange = new EventEmitter<string[]>();
+
+
+
+  get selectOptions(){
+    return this.selectedOptions.join(', ');
+  }
+
+  get isControlInvalid(){
+    return this.control.invalid && this.control.dirty;
+  }
 
   private onChange: (value: string[]) => void = () => { };
   private onTouched: () => void = () => { };
@@ -41,13 +55,6 @@ export class MultiSelectComponent implements ControlValueAccessor {
   registerOnTouched(fn: () => {}): void {
     this.onTouched = fn;
   }
-
-  private elementRef = inject(ElementRef);
-
-  @Input() placeholder: string = '';
-  @Input() control = new FormControl([''], Validators.required);
-
-  @Output() selectionChange = new EventEmitter<string[]>();
 
   toggleDropdown() {
     this.onTouched();
