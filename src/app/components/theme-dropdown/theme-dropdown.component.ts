@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MultiSelectComponent } from "../multiselect/multiselect.component";
 
@@ -21,6 +21,8 @@ export class ThemeDropdownComponent implements OnInit{
   controlContainer = inject(ControlContainer);
   fb = inject(FormBuilder);
 
+  @Output() onSelectionChange = new EventEmitter<string[]>();
+
   constructor() {
     this.form = this.fb.group({
       selectedOption: [''],
@@ -32,8 +34,8 @@ export class ThemeDropdownComponent implements OnInit{
     this.themes = this.themesControl.value; 
   }
 
-  onOptionChange(event: string[]){
-    console.log(event);
+  onOptionChange(selectionOptions: string[]){
+    this.onSelectionChange.emit(selectionOptions);
   }
 
 }

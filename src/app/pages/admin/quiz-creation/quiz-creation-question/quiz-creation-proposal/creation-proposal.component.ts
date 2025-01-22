@@ -32,6 +32,10 @@ export class CreateProposalComponent implements OnInit {
     return this.form.get('text');
   }
 
+  get isProposalValid(){
+    return (this.proposal?.dirty || this.proposal?.touched) && this.proposal?.hasError('required');
+  }
+
   ngOnInit() {
     this.proposals = this.controlContainer.control?.get(['proposals']) as FormArray;
     this.formGroup = this.proposals.at(this.proposalIndex) as FormGroup;

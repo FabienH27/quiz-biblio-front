@@ -16,7 +16,7 @@ import { JsonPipe, NgClass, NgIf } from '@angular/common';
   styleUrl: './creation-question.component.scss'
 })
 export class CreateQuestionComponent implements OnInit {
-  
+
   controlContainer = inject(ControlContainer);
   private formService = inject(QuizFormService);
 
@@ -38,16 +38,24 @@ export class CreateQuestionComponent implements OnInit {
     return question.get('correctProposalIds');
   }
 
-  get hasCorrectProposal(){
+  get hasCorrectProposal() {
     return this.correctProposalIds?.value.length == 0;
   }
 
-  get questionText(){
+  get questionText() {
     return this.form.get('text');
   }
 
-  get details(){
+  get details() {
     return this.form.get('details');
+  }
+
+  get isQuestionValid() {
+    return (this.questionText?.dirty || this.questionText?.touched) && this.questionText?.hasError('required');
+  }
+
+  get isDetailsValid(){
+    return (this.details?.dirty || this.details?.touched) && this.details?.hasError('required');
   }
 
   ngOnInit() {
@@ -77,7 +85,7 @@ export class CreateQuestionComponent implements OnInit {
     this.proposals.push(this.formService.createProposalForm());
   }
 
-  onProposalRemoval(proposalId: number){
+  onProposalRemoval(proposalId: number) {
     this.proposals.removeAt(proposalId);
   }
 

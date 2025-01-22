@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Role, RoleResponse } from '../types/roles';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { catchError, Observable, throwError } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { User } from '../types/user';
 
@@ -39,7 +39,17 @@ export class RbacService {
    * @returns all roles
    */
   fetchRoles(): Observable<RoleResponse> {
-    return this.httpClient.get<RoleResponse>(`${this.baseUrl}/rbac/roles`, {withCredentials: true});
+    return this.httpClient.get<RoleResponse>(`${this.baseUrl}/rbac/roles`, {withCredentials: true})
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.log(error);
+          
+          if(error.status === 401){
+            console.warn("Token expired. Redirecting to the home page.");
+          }
+          return throwError(() => error);
+        })
+      )
   };
 
   /**

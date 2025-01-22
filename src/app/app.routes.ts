@@ -8,7 +8,7 @@ import { QuizCreationComponent } from './pages/admin/quiz-creation/quiz-creation
 import { adminGuard } from './auth/guards/admin.guard';
 
 export const routes: Routes = [
-    { path: '', component: HomeComponent, resolve: { user: userResolver } },
+    { path: '', pathMatch: 'full', component: HomeComponent, resolve: { user: userResolver } },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     {

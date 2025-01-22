@@ -2,14 +2,14 @@ import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { Component, ElementRef, EventEmitter, HostListener, inject, Input, Output } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { heroArrowDown, heroArrowUp } from '@ng-icons/heroicons/outline';
+import { heroArrowDown, heroArrowUp, heroXMark } from '@ng-icons/heroicons/outline';
 
 
 @Component({
   selector: 'app-multiselect',
   standalone: true,
   imports: [NgForOf, ReactiveFormsModule, NgIf, NgIcon, NgClass],
-  providers: [provideIcons({ heroArrowDown, heroArrowUp })],
+  providers: [provideIcons({ heroArrowDown, heroArrowUp, heroXMark })],
   templateUrl: './multiselect.component.html',
   styleUrl: './multiselect.component.scss',
 })
@@ -45,6 +45,11 @@ export class MultiSelectComponent {
     if (!clickedInside) {
       this.isDropdownOpen = false;
     }
+  }
+
+  onOptionClear(event: Event){
+    event.stopPropagation();
+    this.selectedOptions = [];
   }
 
 }

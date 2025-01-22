@@ -6,14 +6,12 @@
         type="text"
         placeholder="Question"
         formControlName="text"
+        [class.error]="isQuestionValid"
         class="text-2xl bg-slate-600 p-2 mx-2 text-white focus"
       />
       <div
         class="text-red-400"
-        *ngIf="
-          (questionText?.dirty || questionText?.touched) &&
-          questionText?.hasError('required')
-        "
+        *ngIf="isQuestionValid"
       >
         <p>Please add a question text.</p>
       </div>
@@ -40,13 +38,12 @@
         class="focus w-full bg-slate-600 p-2"
         maxlength="255"
         formControlName="details"
+        [class.error]="isDetailsValid"
         placeholder="Explain the answer"
       ></textarea>
       <div
         class="text-red-400"
-        *ngIf="
-          (details?.dirty || details?.touched) && details?.hasError('required')
-        "
+        *ngIf="isDetailsValid"
       >
         <p>Please explain the answer.</p>
       </div>

@@ -37,6 +37,10 @@ export class QuizCreationComponent implements OnInit {
     return this.form.get('title');
   }
 
+  get isTitleValid(){
+    return this.title?.invalid && (this.title?.dirty || this.title?.touched);
+  }
+
   ngOnInit() {
     this.initForm();
   }

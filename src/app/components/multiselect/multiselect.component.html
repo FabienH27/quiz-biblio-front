@@ -8,9 +8,16 @@
             : "Please select theme(s)"
         }}
       </p>
-      <p>
-        <ng-icon [ngClass]="isDropdownOpen ? 'text-slate-300' : 'text-slate-500'" [name]="isDropdownOpen ? 'heroArrowUp' : 'heroArrowDown'"></ng-icon>
-      </p>
+      @if (selectedOptions.length === 0) {
+        <p>
+          <ng-icon [ngClass]="isDropdownOpen ? 'text-slate-300' : 'text-slate-500'" [name]="isDropdownOpen ? 'heroArrowUp' : 'heroArrowDown'"></ng-icon>
+        </p>
+      }
+      @else {
+        <button (click)="onOptionClear($event)">
+          <ng-icon name="heroXMark"></ng-icon>
+        </button>
+      }
     </div>
   </button>
   <div

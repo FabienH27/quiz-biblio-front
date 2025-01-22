@@ -21,6 +21,7 @@
   <input
     formControlName="text"
     type="text"
+    [class.error]="isProposalValid"
     [placeholder]="'Proposal ' + (proposalIndex + 1)"
     class="proposal focus"
   />
