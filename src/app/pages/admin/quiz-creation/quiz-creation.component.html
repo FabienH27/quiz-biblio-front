@@ -24,7 +24,7 @@
     </div>
   </div>
 
-  <app-theme-selection></app-theme-selection>
+  <app-theme-selection (onSelectionChange)="onThemeChange($event)"></app-theme-selection>
 
   @for (question of questions.controls; track question.value) {
   <create-question

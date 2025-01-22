@@ -42,8 +42,6 @@ export class RbacService {
     return this.httpClient.get<RoleResponse>(`${this.baseUrl}/rbac/roles`, {withCredentials: true})
       .pipe(
         catchError((error: HttpErrorResponse) => {
-          console.log(error);
-          
           if(error.status === 401){
             console.warn("Token expired. Redirecting to the home page.");
           }

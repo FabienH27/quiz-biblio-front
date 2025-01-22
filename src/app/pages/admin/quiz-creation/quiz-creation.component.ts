@@ -37,6 +37,10 @@ export class QuizCreationComponent implements OnInit {
     return this.form.get('title');
   }
 
+  get themes(){
+    return this.form.get('themes');
+  }
+
   get isTitleValid(){
     return this.title?.invalid && (this.title?.dirty || this.title?.touched);
   }
@@ -74,7 +78,10 @@ export class QuizCreationComponent implements OnInit {
     if(this.form.valid){
       const formValue : Quiz = this.form.value;
       this.quizService.createQuiz(formValue);
-
     }
+  }
+
+  onThemeChange(data: string[]){
+    this.themes?.setValue(data);
   }
 }

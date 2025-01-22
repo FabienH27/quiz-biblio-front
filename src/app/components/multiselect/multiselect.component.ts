@@ -1,6 +1,6 @@
 import { NgClass, NgForOf, NgIf } from '@angular/common';
-import { Component, ElementRef, EventEmitter, HostListener, inject, Input, Output } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { Component, ElementRef, EventEmitter, forwardRef, HostListener, inject, Input, OnInit, Output } from '@angular/core';
+import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroArrowDown, heroArrowUp, heroXMark } from '@ng-icons/heroicons/outline';
 
@@ -8,34 +8,64 @@ import { heroArrowDown, heroArrowUp, heroXMark } from '@ng-icons/heroicons/outli
 @Component({
   selector: 'app-multiselect',
   standalone: true,
-  imports: [NgForOf, ReactiveFormsModule, NgIf, NgIcon, NgClass],
-  providers: [provideIcons({ heroArrowDown, heroArrowUp, heroXMark })],
+  imports: [NgForOf, NgIf, NgIcon, NgClass],
+  providers: [
+    provideIcons({ heroArrowDown, heroArrowUp, heroXMark }),
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => MultiSelectComponent),
+      multi: true
+    },
+  ],
   templateUrl: './multiselect.component.html',
   styleUrl: './multiselect.component.scss',
 })
-export class MultiSelectComponent {
+export class MultiSelectComponent implements ControlValueAccessor {
+
+  @Input() options: string[] = [];
+
+  selectedOptions: string[] = [];
+  isDropdownOpen = false;
+
+  private onChange: (value: string[]) => void = () => { };
+  private onTouched: () => void = () => { };
+
+  writeValue(value: string[]): void {
+    this.selectedOptions = value || [];
+  }
+
+  registerOnChange(fn: (value: string[]) => void): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: () => {}): void {
+    this.onTouched = fn;
+  }
 
   private elementRef = inject(ElementRef);
 
-  @Input() isDropdownOpen = false;
-
-  @Input() options: string[] = [];
-  
-  
-  @Input() selectedOptions: string[] = [];
+  @Input() placeholder: string = '';
+  @Input() control = new FormControl([''], Validators.required);
 
   @Output() selectionChange = new EventEmitter<string[]>();
 
   toggleDropdown() {
+    this.onTouched();
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
   toggleOption(option: string) {
-    if (this.selectedOptions.includes(option)) {
-      this.selectedOptions = this.selectedOptions.filter(o => o !== option);
+    const index = this.selectedOptions.indexOf(option);
+
+    if (index > -1) {
+      this.selectedOptions.splice(index, 1);
     } else {
       this.selectedOptions.push(option);
     }
+
+    // Notify the form about the value change
+    this.onChange(this.selectedOptions);
+    this.onTouched();
     this.selectionChange.emit(this.selectedOptions);
   }
 
@@ -47,7 +77,7 @@ export class MultiSelectComponent {
     }
   }
 
-  onOptionClear(event: Event){
+  onOptionClear(event: Event) {
     event.stopPropagation();
     this.selectedOptions = [];
   }

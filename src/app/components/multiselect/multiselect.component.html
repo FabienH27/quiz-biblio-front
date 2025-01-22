@@ -1,11 +1,12 @@
 <div class="relative w-full">
-  <button (click)="toggleDropdown()" class="dropdown" [ngClass]="isDropdownOpen ? 'border-slate-500' : 'border-slate-700'" >
+  <button (click)="toggleDropdown()" class="dropdown" [ngClass]="isDropdownOpen ? 'border-slate-500' : 'border-slate-700'"
+    [class.border-red-400]="control.dirty && control.invalid">
     <div class="flex justify-between">
       <p [ngClass]="selectedOptions.length ? 'text-slate-300' : 'text-slate-500'" >
         {{
           selectedOptions.length
             ? selectedOptions.join(", ")
-            : "Please select theme(s)"
+            : placeholder
         }}
       </p>
       @if (selectedOptions.length === 0) {
@@ -25,9 +26,10 @@
     class="absolute bg-slate-800 shadow-lg z-10 w-full border-r-2 border-b-2 border-l-2 border-slate-500"
   >
     <ul>
-      <li *ngFor="let option of options" class="flex">
+      <li *ngFor="let option of options">
         <label class="w-full text-slate-500 flex items-center cursor-pointer p-2 hover:bg-slate-700">
           <input
+            [id]="option"
             type="checkbox"
             [checked]="selectedOptions.includes(option)"
             (change)="toggleOption(option)"

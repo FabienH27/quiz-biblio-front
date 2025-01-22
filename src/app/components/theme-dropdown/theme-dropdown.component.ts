@@ -1,5 +1,5 @@
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
-import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MultiSelectComponent } from "../multiselect/multiselect.component";
 
 @Component({
@@ -15,8 +15,8 @@ export class ThemeDropdownComponent implements OnInit{
   formGroup!: FormGroup;
   themesControl!: FormControl;
   themes: string[] = [];
-
   options: string[] = ['Literature', 'Cinema', 'Theatre'];
+  errorMessage: string | null = null;
 
   controlContainer = inject(ControlContainer);
   fb = inject(FormBuilder);
@@ -25,16 +25,26 @@ export class ThemeDropdownComponent implements OnInit{
 
   constructor() {
     this.form = this.fb.group({
-      selectedOption: [''],
+      themeSelection: ['', Validators.required],
     });
+  }
+
+  get themeSelection(){
+    return this.form.get('themeSelection') as FormControl;
   }
 
   ngOnInit(): void {
     this.themesControl = this.controlContainer.control?.get('themes') as FormControl;
-    this.themes = this.themesControl.value; 
+    this.themes = this.themesControl.value;
+
   }
 
   onOptionChange(selectionOptions: string[]){
+    if(selectionOptions.length == 0){
+      this.errorMessage = 'Please select a theme';
+    }else{
+      this.errorMessage = null;      
+    }
     this.onSelectionChange.emit(selectionOptions);
   }
 
