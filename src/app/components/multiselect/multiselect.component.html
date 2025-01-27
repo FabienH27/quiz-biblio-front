@@ -1,57 +1,67 @@
 <div class="relative w-full">
-  <button
-    (click)="toggleDropdown()"
-    class="dropdown"
-    [ngClass]="{
-      'border-red-400': isControlInvalid,
-      'border-slate-500': isDropdownOpen && !isControlInvalid,
-      'border-slate-700': !isDropdownOpen && !isControlInvalid
-    }"
-  >
-    <div class="flex justify-between">
-      <p
-        [ngClass]="selectedOptions.length ? 'text-slate-300' : 'text-slate-500'"
-      >
-        {{ selectedOptions.length ? selectOptions : placeholder }}
-      </p>
-      @if (selectedOptions.length === 0) {
-      <p>
-        <ng-icon
-          [ngClass]="isDropdownOpen ? 'text-slate-300' : 'text-slate-500'"
-          [name]="isDropdownOpen ? 'heroArrowUp' : 'heroArrowDown'"
-        ></ng-icon>
-      </p>
-      } @else {
-      <button (click)="onOptionClear($event)">
-        <ng-icon name="heroXMark"></ng-icon>
-      </button>
-      }
-    </div>
-  </button>
-  <div
-    *ngIf="isDropdownOpen"
-    class="absolute bg-slate-800 shadow-lg z-10 w-full border-r-2 border-b-2 border-l-2 border-slate-500"
-  >
-    <ul>
-      @for (option of options; track $index) {
-        <li>
-          <label
-            class="w-full text-slate-500 flex items-center cursor-pointer p-2 hover:bg-slate-700"
-          >
-            <input
-              [id]="option"
-              type="checkbox"
-              [checked]="selectedOptions.includes(option)"
-              (change)="toggleOption(option)"
-              class="checkbox"
-            />
-            <p class="ml-2">{{ option }}</p>
-          </label>
-        </li>
-      }
-      @empty {
-        <p class="text-center text-slate-400 my-2">No result found.</p>
-      }
-    </ul>
-  </div>
+	<button
+		(click)="toggleDropdown()"
+		class="dropdown"
+		[ngClass]="{
+			'border-red-400': isControlInvalid,
+			'border-slate-500': isDropdownOpen && !isControlInvalid,
+			'border-slate-700': !isDropdownOpen && !isControlInvalid
+		}"
+	>
+		<div class="flex justify-between">
+			<p
+				[ngClass]="selectedOptions.length ? 'text-slate-300' : 'text-slate-500'"
+			>
+				{{ selectedOptions.length ? selectOptions : placeholder }}
+			</p>
+			@if (selectedOptions.length === 0) {
+			<p>
+				<ng-icon
+					[ngClass]="isDropdownOpen ? 'text-slate-300' : 'text-slate-500'"
+					[name]="isDropdownOpen ? 'heroArrowUp' : 'heroArrowDown'"
+				></ng-icon>
+			</p>
+			} @else {
+			<button (click)="onOptionClear($event)">
+				<ng-icon name="heroXMark"></ng-icon>
+			</button>
+			}
+		</div>
+	</button>
+	<div
+		*ngIf="isDropdownOpen"
+		class="absolute bg-slate-800 shadow-lg z-10 w-full border-r-2 border-b-2 border-l-2 border-slate-500"
+	>
+		<ul class="max-h-32 overflow-auto custom-scrollbar">
+			@for (option of options; track $index) {
+			<li>
+				<label
+					class="w-full text-slate-500 flex items-center cursor-pointer p-2 hover:bg-slate-700"
+				>
+					<input
+						[id]="option"
+						type="checkbox"
+						[checked]="selectedOptions.includes(option)"
+						(change)="toggleOption(option)"
+						[disabled]="isDisabled(option)"
+						class="checkbox"
+					/>
+					<p class="ml-2">{{ option }}</p>
+				</label>
+			</li>
+			} @empty {
+			<p class="text-center text-slate-400 my-2">No result found.</p>
+			}
+		</ul>
+		<div class="flex w-full text-center border-t-2 border-slate-500">
+			<input 
+	  			[(ngModel)]="newItem"
+				class="w-4/5 bg-slate-800 placeholder-slate-500 p-2 focus:outline-teal-700 outline-none"
+				[placeholder]="actionPlaceholder"
+			/>
+			<button (click)="performAction()" class="bg-slate-500 text-black w-1/5 hover:bg-slate-300 disabled:bg-slate-700 disabled:text-slate-500" [disabled]="isActionDisabled">
+	  <ng-content select="[actionContent]"></ng-content>
+			</button>
+		</div>
+	</div>
 </div>

@@ -1,15 +1,26 @@
 <div class="flex items-center justify-center" [formGroup]="form">
-  <p class="mr-8 text-teal-500 font-bold text-xl">Theme :</p>
-  <div class="w-1/4">
-    <app-multiselect
-      formControlName="themeSelection"
-      [options]="options$ | async"
-      placeholder="Select a theme"
-      [control]="themeSelection"
-      (selectionChange)="onOptionChange($event)"
-    ></app-multiselect>
-    @if (errorMessage) {
-      <p class="text-red-400">{{errorMessage}}</p>
-    }
-  </div>
+	<p class="mr-8 text-teal-500 font-bold text-xl">Theme :</p>
+	<div class="w-1/4">
+		<app-multiselect
+			formControlName="themeSelection"
+			[options]="options$ | async"
+			placeholder="Select a theme"
+			[control]="themeSelection"
+			(selectionChange)="onOptionChange($event)"
+      actionPlaceholder="Type in your new theme"
+      (actionChange)="onThemeCreation($event)"
+      [isActionDisabled]="isCooldownActive"
+	  [maxSelectable]="maxSelectable"
+		>
+			<div actionContent class="flex items-center justify-center">
+				<ng-icon name="heroPuzzlePiece" class="mr-1"></ng-icon>
+				<p>Add</p>
+			</div>
+		</app-multiselect>
+		@if (errorMessage) {
+		<p class="text-red-400">{{ errorMessage }}</p>
+		}@else {
+			<small class="text-slate-400">Please select a maximum of 3 themes</small>
+		}
+	</div>
 </div>

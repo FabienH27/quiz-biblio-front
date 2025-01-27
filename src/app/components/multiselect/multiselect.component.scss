@@ -27,4 +27,12 @@
     &:checked+p{
         @apply text-teal-500;
     }
+
+    &:disabled{
+        @apply border-slate-600;
+
+        &+p{
+            @apply text-slate-600;
+        }
+    }
 }

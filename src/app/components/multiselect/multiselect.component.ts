@@ -1,13 +1,13 @@
 import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { Component, ElementRef, EventEmitter, forwardRef, HostListener, inject, Input, OnInit, Output } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import { ControlValueAccessor, FormControl, FormsModule, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroArrowDown, heroArrowUp, heroXMark } from '@ng-icons/heroicons/outline';
 
 @Component({
   selector: 'app-multiselect',
   standalone: true,
-  imports: [NgForOf, NgIf, NgIcon, NgClass],
+  imports: [NgIf, NgIcon, NgClass, FormsModule],
   providers: [
     provideIcons({ heroArrowDown, heroArrowUp, heroXMark }),
     {
@@ -22,19 +22,23 @@ import { heroArrowDown, heroArrowUp, heroXMark } from '@ng-icons/heroicons/outli
 export class MultiSelectComponent implements ControlValueAccessor {
 
   private elementRef = inject(ElementRef);
-  selectedOptions: string[] = [];
-  isDropdownOpen = false;
+  protected selectedOptions: string[] = [];
+  protected isDropdownOpen = false;
+  protected newItem: string = '';
+  private disabledOptions = new Set<string>();
   
   @Input() options: string[] | null = null;
   @Input() placeholder: string = '';
+  @Input() actionPlaceholder: string = '';
   @Input() control = new FormControl([''], Validators.required);
+  @Input() isActionDisabled = false;
+  @Input() maxSelectable = 3;
 
   @Output() selectionChange = new EventEmitter<string[]>();
-
-
+  @Output() actionChange = new EventEmitter<string>();
 
   get selectOptions(){
-    return this.selectedOptions.join(', ');
+    return [...this.selectedOptions].join(', ');
   }
 
   get isControlInvalid(){
@@ -56,15 +60,22 @@ export class MultiSelectComponent implements ControlValueAccessor {
     this.onTouched = fn;
   }
 
+  /**
+   * Open and close the model
+   */
   toggleDropdown() {
     this.onTouched();
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
+  /**
+   * Adds an option to the selection of items
+   * @param option option to toggle
+   */
   toggleOption(option: string) {
     const index = this.selectedOptions.indexOf(option);
 
-    if (index > -1) {
+    if (index >= 0) {
       this.selectedOptions.splice(index, 1);
     } else {
       this.selectedOptions.push(option);
@@ -74,6 +85,24 @@ export class MultiSelectComponent implements ControlValueAccessor {
     this.onChange(this.selectedOptions);
     this.onTouched();
     this.selectionChange.emit(this.selectedOptions);
+
+    if(this.selectedOptions.length === this.maxSelectable){
+      this.updateDisabledOptions();
+    }else{
+      this.disabledOptions.clear();
+    }
+  }
+
+  /**
+   * Update the disabled status of the options
+   */
+  updateDisabledOptions(){
+    this.disabledOptions.clear();
+    this.options?.forEach((option) => {
+      if(!this.selectedOptions.includes(option)){
+        this.disabledOptions.add(option);
+      }
+    })
   }
 
   @HostListener('document:click', ['$event'])
@@ -84,12 +113,36 @@ export class MultiSelectComponent implements ControlValueAccessor {
     }
   }
 
+  /**
+   * Clears options on user action
+   * @param event click event of the user
+   */
   onOptionClear(event: Event) {
     event.stopPropagation();
     this.selectedOptions = [];
     this.onChange([]);
     this.control.setValue([]);
     this.selectionChange.emit([]);
+  }
+
+  /**
+   * Callback on item creation. Also reset the input value.
+   */
+  performAction(){
+    this.actionChange.emit(this.newItem.trim());
+    this.newItem = '';
+  }
+
+  /**
+   * Checks whether the option is disabled
+   * @param option option to check
+   * @returns option's disabled status
+   */
+  isDisabled(option: string): boolean{
+    return (
+      this.disabledOptions.has(option)||
+      (this.selectedOptions.length === this.maxSelectable && !this.selectedOptions.includes(option))
+    );
   }
 
 }

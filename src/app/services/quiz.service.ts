@@ -27,4 +27,9 @@ export class QuizService {
         catchError(err => { console.error(err); throw err })
       )
   }
+
+  createTheme(themeName: string){
+    return this.httpClient.post(`${this.baseUrl}/themes`, { 'name': themeName }, { withCredentials: true,  })
+      .pipe(catchError(err => {console.error(err); throw err }));
+  }
 }
