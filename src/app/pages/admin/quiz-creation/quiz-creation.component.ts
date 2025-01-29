@@ -1,15 +1,16 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { CreateQuestionComponent } from "./quiz-creation-question/creation-question.component";
-import { ImageSelectionComponent } from '../../../components/image-selection/image-selection.component';
-import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { JsonPipe, NgIf } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroPlusCircle } from '@ng-icons/heroicons/outline';
-import { Quiz } from '../../../types/quiz';
-import { QuizFormService } from '../../../services/quiz-form.service';
 import { heroBeakerSolid } from '@ng-icons/heroicons/solid';
-import { QuizService } from '../../../services/quiz.service';
+import { ImageSelectionComponent } from '../../../components/image-selection/image-selection.component';
 import { ThemeDropdownComponent } from "../../../components/theme-dropdown/theme-dropdown.component";
+import { AlertService } from '../../../services/alert.service';
+import { QuizFormService } from '../../../services/quiz-form.service';
+import { QuizService } from '../../../services/quiz.service';
+import { Quiz } from '../../../types/quiz';
+import { CreateQuestionComponent } from "./quiz-creation-question/creation-question.component";
 
 @Component({
   selector: 'app-quiz-creation',
@@ -28,6 +29,7 @@ export class QuizCreationComponent implements OnInit {
   private fb = inject(FormBuilder);
   private formService = inject(QuizFormService);
   private quizService = inject(QuizService);
+  private alertService = inject(AlertService);
 
   get questions(): FormArray {
     return this.form.get('questions') as FormArray;
@@ -77,7 +79,10 @@ export class QuizCreationComponent implements OnInit {
   onSubmit() {
     if(this.form.valid){
       const formValue : Quiz = this.form.value;
-      this.quizService.createQuiz(formValue);
+      this.quizService.createQuiz(formValue)
+        .subscribe(() => {
+          this.alertService.showAlert('Quiz successfully created', 'success');
+        });
     }
   }
 

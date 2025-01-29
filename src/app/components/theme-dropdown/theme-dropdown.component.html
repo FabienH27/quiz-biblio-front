@@ -4,7 +4,7 @@
 		<app-multiselect
 			formControlName="themeSelection"
 			[options]="options$ | async"
-			placeholder="Select a theme"
+			placeholder="Select theme(s)"
 			[control]="themeSelection"
 			(selectionChange)="onOptionChange($event)"
       actionPlaceholder="Type in your new theme"

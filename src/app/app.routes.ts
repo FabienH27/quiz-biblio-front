@@ -6,6 +6,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { userResolver } from './resolvers/user.resolver';
 import { QuizCreationComponent } from './pages/admin/quiz-creation/quiz-creation.component';
 import { adminGuard } from './auth/guards/admin.guard';
+import { QuizEditionComponent } from './pages/admin/quiz-edition/quiz-edition.component';
 
 export const routes: Routes = [
     { path: '', pathMatch: 'full', component: HomeComponent, resolve: { user: userResolver } },
@@ -22,6 +23,10 @@ export const routes: Routes = [
             {
                 path: 'create',
                 component: QuizCreationComponent,
+            },
+            {
+                path: 'edit/:id',
+                component: QuizEditionComponent
             }
         ]
     },
