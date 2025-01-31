@@ -3,7 +3,6 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Quiz } from '../types/quiz';
 import { catchError, Observable, tap } from 'rxjs';
-import { prepareQuizPayload } from '../types/quiz-request';
 import { QuizInfo } from '../types/quiz-info';
 import { AlertService } from './alert.service';
 
@@ -17,7 +16,12 @@ export class QuizService {
   private httpClient = inject(HttpClient);
   private alertService = inject(AlertService);
 
-  getQuiz(quizId: string) {
+  getQuizzes(): Observable<QuizInfo[]> {
+    return this.httpClient.get<QuizInfo[]>(`${this.baseUrl}/quizzes/`, { withCredentials: true })
+      .pipe(catchError(err => { console.error(err); throw err }));
+  }
+
+  getQuizById(quizId: string) {
     return this.httpClient.get<Quiz>(`${this.baseUrl}/quizzes/${quizId}`, { withCredentials: true })
       .pipe(catchError(err => { console.error(err); throw err }));
   }
@@ -28,14 +32,13 @@ export class QuizService {
   }
 
   createQuiz(quiz: Quiz) {
-    const payload = prepareQuizPayload(quiz);
-    return this.httpClient.post(`${this.baseUrl}/quizzes`, payload, { withCredentials: true })
+    return this.httpClient.post(`${this.baseUrl}/quizzes`, quiz, { withCredentials: true })
       .pipe(catchError(err => { console.error(err); throw err }));
   }
 
   editQuiz(quiz: Quiz) {
     return this.httpClient.put(`${this.baseUrl}/quizzes/${quiz.id}`, quiz, { withCredentials: true })
-      .pipe(catchError(err => { 
+      .pipe(catchError(err => {
         console.error(err);
         this.alertService.showAlert('an error occured while saving quiz.', 'error');
         throw err;

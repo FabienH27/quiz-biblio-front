@@ -1,5 +1,4 @@
 export type Proposal = {
-    id: string | null;
     text: string | null;
 }
 
@@ -23,7 +22,7 @@ export type Quiz = {
     title: string;
     image: string | null;
     questions: Question[];
-    creator: QuizCreator;
+    creator: QuizCreator | null;
 }
 
 export const defaultQuestion: Question = {
@@ -32,11 +31,9 @@ export const defaultQuestion: Question = {
     image: null,
     proposals: [
         {
-            id: null,
             text: null
         },
         {
-            id: null,
             text: null
         }
     ],

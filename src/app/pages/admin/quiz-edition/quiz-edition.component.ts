@@ -25,7 +25,7 @@ export class QuizEditionComponent {
   //inputSignal does not work yet with config : withComponentInputBinding
   @Input()
   set id(quizId: string) {
-    this.quiz$.set(this.quizService.getQuiz(quizId));
+    this.quiz$.set(this.quizService.getQuizById(quizId));
   }
 
   onQuizEdition(quiz: Quiz){

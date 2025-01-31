@@ -19,7 +19,7 @@
     <div class="flex h-min">
       <p class="text-2xl text-teal-500">#{{ questionIndex + 1 }}</p>
       @if (questionIndex > 0) {
-      <button class="ml-4" (click)="removeQuestion(questionIndex)">
+      <button class="ml-4" type="button" (click)="removeQuestion(questionIndex)">
         <ng-icon
           size="1.2em"
           strokeWidth=".12em"
@@ -51,9 +51,9 @@
   </div>
 
   <div class="grid grid-cols-2 gap-4 justify-items-center mt-8">
-    @for (proposal of proposals.controls; track proposal.value) {
-      {{proposal.value | json}}
-    <create-proposal
+    @for (proposal of proposals.controls; track $index) {
+      <create-proposal
+      [isCorrect]="correctProposalIdsValue.includes($index)"
       [proposalIndex]="$index"
       (correctChange)="onProposalCorrectChange($index, $event)"
       (proposalRemoval)="onProposalRemoval($event)"
@@ -70,7 +70,7 @@
 
   <div [ngClass]="hasCorrectProposal ? 'mt-8' : 'mt-16'">
     @if (proposals.length < 4) {
-    <button class="mx-auto block hover:text-teal-200" (click)="addProposal()">
+    <button class="mx-auto block hover:text-teal-200" type="button" (click)="addProposal()">
       <ng-icon
         name="heroPlusCircle"
         size="1.5em"

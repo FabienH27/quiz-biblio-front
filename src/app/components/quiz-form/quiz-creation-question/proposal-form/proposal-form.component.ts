@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroCheckBadge, heroTrash } from '@ng-icons/heroicons/outline';
 import { ControlContainer, FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';

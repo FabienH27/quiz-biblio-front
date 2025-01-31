@@ -38,6 +38,10 @@ export class QuestionFormComponent implements OnInit {
     return question.get('correctProposalIds');
   }
 
+  get correctProposalIdsValue(){
+    return this.correctProposalIds?.value as number[];
+  }
+
   get hasCorrectProposal() {
     return this.correctProposalIds?.value.length == 0;
   }
@@ -79,6 +83,8 @@ export class QuestionFormComponent implements OnInit {
     }
 
     this.correctProposalIds?.setValue(proposalIdValues);
+    this.form.markAsDirty();
+    this.form.markAsTouched();
   }
 
   addProposal() {

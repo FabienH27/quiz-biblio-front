@@ -46,7 +46,6 @@ export class QuizFormService {
 
   createProposalForm(proposal?: Proposal): FormGroup{
     return this.fb.group({
-      id: [proposal?.id || null],
       text: [proposal?.text || '', [Validators.required]],
     });
   }

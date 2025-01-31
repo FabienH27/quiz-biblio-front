@@ -2,6 +2,7 @@
 	<button
 		(click)="toggleDropdown()"
 		class="dropdown"
+		type="button"
 		[ngClass]="{
 			'border-red-400': isControlInvalid,
 			'border-slate-500': isDropdownOpen && !isControlInvalid,
