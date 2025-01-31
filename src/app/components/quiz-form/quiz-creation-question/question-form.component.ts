@@ -1,21 +1,21 @@
+import { NgClass, NgIf } from '@angular/common';
 import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
-import { ImageSelectionComponent } from "../../../../components/image-selection/image-selection.component";
+import { ControlContainer, FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroPlusCircle, heroTrash } from '@ng-icons/heroicons/outline';
-import { ControlContainer, FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { CreateProposalComponent } from './quiz-creation-proposal/creation-proposal.component';
-import { QuizFormService } from '../../../../services/quiz-form.service';
-import { JsonPipe, NgClass, NgIf } from '@angular/common';
+import { QuizFormService } from '../../../services/quiz-form.service';
+import { ImageSelectionComponent } from '../../image-selection/image-selection.component';
+import { ProposalFormComponent } from './proposal-form/proposal-form.component';
 
 @Component({
   selector: 'create-question',
   standalone: true,
-  imports: [CreateProposalComponent, ImageSelectionComponent, NgIcon, ReactiveFormsModule, NgIf, NgClass],
+  imports: [ProposalFormComponent, ImageSelectionComponent, NgIcon, ReactiveFormsModule, NgIf, NgClass],
   providers: [provideIcons({ heroPlusCircle, heroTrash })],
-  templateUrl: './creation-question.component.html',
-  styleUrl: './creation-question.component.scss'
+  templateUrl: 'question-form.component.html',
+  styleUrl: './question-form.component.scss'
 })
-export class CreateQuestionComponent implements OnInit {
+export class QuestionFormComponent implements OnInit {
 
   controlContainer = inject(ControlContainer);
   private formService = inject(QuizFormService);

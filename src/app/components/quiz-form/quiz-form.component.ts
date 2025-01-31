@@ -6,14 +6,14 @@ import { JsonPipe, NgIf } from '@angular/common';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroPlusCircle } from '@ng-icons/heroicons/outline';
 import { heroBeakerSolid } from '@ng-icons/heroicons/solid';
-import { CreateQuestionComponent } from '../../pages/admin/quiz-creation/quiz-creation-question/creation-question.component';
 import { ImageSelectionComponent } from '../image-selection/image-selection.component';
 import { ThemeDropdownComponent } from '../theme-dropdown/theme-dropdown.component';
+import { QuestionFormComponent } from './quiz-creation-question/question-form.component';
 
 @Component({
   selector: 'app-quiz-form',
   standalone: true,
-  imports: [CreateQuestionComponent, ImageSelectionComponent, ReactiveFormsModule, JsonPipe, NgIcon, NgIf, ThemeDropdownComponent],
+  imports: [QuestionFormComponent, ImageSelectionComponent, ReactiveFormsModule, JsonPipe, NgIcon, NgIf, ThemeDropdownComponent],
   providers: [provideIcons({ heroPlusCircle, heroBeakerSolid })],
   templateUrl: './quiz-form.component.html',
   styleUrl: './quiz-form.component.scss'

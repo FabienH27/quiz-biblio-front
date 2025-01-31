@@ -10,10 +10,10 @@ import { NgIf } from '@angular/common';
   standalone: true,
   imports: [NgIcon, ReactiveFormsModule, NgIf],
   providers: [provideIcons({ heroTrash, heroCheckBadge, heroCheckBadgeSolid })],
-  templateUrl: './creation-proposal.component.html',
-  styleUrl: './creation-proposal.component.scss'
+  templateUrl: './proposal-form.component.html',
+  styleUrl: './proposal-form.component.scss'
 })
-export class CreateProposalComponent implements OnInit {
+export class ProposalFormComponent implements OnInit {
 
   form!: FormGroup;
   controlContainer = inject(ControlContainer);
