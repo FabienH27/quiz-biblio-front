@@ -19,6 +19,9 @@
     "@angular/platform-browser": "^18.2.0",
     "@angular/platform-browser-dynamic": "^18.2.0",
     "@angular/router": "^18.2.0",
+    "@ng-icons/core": "^29.10.0",
+    "@ng-icons/heroicons": "^29.10.0",
+    "@ng-select/ng-select": "^13.9.1",
     "jwt-decode": "^4.0.0",
     "ngx-cookie-service": "^18.0.0",
     "rxjs": "~7.8.0",
@@ -38,6 +41,10 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "postcss": "^8.4.47",
+    "stylelint": "^16.13.2",
+    "stylelint-config-standard": "^37.0.0",
+    "stylelint-config-standard-scss": "^14.0.0",
+    "stylelint-config-tailwindcss": "^0.0.7",
     "tailwindcss": "^3.4.14",
     "typescript": "~5.5.2"
   }

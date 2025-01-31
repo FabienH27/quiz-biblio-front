@@ -1,5 +1,5 @@
 input {
-  background-color: rgba(31, 41, 55, var(--tw-bg-opacity));
+  background-color: rgb(31 41 55 / var(--tw-bg-opacity));
   padding: 8px;
   width: 100%;
   color: white;
@@ -9,7 +9,7 @@ input {
 input:-webkit-autofill,
 textarea:-webkit-autofill,
 select:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px rgba(31, 41, 55, var(--tw-bg-opacity)) inset !important;
+  box-shadow: 0 0 0 1000px rgb(31 41 55 / var(--tw-bg-opacity)) inset !important;
   -webkit-text-fill-color: white !important;
 }
 

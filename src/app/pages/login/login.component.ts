@@ -7,10 +7,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '../../auth/auth.service';
 import { Observable, switchMap, tap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AlertService } from '../../services/alert.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -47,6 +47,7 @@ export class LoginComponent {
             this.alertService.showAlert("Successfully logged in!");
           },
           error: (error: HttpErrorResponse) => {
+            this.alertService.showAlert("An error occured while logging in.", 'error');
             console.error(error);
           }
       });

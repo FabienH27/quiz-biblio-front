@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { catchError, first, tap } from 'rxjs/operators';
 import { BehaviorSubject, of } from 'rxjs';
@@ -27,14 +27,11 @@ export class AuthService {
   }
 
   login(credentials: { email: string; password: string }){
-    return this.httpClient.post(`${this.baseUrl}/auth/login`, credentials, { withCredentials: true })
-      .pipe(tap(() => {
-        this.alertService.showAlert("Successfully logged in!");
-      }))
+    return this.httpClient.post(`${this.baseUrl}/auth/login`, credentials, { withCredentials: true });
   }
 
   getUserInfo(){
-    const url = `${this.baseUrl}/auth/user-info`;
+    const url = `${this.baseUrl}/auth/user-info`;    
     return this.httpClient.get<User>(url, { withCredentials: true })
       .pipe(
         first(),

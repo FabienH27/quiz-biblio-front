@@ -4,7 +4,6 @@
     right: 20px;
 
     &.alert{
-
         &-error{
             @apply dark:bg-red-950 dark:text-red-400 dark:border-red-800;
         }
@@ -14,7 +13,11 @@
         }
 
         &-warning{
-            @apply dark:bg-amber-950 dark:text-amber-400 dark:border-amber-800
+            @apply dark:bg-amber-950 dark:text-amber-400 dark:border-amber-800;
+        }
+
+        &-success{
+            @apply dark:bg-teal-950 dark:text-teal-400 dark:border-teal-800;
         }
 
     }

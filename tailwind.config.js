@@ -18,7 +18,7 @@ module.exports = {
       display: [
         "Karla",
         "Nunito",
-        " Halant",
+        "Halant",
         "PT Serif",
         "sans-serif",
         "Arial",
