@@ -15,5 +15,6 @@ export function prepareQuizPayload(quiz: Quiz): QuizPayload {
             ...q,
             proposals: q.proposals.map(({ id, ...rest }) => rest),
         })).map(({ id, ...rest }) => rest),
+        creator: quiz.creator
     };
 }

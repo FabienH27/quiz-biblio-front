@@ -1,1 +1,9 @@
-<p>quiz-edition works!</p>
+@if ((quiz$() | async); as quiz){
+    <app-quiz-form [quiz]="quiz" submitPlaceholder="Edit quiz" (onFormSubmit)="onQuizEdition($event)"></app-quiz-form>
+}@else {
+    <div class="text-center text-white">
+        <img src="svg/404-dark.svg" class="w-72 block mx-auto my-8">
+        <p class="text-xl my-2">Resource not found.</p>
+        <a class="text-md text-teal-400 underline" [routerLink]="['/']" >Back to home</a>
+    </div>
+}

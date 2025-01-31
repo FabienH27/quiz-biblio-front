@@ -1,10 +1,15 @@
 export type Proposal = {
-    id: number | null;
+    id: string | null;
     text: string | null;
 }
 
+export type QuizCreator = {
+    id: string;
+    name: string;
+}
+
 export type Question = {
-    id: number | null;
+    id: string | null;
     text: string | null;
     image: string | null;
     details: string | null;
@@ -13,11 +18,12 @@ export type Question = {
 }
 
 export type Quiz = {
-    id: number | null;
+    id: string | null;
     themes: string[];
     title: string;
     image: string | null;
     questions: Question[];
+    creator: QuizCreator;
 }
 
 export const defaultQuestion: Question = {

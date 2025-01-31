@@ -45,7 +45,7 @@
 	<!--Quizzes list -->
 	<div class="grid grid-cols-4 gap-8 mt-4">
 		@for (quiz of quizList | async; track $index) {
-		<a class="bg-slate-700 text-sm rounded-lg relative cursor-pointer">
+		<a class="bg-slate-700 text-sm rounded-lg relative cursor-pointer" [routerLink]="['edit',quiz.id]" >
 			<img src="svg/gradient.svg" class="rounded-lg">
 			<svg viewBox="0 0 900 600" class="text-slate-700 absolute -top-4 left-0 rounded-lg" xmlns="http://www.w3.org/2000/svg">
 				<path
