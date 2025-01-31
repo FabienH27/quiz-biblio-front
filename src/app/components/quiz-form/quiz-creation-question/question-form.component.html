@@ -52,6 +52,7 @@
 
   <div class="grid grid-cols-2 gap-4 justify-items-center mt-8">
     @for (proposal of proposals.controls; track proposal.value) {
+      {{proposal.value | json}}
     <create-proposal
       [proposalIndex]="$index"
       (correctChange)="onProposalCorrectChange($index, $event)"

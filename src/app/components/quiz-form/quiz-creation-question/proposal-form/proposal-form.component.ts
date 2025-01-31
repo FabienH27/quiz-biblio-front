@@ -21,9 +21,8 @@ export class ProposalFormComponent implements OnInit {
   proposals!: FormArray;
   formGroup!: FormGroup;
 
-  isCorrect = false;
-
   @Input() proposalIndex = 0;
+  @Input() isCorrect = false;
 
   @Output() correctChange = new EventEmitter<boolean>();
   @Output() proposalRemoval = new EventEmitter();
