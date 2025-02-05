@@ -7,10 +7,13 @@ import { userResolver } from './resolvers/user.resolver';
 import { QuizCreationComponent } from './pages/admin/quiz-creation/quiz-creation.component';
 import { adminGuard } from './auth/guards/admin.guard';
 import { QuizEditionComponent } from './pages/admin/quiz-edition/quiz-edition.component';
+import { PlayQuizComponent } from './pages/play-quiz/play-quiz.component';
+import { quizResolver } from './resolvers/quiz.resolver';
 
 export const routes: Routes = [
-    { path: '', pathMatch: 'full', component: HomeComponent, resolve: { user: userResolver } },
+    { path: '', component: HomeComponent, resolve: { user: userResolver } },
     { path: 'login', component: LoginComponent },
+    { path: 'play/:id', component: PlayQuizComponent, resolve: {quiz: quizResolver, user: userResolver} },
     { path: 'register', component: RegisterComponent },
     {
         path: 'admin',

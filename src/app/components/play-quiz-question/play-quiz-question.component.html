@@ -1,0 +1,20 @@
+<div class="w-3/4 mx-auto">
+    <div class="bg-slate-700 p-5 rounded-md">
+        <div class="flex items-center">
+            <img src="svg/gradient.svg" class="w-16 h-16 rounded-md">
+            <div class="ml-8">
+                <h2 class="text-2xl">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
+            </div>
+        </div>
+    
+        <div class="flex justify-evenly my-8">
+            <p class="proposal bg-slate-500 px-12 py-4 rounded-md hover:bg-slate-800 transition-colors cursor-pointer">Proposal 1</p>
+            <p class="proposal bg-slate-500 px-12 py-4 rounded-md hover:bg-slate-800 transition-colors cursor-pointer">Proposal 2</p>
+        </div>
+    </div>
+
+    <button (click)="onNextQuestion()" type="button" class="bg-teal-500 px-8 py-4 rounded-lg block hover:bg-teal-400 ml-auto mt-8">
+        <ng-icon name="heroForwardSolid"></ng-icon>
+        Next
+    </button>
+</div>
