@@ -3,18 +3,33 @@
         <div class="flex items-center">
             <img src="svg/gradient.svg" class="w-16 h-16 rounded-md">
             <div class="ml-8">
-                <h2 class="text-2xl">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
+                <h2 class="text-2xl">{{question().text}}</h2>
+                @if (isValidationStep()) {
+                    @if (isCorrect) {
+                        <p class="text-teal-500">😎 Correct !</p>
+                    }@else {
+                        <p class="text-red-500">🥹 Incorrect</p>
+                    }
+                }
             </div>
         </div>
     
         <div class="flex justify-evenly my-8">
-            <p class="proposal bg-slate-500 px-12 py-4 rounded-md hover:bg-slate-800 transition-colors cursor-pointer">Proposal 1</p>
-            <p class="proposal bg-slate-500 px-12 py-4 rounded-md hover:bg-slate-800 transition-colors cursor-pointer">Proposal 2</p>
+            @for (proposal of question().proposals; track $index) {
+                <label>
+                    <input type="checkbox" class="proposal" [id]="'proposal-'+$index" [checked]="isChecked($index)" [disabled]="isValidationStep()">
+                    <span class="proposal-label" [ngClass]="getProposalClass($index)" (click)="addToAnswer($index)">
+                        {{proposal.text}}
+                    </span>
+                </label>
+            }
         </div>
-    </div>
 
-    <button (click)="onNextQuestion()" type="button" class="bg-teal-500 px-8 py-4 rounded-lg block hover:bg-teal-400 ml-auto mt-8">
-        <ng-icon name="heroForwardSolid"></ng-icon>
-        Next
-    </button>
+        @if (isValidationStep()) {
+            <div class="mx-5">
+                <p class="text-xl text-teal-500">Answer : </p>
+                <p>{{question().details}}</p>
+            </div>
+        }
+    </div>
 </div>

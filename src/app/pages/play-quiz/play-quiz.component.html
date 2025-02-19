@@ -1,21 +1,31 @@
 <div class="lg:max-w-6xl mx-auto text-white mt-8">
     <div class="flex items-center ml-16">
-        <img src="svg/gradient.svg" class="rounded-full w-32 h-32">
+        <img src="svg/gradient.svg" class="rounded-full w-32 h-32" />
         <div class="ml-8 flex-grow">
-            <h1 class="text-3xl text-slate-300">Quiz title</h1>
-            <p class="text-lg text-slate-500 block">Themes: Literature, Cinema</p>
+            <h1 class="text-3xl text-slate-300">{{ quiz.title }}</h1>
+            <p class="text-lg text-slate-500 block">
+                Theme{{quiz.themes.length>1 ? 's': ''}} : {{ quiz.themes.join(", ") }}
+            </p>
         </div>
     </div>
 
     <div class="mt-8">
         @if (!quizStarted) {
-            <button (click)="onQuizStart()" type="button" class="bg-teal-500 px-8 py-4 rounded-lg mx-auto block hover:bg-teal-400">
-                <ng-icon name="heroPlaySolid"></ng-icon>    
-                Start quiz !
-            </button>
+        <button (click)="onQuizStart()" type="button"
+            class="bg-teal-500 px-8 py-4 rounded-lg mx-auto block hover:bg-teal-400">
+            <ng-icon name="heroPlaySolid"></ng-icon>
+            Start quiz !
+        </button>
         }@else {
-            <!-- <p>Quiz ongoing<p> -->
-            <app-play-quiz-question></app-play-quiz-question>
+        <app-play-quiz-question #question [question]="currentQuestion" (answerChange)="onAnswerChange($event)" [isValidationStep]="checkStep"></app-play-quiz-question>
+
+        <button (click)="checkStep ? nextQuestion() : validate()" type="button"
+            [disabled]="!hasAnswered"
+            class="bg-teal-500 px-8 py-4 rounded-lg block !:disabled:hover:bg-teal-400 ml-auto mt-8 disabled:bg-teal-800 disabled:text-slate-800">
+            <ng-icon [name]="checkStep ? 'heroForwardSolid' : 'heroCheckSolid' "></ng-icon>
+            {{ checkStep ? 'Next' : 'Validate' }}
+        </button>
         }
     </div>
+
 </div>

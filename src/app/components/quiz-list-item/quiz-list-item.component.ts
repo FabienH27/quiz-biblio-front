@@ -1,5 +1,5 @@
 import { I18nPluralPipe } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { Component, input, OnInit } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroQueueList } from '@ng-icons/heroicons/outline';
 import { QuizInfo } from '../../types/quiz-info';

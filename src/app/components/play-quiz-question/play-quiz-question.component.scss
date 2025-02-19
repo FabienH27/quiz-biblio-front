@@ -1,0 +1,15 @@
+.proposal{
+    display: none;
+
+    &:checked+span{
+        @apply outline-teal-500 outline-4 outline outline-offset-2;
+    }
+
+    &:not(:checked):not(:disabled):hover+span{
+        @apply outline-blue-400 outline-2 outline outline-offset-2;
+    }
+}
+
+.proposal-label{
+    @apply px-12 py-4 rounded-md transition-colors cursor-pointer;
+}
