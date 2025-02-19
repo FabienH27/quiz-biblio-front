@@ -16,7 +16,11 @@
             <ng-icon name="heroPlaySolid"></ng-icon>
             Start quiz !
         </button>
-        }@else {
+        }@else if (finalStep){
+            {{answers | json }}
+            <app-play-final-step [answers]="answers()" [quiz]="quiz"></app-play-final-step>
+        }
+        @else {
         <app-play-quiz-question #question [question]="currentQuestion" (answerChange)="onAnswerChange($event)" [isValidationStep]="checkStep"></app-play-quiz-question>
 
         <button (click)="checkStep ? nextQuestion() : validate()" type="button"

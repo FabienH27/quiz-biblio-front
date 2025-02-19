@@ -5,11 +5,13 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroForwardSolid, heroPlaySolid, heroCheckSolid } from '@ng-icons/heroicons/solid';
 import { PlayQuizQuestionComponent } from '../../components/play-quiz-question/play-quiz-question.component';
 import { Answer } from '../../types/answer';
+import { PlayFinalStepComponent } from "../../components/play-final-step/play-final-step.component";
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-play-quiz',
   standalone: true,
-  imports: [NgIconComponent, PlayQuizQuestionComponent],
+  imports: [NgIconComponent, PlayQuizQuestionComponent, PlayFinalStepComponent, JsonPipe],
   providers: [provideIcons({ heroPlaySolid, heroForwardSolid, heroCheckSolid })],
   templateUrl: './play-quiz.component.html',
   styleUrl: './play-quiz.component.scss'
@@ -24,10 +26,11 @@ export class PlayQuizComponent implements OnInit {
 
   quizStarted = false;
   checkStep = false;
+  finalStep = false;
 
   readonly currentStep = signal(0);
 
-  answers = new Map<string, Answer>();
+  answers = signal<Map<string, Answer>>(new Map<string, Answer>());
 
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ quiz: quizData }) => {
@@ -36,10 +39,15 @@ export class PlayQuizComponent implements OnInit {
   }
 
   nextQuestion() {
-    if (this.answers.has(this.currentStep().toString())) {
-      this.currentStep.update(value => value + 1);
-      this.checkStep = false;
-      this.questionComponent.resetChoice();
+    if(this.hasAnswered){
+      //More questions to proceed
+      if((this.currentStep()+1) < this.quiz.questions.length){
+        this.currentStep.update(value => value + 1);
+        this.checkStep = false;
+        this.questionComponent.resetChoice();
+      }else{
+        this.finalStep = true;
+      }
     }
   }
 
@@ -52,7 +60,9 @@ export class PlayQuizComponent implements OnInit {
   }
 
   onAnswerChange(answer: Answer) {
-    this.answers.set(this.currentStep().toString(), answer);
+    const updatedAnswers = new Map(this.answers());
+    updatedAnswers.set(this.currentStep().toString(), answer); 
+    this.answers.set(updatedAnswers);
   }
 
   get currentQuestion() {
@@ -60,7 +70,7 @@ export class PlayQuizComponent implements OnInit {
   }
 
   get hasAnswered() {
-    return this.answers.has(this.currentStep().toString());
+    return this.answers().has(this.currentStep().toString());
   }
 
 }
