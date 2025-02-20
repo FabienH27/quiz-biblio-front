@@ -1,12 +1,13 @@
-import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
+import { JsonPipe } from '@angular/common';
+import { Component, HostListener, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Quiz } from '../../types/quiz';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { heroForwardSolid, heroPlaySolid, heroCheckSolid } from '@ng-icons/heroicons/solid';
+import { heroCheckSolid, heroForwardSolid, heroPlaySolid } from '@ng-icons/heroicons/solid';
+import { PlayFinalStepComponent } from "../../components/play-final-step/play-final-step.component";
 import { PlayQuizQuestionComponent } from '../../components/play-quiz-question/play-quiz-question.component';
 import { Answer } from '../../types/answer';
-import { PlayFinalStepComponent } from "../../components/play-final-step/play-final-step.component";
-import { JsonPipe } from '@angular/common';
+import { Quiz } from '../../types/quiz';
+import { UserScoreService } from '../../services/user-score.service';
 
 @Component({
   selector: 'app-play-quiz',
@@ -20,17 +21,27 @@ export class PlayQuizComponent implements OnInit {
 
   private activatedRoute = inject(ActivatedRoute);
 
+  private scoreService = inject(UserScoreService);
+
   @ViewChild('question') questionComponent!: PlayQuizQuestionComponent;
 
   quiz!: Quiz;
 
-  quizStarted = false;
+  isQuizInProgress = false;
   checkStep = false;
   finalStep = false;
 
   readonly currentStep = signal(0);
 
   answers = signal<Map<string, Answer>>(new Map<string, Answer>());
+
+  get currentQuestion() {
+    return this.quiz.questions.at(this.currentStep())!;
+  }
+
+  get hasAnswered() {
+    return this.answers().has(this.currentStep().toString());
+  }
 
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ quiz: quizData }) => {
@@ -47,16 +58,18 @@ export class PlayQuizComponent implements OnInit {
         this.questionComponent.resetChoice();
       }else{
         this.finalStep = true;
+        this.isQuizInProgress = false;
+        this.scoreService.saveUserScore(this.userScore).subscribe();
       }
     }
   }
 
-  validate() {
+  validateQuiz() {
     this.checkStep = true;
   }
 
-  onQuizStart() {
-    this.quizStarted = true;
+  startQuiz() {
+    this.isQuizInProgress = true;
   }
 
   onAnswerChange(answer: Answer) {
@@ -65,12 +78,16 @@ export class PlayQuizComponent implements OnInit {
     this.answers.set(updatedAnswers);
   }
 
-  get currentQuestion() {
-    return this.quiz.questions.at(this.currentStep())!;
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: BeforeUnloadEvent): void{
+    if(this.isQuizInProgress){
+      $event.preventDefault();
+    }
   }
 
-  get hasAnswered() {
-    return this.answers().has(this.currentStep().toString());
+  get userScore(){
+    const answerArray = Array.from(this.answers().values());
+    return answerArray.filter((obj) => obj.isCorrect).length;
   }
 
 }

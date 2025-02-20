@@ -10,20 +10,20 @@
     </div>
 
     <div class="mt-8">
-        @if (!quizStarted) {
-        <button (click)="onQuizStart()" type="button"
+        @if (!isQuizInProgress && !finalStep) {
+        <button (click)="startQuiz()" type="button"
             class="bg-teal-500 px-8 py-4 rounded-lg mx-auto block hover:bg-teal-400">
             <ng-icon name="heroPlaySolid"></ng-icon>
             Start quiz !
         </button>
         }@else if (finalStep){
             {{answers | json }}
-            <app-play-final-step [answers]="answers()" [quiz]="quiz"></app-play-final-step>
+            <app-play-final-step [answers]="answers()" [quiz]="quiz" [userScore]="userScore"></app-play-final-step>
         }
         @else {
         <app-play-quiz-question #question [question]="currentQuestion" (answerChange)="onAnswerChange($event)" [isValidationStep]="checkStep"></app-play-quiz-question>
 
-        <button (click)="checkStep ? nextQuestion() : validate()" type="button"
+        <button (click)="checkStep ? nextQuestion() : validateQuiz()" type="button"
             [disabled]="!hasAnswered"
             class="bg-teal-500 px-8 py-4 rounded-lg block !:disabled:hover:bg-teal-400 ml-auto mt-8 disabled:bg-teal-800 disabled:text-slate-800">
             <ng-icon [name]="checkStep ? 'heroForwardSolid' : 'heroCheckSolid' "></ng-icon>

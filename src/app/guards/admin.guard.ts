@@ -1,9 +1,9 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
-import { Roles } from '../../types/roles';
 import { catchError, first, map, of } from 'rxjs';
-import { AuthService } from '../../services/auth.service';
-import { RbacService } from '../../services/rbac.service';
+import { AuthService } from '../services/auth.service';
+import { RbacService } from '../services/rbac.service';
+import { Roles } from '../types/roles';
 
 export const adminGuard: CanActivateFn = () => {
   const authService = inject(AuthService);

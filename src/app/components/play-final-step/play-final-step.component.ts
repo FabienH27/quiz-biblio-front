@@ -18,6 +18,7 @@ export class PlayFinalStepComponent {
 
   answers = input.required<Map<string, Answer>>();
   quiz = input.required<Quiz>();
+  userScore = input.required<number>();
 
   getIndex(index: number){
     return (index+1).toString().padStart(2,"0");
@@ -36,11 +37,6 @@ export class PlayFinalStepComponent {
 
   isAnswerCorrect(questionId: number){
     return this.answers().get(questionId.toString())?.isCorrect;
-  }
-
-  get userScore(){
-    const answerArray = Array.from(this.answers().values());
-    return answerArray.filter((obj) => obj.isCorrect).length;
   }
 
 }
