@@ -8,7 +8,6 @@ export type QuizCreator = {
 }
 
 export type Question = {
-    id: string | null;
     text: string | null;
     image: string | null;
     details: string | null;
@@ -27,7 +26,6 @@ export type Quiz = {
 
 export const defaultQuestion: Question = {
     details: null,
-    id: null,
     image: null,
     proposals: [
         {

@@ -22,7 +22,7 @@ export class QuizFormComponent implements OnInit {
 
   quizFormService = inject(QuizFormService);
   
-  form: FormGroup;
+  form!: FormGroup;
 
   quiz = input<Quiz | null>();
   submitPlaceholder = input<string>("Create quiz");
@@ -46,12 +46,10 @@ export class QuizFormComponent implements OnInit {
     return this.title?.invalid && (this.title?.dirty || this.title?.touched);
   }
 
-  constructor() {
-    this.form = this.quizFormService.createQuizForm();
-  }
-
-  ngOnInit(): void {
+  ngOnInit(): void {    
     var quizData = this.quiz();
+    this.form = this.quizFormService.createQuizForm(quizData);
+    
     if(quizData){
       this.form.patchValue(quizData);
     }

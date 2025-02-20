@@ -5,12 +5,16 @@ import { AdminComponent } from './pages/admin/admin.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { userResolver } from './resolvers/user.resolver';
 import { QuizCreationComponent } from './pages/admin/quiz-creation/quiz-creation.component';
-import { adminGuard } from './auth/guards/admin.guard';
 import { QuizEditionComponent } from './pages/admin/quiz-edition/quiz-edition.component';
+import { PlayQuizComponent } from './pages/play-quiz/play-quiz.component';
+import { quizResolver } from './resolvers/quiz.resolver';
+import { adminGuard } from './guards/admin.guard';
+import { playQuizGuard } from './guards/play-quiz.guard';
 
 export const routes: Routes = [
-    { path: '', pathMatch: 'full', component: HomeComponent, resolve: { user: userResolver } },
+    { path: '', component: HomeComponent, resolve: { user: userResolver } },
     { path: 'login', component: LoginComponent },
+    { path: 'play/:id', component: PlayQuizComponent, resolve: {quiz: quizResolver, user: userResolver}, canDeactivate: [playQuizGuard] },
     { path: 'register', component: RegisterComponent },
     {
         path: 'admin',
