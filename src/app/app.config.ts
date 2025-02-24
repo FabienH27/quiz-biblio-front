@@ -5,6 +5,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { RbacService } from './services/rbac.service';
+import { authInterceptor } from './interceptor/auth.interceptor';
 
 function preloadRoles(rbacService: RbacService, router: Router) {
   return () => new Promise<void>((resolve, reject) => {
@@ -25,7 +26,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes, withComponentInputBinding()),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([authInterceptor])),
     provideAnimationsAsync(),
     {provide: APP_INITIALIZER, useFactory: preloadRoles, deps: [RbacService, Router], multi: true}
   ],

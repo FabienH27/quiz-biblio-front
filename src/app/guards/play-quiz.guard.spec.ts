@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
-import { CanDeactivateFn } from '@angular/router';
+import { CanActivateFn } from '@angular/router';
 
 import { playQuizGuard } from './play-quiz.guard';
 
 describe('playQuizGuard', () => {
-  const executeGuard: CanDeactivateFn = (...guardParameters) => 
+  const executeGuard: CanActivateFn = (...guardParameters) => 
       TestBed.runInInjectionContext(() => playQuizGuard(...guardParameters));
 
   beforeEach(() => {

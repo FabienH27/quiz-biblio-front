@@ -9,12 +9,20 @@ import { QuizEditionComponent } from './pages/admin/quiz-edition/quiz-edition.co
 import { PlayQuizComponent } from './pages/play-quiz/play-quiz.component';
 import { quizResolver } from './resolvers/quiz.resolver';
 import { adminGuard } from './guards/admin.guard';
+import { leaveQuizGuard } from './guards/leave-quiz.guard';
+import { ScoreboardComponent } from './pages/scoreboard/scoreboard.component';
 import { playQuizGuard } from './guards/play-quiz.guard';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent, resolve: { user: userResolver } },
     { path: 'login', component: LoginComponent },
-    { path: 'play/:id', component: PlayQuizComponent, resolve: {quiz: quizResolver, user: userResolver}, canDeactivate: [playQuizGuard] },
+    {   
+        path: 'play/:id', component: PlayQuizComponent, 
+        resolve: {quiz: quizResolver, user: userResolver},
+        canActivate: [playQuizGuard],
+        canDeactivate: [leaveQuizGuard]
+    },
+    { path: 'scoreboard', component: ScoreboardComponent, resolve: { user: userResolver } },
     { path: 'register', component: RegisterComponent },
     {
         path: 'admin',

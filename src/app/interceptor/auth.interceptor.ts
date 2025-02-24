@@ -8,10 +8,10 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
-      if(error.url?.includes('quizzes')){
+      
+      if(error.status != 0 && error.url?.includes('quizzes')){
         router.navigate(['/login']);
       }
-      
       throw error;
     })
   )
