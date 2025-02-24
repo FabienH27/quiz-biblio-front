@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
-import { Answer } from '../../types/answer';
-import { Quiz } from '../../types/quiz';
+import { Answer } from '../../../types/answer';
+import { Quiz } from '../../../types/quiz';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroCheckCircle, heroXMark } from '@ng-icons/heroicons/outline';
 import { NgClass } from '@angular/common';

@@ -3,8 +3,8 @@ import { Component, HostListener, inject, OnInit, signal, ViewChild } from '@ang
 import { ActivatedRoute } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroCheckSolid, heroForwardSolid, heroPlaySolid } from '@ng-icons/heroicons/solid';
-import { PlayFinalStepComponent } from "../../components/play-final-step/play-final-step.component";
-import { PlayQuizQuestionComponent } from '../../components/play-quiz-question/play-quiz-question.component';
+import { PlayFinalStepComponent } from "../../components/play-quiz/play-final-step/play-final-step.component";
+import { PlayQuizQuestionComponent } from '../../components/play-quiz/play-quiz-question/play-quiz-question.component';
 import { Answer } from '../../types/answer';
 import { Quiz } from '../../types/quiz';
 import { UserScoreService } from '../../services/user-score.service';

@@ -1,0 +1,18 @@
+<table class="bordered border-top w-2/3 mx-auto mt-8">
+	<thead>
+		<tr>
+			<th scope="col" class="bordered border-top">Rank</th>
+			<th scope="col" class="bordered border-top">Player Name</th>
+			<th scope="col" class="bordered border-top">Points</th>
+		</tr>
+	</thead>
+	<tbody>
+		@for (score of scores(); track $index) {
+		<tr class="bordered odd:bg-slate-700">
+			<th scope="row" class="bordered text-teal-500 font-bold">{{ getRank($index) }}</th>
+			<td class="bordered">{{ score.userName }}</td>
+			<td class="bordered text-center">{{ score.score }}</td>
+		</tr>
+		}
+	</tbody>
+</table>
