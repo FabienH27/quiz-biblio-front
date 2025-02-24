@@ -3,7 +3,7 @@ import { AuthService } from '../services/auth.service';
 import { inject } from '@angular/core';
 import { tap } from 'rxjs';
 
-export const playQuizGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+export const authGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 

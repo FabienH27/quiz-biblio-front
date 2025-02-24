@@ -11,7 +11,7 @@ import { quizResolver } from './resolvers/quiz.resolver';
 import { adminGuard } from './guards/admin.guard';
 import { leaveQuizGuard } from './guards/leave-quiz.guard';
 import { ScoreboardComponent } from './pages/scoreboard/scoreboard.component';
-import { playQuizGuard } from './guards/play-quiz.guard';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent, resolve: { user: userResolver } },
@@ -19,10 +19,10 @@ export const routes: Routes = [
     {   
         path: 'play/:id', component: PlayQuizComponent, 
         resolve: {quiz: quizResolver, user: userResolver},
-        canActivate: [playQuizGuard],
+        canActivate: [authGuard],
         canDeactivate: [leaveQuizGuard]
     },
-    { path: 'scoreboard', component: ScoreboardComponent, resolve: { user: userResolver } },
+    { path: 'scoreboard', component: ScoreboardComponent, canActivate: [authGuard], resolve: { user: userResolver } },
     { path: 'register', component: RegisterComponent },
     {
         path: 'admin',
