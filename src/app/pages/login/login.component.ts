@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router, RouterModule } from '@angular/router';
 import { Observable, switchMap, tap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AlertService } from '../../services/alert.service';
@@ -22,6 +22,7 @@ import { AuthService } from '../../services/auth.service';
 export class LoginComponent {
   authService = inject(AuthService);
   router = inject(Router);
+  route = inject(ActivatedRoute);
   alertService = inject(AlertService);
   
   protected loginForm = new FormGroup({
@@ -43,7 +44,8 @@ export class LoginComponent {
     if(this.loginForm.valid && fieldsValid){
       this.authService.login({ email: this.email.value, password: this.password.value}).subscribe({
           next: () => {
-            this.router.navigate(['/']);
+            const redirectUrl = this.route.snapshot.queryParams['redirectUrl'] || '/';
+            this.router.navigate([redirectUrl]);
             this.alertService.showAlert("Successfully logged in!");
           },
           error: (error: HttpErrorResponse) => {
