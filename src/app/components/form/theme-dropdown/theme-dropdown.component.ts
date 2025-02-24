@@ -1,7 +1,7 @@
 import { Component, EventEmitter, inject, OnDestroy, OnInit, Output } from '@angular/core';
 import { ControlContainer, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MultiSelectComponent } from "../multiselect/multiselect.component";
-import { QuizService } from '../../services/quiz.service';
+import { QuizService } from '../../../services/quiz.service';
 import { BehaviorSubject, catchError, combineLatest, debounceTime, filter, from, merge, mergeMap, Observable, of, skipWhile, startWith, Subject, switchMap, tap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { NgIcon, provideIcons } from '@ng-icons/core';

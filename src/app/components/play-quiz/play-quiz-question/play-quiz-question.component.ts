@@ -1,7 +1,7 @@
 import { Component, EventEmitter, input, Output } from '@angular/core';
-import { Question } from '../../types/quiz';
+import { Question } from '../../../types/quiz';
 import { NgClass } from '@angular/common';
-import { Answer } from '../../types/answer';
+import { Answer } from '../../../types/answer';
 
 @Component({
   selector: 'app-play-quiz-question',

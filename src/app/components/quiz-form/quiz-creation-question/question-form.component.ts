@@ -4,7 +4,7 @@ import { ControlContainer, FormArray, FormGroup, ReactiveFormsModule } from '@an
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroPlusCircle, heroTrash } from '@ng-icons/heroicons/outline';
 import { QuizFormService } from '../../../services/quiz-form.service';
-import { ImageSelectionComponent } from '../../image-selection/image-selection.component';
+import { ImageSelectionComponent } from '../../form/image-selection/image-selection.component';
 import { ProposalFormComponent } from './proposal-form/proposal-form.component';
 
 @Component({

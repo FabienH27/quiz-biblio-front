@@ -6,8 +6,8 @@ import { JsonPipe, NgIf } from '@angular/common';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroPlusCircle } from '@ng-icons/heroicons/outline';
 import { heroBeakerSolid } from '@ng-icons/heroicons/solid';
-import { ImageSelectionComponent } from '../image-selection/image-selection.component';
-import { ThemeDropdownComponent } from '../theme-dropdown/theme-dropdown.component';
+import { ImageSelectionComponent } from '../form/image-selection/image-selection.component';
+import { ThemeDropdownComponent } from '../form/theme-dropdown/theme-dropdown.component';
 import { QuestionFormComponent } from './quiz-creation-question/question-form.component';
 
 @Component({

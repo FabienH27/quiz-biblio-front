@@ -1,0 +1,7 @@
+.bordered{
+    @apply border-slate-500 border-x-2 p-2;
+
+    &.border-top{
+        @apply border-y-2;
+    }
+}
