@@ -1,4 +1,4 @@
-import { JsonPipe, NgClass, NgIf } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { ControlContainer, FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -10,7 +10,7 @@ import { ProposalFormComponent } from './proposal-form/proposal-form.component';
 @Component({
   selector: 'create-question',
   standalone: true,
-  imports: [ProposalFormComponent, ImageSelectionComponent, NgIcon, ReactiveFormsModule, NgIf, NgClass, JsonPipe],
+  imports: [ProposalFormComponent, ImageSelectionComponent, NgIcon, ReactiveFormsModule, NgIf, NgClass],
   providers: [provideIcons({ heroPlusCircle, heroTrash })],
   templateUrl: 'question-form.component.html',
   styleUrl: './question-form.component.scss'

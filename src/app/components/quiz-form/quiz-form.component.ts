@@ -22,7 +22,7 @@ import { environment } from '../../../environments/environment';
 export class QuizFormComponent implements OnInit {
 
   quizFormService = inject(QuizFormService);
-  
+
   form!: FormGroup;
 
   quiz = input<Quiz | null>();
@@ -47,19 +47,19 @@ export class QuizFormComponent implements OnInit {
     return this.title?.invalid && (this.title?.dirty || this.title?.touched);
   }
 
-  get imageId(){
+  get imageId() {
     return this.formImage?.value ?? null;
   }
 
-  get formImage(){
+  get formImage() {
     return this.form.get('imageId');
   }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
     var quizData = this.quiz();
     this.form = this.quizFormService.createQuizForm(quizData);
-    
-    if(quizData){
+
+    if (quizData) {
       this.form.patchValue(quizData);
     }
   }
@@ -73,7 +73,7 @@ export class QuizFormComponent implements OnInit {
   }
 
   onSubmit() {
-    if(this.form.valid && this.form.dirty && this.form.touched){
+    if (this.form.valid && this.form.dirty && this.form.touched) {
       const formValue: Quiz = this.form.value;
       const quizFormValue = { ...formValue, creator: this.quiz()?.creator ?? null };
       this.onFormSubmit.emit(quizFormValue);
@@ -82,11 +82,14 @@ export class QuizFormComponent implements OnInit {
     }
   }
 
-  onThemeChange(data: string[]){
+  onThemeChange(data: string[]) {
     this.themes?.setValue(data);
   }
 
-  updateImage(imageId: string){
+  updateImage(imageId: string | null) {
     this.formImage?.setValue(imageId);
+    this.formImage?.markAsDirty();
+    this.formImage?.markAsTouched();
+    this.form.updateValueAndValidity();
   }
 }
