@@ -3,9 +3,11 @@
 	class="text-white my-12 max-w-screen-xl mx-auto"
 	(ngSubmit)="onSubmit()"
 >
-	<div class="flex mb-10 ml-12">
-		<div class="mx-20 my-auto">
-			<app-image-selection [color]="'secondary'"></app-image-selection>
+<div class="flex mb-10 ml-12">
+	<div class="mx-20 my-auto">
+		<app-image-selection [color]="'secondary'"
+			[imageId]="imageId" (imageUrlChange)="updateImage($event)"
+			></app-image-selection>
 		</div>
 		<div class="w-1/2 p-4">
 			<textarea

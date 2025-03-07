@@ -1,9 +1,16 @@
-<!-- <input type="file" accept="image/png, image/jpeg"> -->
-
-<div [ngClass]="color == 'primary' ? 'text-teal-500': 'text-slate-500'">
-    <ng-icon
-    name="heroPhoto"
-    [size]="iconSize"
-    ></ng-icon>
-    <p class="my-0">Add image</p>
+<div [ngClass]="color == 'primary' ? 'text-teal-500' : 'text-slate-500'">
+	@if (imageId) {
+	<img [src]="imageSource" width="240" />
+	} @else {
+	<label class="hover:text-slate-400 cursor-pointer">
+		<input
+			type="file"
+			class="hidden"
+			accept="image/png, image/jpeg, image/webp"
+			(change)="handleFileInput($event)"
+		/>
+		<ng-icon name="heroPhoto" [size]="iconSize"></ng-icon>
+		<p class="my-0">Add image</p>
+	</label>
+	}
 </div>

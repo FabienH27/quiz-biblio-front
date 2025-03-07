@@ -20,10 +20,9 @@ export class QuizFormService {
   }
 
   createQuizForm(quiz?: Quiz | null): FormGroup{
-    console.log(quiz);
-    
     return this.fb.group({
       id: [quiz?.id || null ],
+      imageId: [quiz?.image || null],
       themes: [quiz?.themes || []],
       title: [quiz?.title || '', [Validators.required]],
       questions: this.fb.array([

@@ -9,6 +9,7 @@ import { heroBeakerSolid } from '@ng-icons/heroicons/solid';
 import { ImageSelectionComponent } from '../form/image-selection/image-selection.component';
 import { ThemeDropdownComponent } from '../form/theme-dropdown/theme-dropdown.component';
 import { QuestionFormComponent } from './quiz-creation-question/question-form.component';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-quiz-form',
@@ -46,6 +47,14 @@ export class QuizFormComponent implements OnInit {
     return this.title?.invalid && (this.title?.dirty || this.title?.touched);
   }
 
+  get imageId(){
+    return this.formImage?.value ?? null;
+  }
+
+  get formImage(){
+    return this.form.get('imageId');
+  }
+
   ngOnInit(): void {    
     var quizData = this.quiz();
     this.form = this.quizFormService.createQuizForm(quizData);
@@ -77,4 +86,7 @@ export class QuizFormComponent implements OnInit {
     this.themes?.setValue(data);
   }
 
+  updateImage(imageId: string){
+    this.formImage?.setValue(imageId);
+  }
 }
