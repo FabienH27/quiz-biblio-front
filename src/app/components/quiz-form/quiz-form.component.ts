@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, inject, input, OnInit, output, signal } from '@angular/core';
+import { Component, inject, input, OnInit, output } from '@angular/core';
 import { Quiz } from '../../types/quiz';
 import { FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { QuizFormService } from '../../services/quiz-form.service';
@@ -8,7 +8,7 @@ import { heroPlusCircle } from '@ng-icons/heroicons/outline';
 import { heroBeakerSolid } from '@ng-icons/heroicons/solid';
 import { ImageSelectionComponent } from '../form/image-selection/image-selection.component';
 import { ThemeDropdownComponent } from '../form/theme-dropdown/theme-dropdown.component';
-import { QuestionFormComponent } from './quiz-creation-question/question-form.component';
+import { QuestionFormComponent } from './question-form/question-form.component';
 
 @Component({
   selector: 'app-quiz-form',
@@ -21,7 +21,7 @@ import { QuestionFormComponent } from './quiz-creation-question/question-form.co
 export class QuizFormComponent implements OnInit {
 
   quizFormService = inject(QuizFormService);
-  
+
   form!: FormGroup;
 
   quiz = input<Quiz | null>();
@@ -46,11 +46,19 @@ export class QuizFormComponent implements OnInit {
     return this.title?.invalid && (this.title?.dirty || this.title?.touched);
   }
 
-  ngOnInit(): void {    
+  get imageId() {
+    return this.formImage?.value ?? null;
+  }
+
+  get formImage() {
+    return this.form.get('imageId');
+  }
+
+  ngOnInit(): void {
     var quizData = this.quiz();
     this.form = this.quizFormService.createQuizForm(quizData);
-    
-    if(quizData){
+
+    if (quizData) {
       this.form.patchValue(quizData);
     }
   }
@@ -64,7 +72,7 @@ export class QuizFormComponent implements OnInit {
   }
 
   onSubmit() {
-    if(this.form.valid && this.form.dirty && this.form.touched){
+    if (this.form.valid && this.form.dirty && this.form.touched) {
       const formValue: Quiz = this.form.value;
       const quizFormValue = { ...formValue, creator: this.quiz()?.creator ?? null };
       this.onFormSubmit.emit(quizFormValue);
@@ -73,8 +81,13 @@ export class QuizFormComponent implements OnInit {
     }
   }
 
-  onThemeChange(data: string[]){
+  onThemeChange(data: string[]) {
     this.themes?.setValue(data);
   }
 
+  updateImage(imageId: string | null) {
+    this.formImage?.setValue(imageId);
+    this.formImage?.markAsDirty();
+    this.formImage?.markAsTouched();
+  }
 }

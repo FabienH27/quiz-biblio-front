@@ -13,7 +13,7 @@
 			<p
 				[ngClass]="selectedOptions.length ? 'text-slate-300' : 'text-slate-500'"
 			>
-				{{ selectedOptions.length ? selectOptions : placeholder }}
+				{{ selectedOptions.length ? selectedOptionsList : placeholder }}
 			</p>
 			@if (selectedOptions.length === 0) {
 			<p>

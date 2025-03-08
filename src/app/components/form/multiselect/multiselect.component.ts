@@ -37,7 +37,10 @@ export class MultiSelectComponent implements ControlValueAccessor {
   @Output() selectionChange = new EventEmitter<string[]>();
   @Output() actionChange = new EventEmitter<string>();
 
-  get selectOptions(){
+  /**
+   * list of selected options
+   */
+  get selectedOptionsList(){
     return [...this.selectedOptions].join(', ');
   }
 

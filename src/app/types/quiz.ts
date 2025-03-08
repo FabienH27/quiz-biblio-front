@@ -9,7 +9,7 @@ export type QuizCreator = {
 
 export type Question = {
     text: string | null;
-    image: string | null;
+    imageId: string | null;
     details: string | null;
     proposals: Proposal[];
     correctProposalIds: number[];
@@ -19,14 +19,14 @@ export type Quiz = {
     id: string | null;
     themes: string[];
     title: string;
-    image: string | null;
+    imageId: string | null;
     questions: Question[];
     creator: QuizCreator | null;
 }
 
 export const defaultQuestion: Question = {
     details: null,
-    image: null,
+    imageId: null,
     proposals: [
         {
             text: null
