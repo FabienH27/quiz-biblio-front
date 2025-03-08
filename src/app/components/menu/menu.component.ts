@@ -1,7 +1,7 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { IsGrantedDirective } from '../../is-granted/is-granted.directive';
+import { IsGrantedDirective } from '../../utils/is-granted/is-granted.directive';
 import { User } from '../../types/user';
 import { AsyncPipe } from '@angular/common';
 import { RbacService } from '../../services/rbac.service';

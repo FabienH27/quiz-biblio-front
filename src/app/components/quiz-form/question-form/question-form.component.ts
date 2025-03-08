@@ -38,7 +38,7 @@ export class QuestionFormComponent implements OnInit {
     return question.get('correctProposalIds');
   }
 
-  get correctProposalIdsValue(){
+  get correctProposalIdsValue() {
     return this.correctProposalIds?.value as number[];
   }
 
@@ -54,11 +54,19 @@ export class QuestionFormComponent implements OnInit {
     return this.form.get('details');
   }
 
+  get imageId() {
+    return this.formImage?.value ?? null;
+  }
+
+  get formImage() {
+    return this.form.get('imageId');
+  }
+
   get isQuestionValid() {
     return (this.questionText?.dirty || this.questionText?.touched) && this.questionText?.hasError('required');
   }
 
-  get isDetailsValid(){
+  get isDetailsValid() {
     return (this.details?.dirty || this.details?.touched) && this.details?.hasError('required');
   }
 
@@ -97,5 +105,13 @@ export class QuestionFormComponent implements OnInit {
 
   removeQuestion(questionId: number) {
     this.questionRemoval.emit(questionId);
+  }
+
+  updateQuestionImage(imageId: string | null) {
+    console.log(imageId);
+    
+    this.formImage?.setValue(imageId);
+    this.formImage?.markAsDirty();
+    this.formImage?.markAsTouched();
   }
 }

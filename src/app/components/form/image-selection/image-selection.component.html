@@ -1,38 +1,33 @@
-<div [ngClass]="color == 'primary' ? 'text-teal-500' : 'text-slate-500'">
-	@if (imageId) {
-	<img [src]="imageSource" width="240" />
-
+<div [ngClass]="color == 'primary' ? 'primary-color' : 'secondary-color' ">
+	@if (imageId) { @if (imageSource) {
+	<img [src]="imageSource" class="max-w-96" />
+	} @else {
+	<div class="max-w-32 text-center mx-auto block">
+		<ng-icon class="text-orange-300" name="heroExclamationTriangle" size="1.5em" />
+		<p class="text-slate-300">Could not load the image</p>
+	</div>
+	}
 	<div class="flex justify-evenly mt-2">
 		<label class="text-center cursor-pointer text-sky-500 hover:text-sky-300">
-			<input
-				type="file"
-				accept="image/png, image/jpeg, image/webp"
-				class="hidden"
-				(change)="handleFileInput($event)"
-			/>
+			<input type="file" accept="image/png, image/jpeg, image/webp" class="hidden"
+				(change)="handleFileInput($event)" />
 			<span class="flex items-center">
-				<ng-icon name="heroArrowUpTray" size="1.2em"></ng-icon>
-				<p class="ml-1">Replace</p>
+				<ng-icon name="heroArrowUpTray" size="1.2em" />
+				<p class="mx-2">Replace</p>
 			</span>
 		</label>
-		<button class="text-center text-red-500 hover:text-red-300"
-			(click)="removeImage()" type="button">
+		<button class="text-center text-red-500 hover:text-red-300" (click)="removeImage()" type="button">
 			<span class="flex items-center">
-				<ng-icon name="heroTrash" size="1.2em"></ng-icon>
-				<p class="ml-1">Delete</p>
+				<ng-icon name="heroTrash" size="1.2em" />
+				<p class="mx-2">Delete</p>
 			</span>
 		</button>
 	</div>
-
 	} @else {
-	<label class="hover:text-slate-400 cursor-pointer">
-		<input
-			type="file"
-			class="hidden"
-			accept="image/png, image/jpeg, image/webp"
-			(change)="handleFileInput($event)"
-		/>
-		<ng-icon name="heroPhoto" [size]="iconSize"></ng-icon>
+	<label class="cursor-pointer">
+		<input type="file" class="hidden" accept="image/png, image/jpeg, image/webp"
+			(change)="handleFileInput($event)" />
+		<ng-icon name="heroPhoto" [size]="iconSize" />
 		<p class="my-0">Add image</p>
 	</label>
 	}

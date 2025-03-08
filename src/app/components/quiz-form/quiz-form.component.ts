@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, inject, input, OnInit, output, signal } from '@angular/core';
+import { Component, inject, input, OnInit, output } from '@angular/core';
 import { Quiz } from '../../types/quiz';
 import { FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { QuizFormService } from '../../services/quiz-form.service';
@@ -8,8 +8,7 @@ import { heroPlusCircle } from '@ng-icons/heroicons/outline';
 import { heroBeakerSolid } from '@ng-icons/heroicons/solid';
 import { ImageSelectionComponent } from '../form/image-selection/image-selection.component';
 import { ThemeDropdownComponent } from '../form/theme-dropdown/theme-dropdown.component';
-import { QuestionFormComponent } from './quiz-creation-question/question-form.component';
-import { environment } from '../../../environments/environment';
+import { QuestionFormComponent } from './question-form/question-form.component';
 
 @Component({
   selector: 'app-quiz-form',
@@ -90,6 +89,5 @@ export class QuizFormComponent implements OnInit {
     this.formImage?.setValue(imageId);
     this.formImage?.markAsDirty();
     this.formImage?.markAsTouched();
-    this.form.updateValueAndValidity();
   }
 }

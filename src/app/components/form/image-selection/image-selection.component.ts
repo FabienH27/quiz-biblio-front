@@ -1,7 +1,7 @@
 import { NgClass } from '@angular/common';
 import { Component, EventEmitter, inject, Input, OnInit, Output, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { heroArrowUpTray, heroPhoto, heroTrash } from '@ng-icons/heroicons/outline';
+import { heroArrowUpTray, heroExclamationTriangle, heroPhoto, heroTrash } from '@ng-icons/heroicons/outline';
 import { ImageService } from '../../../services/image.service';
 import { environment } from '../../../../environments/environment';
 
@@ -9,7 +9,7 @@ import { environment } from '../../../../environments/environment';
   selector: 'app-image-selection',
   standalone: true,
   imports: [NgIcon, NgClass],
-  providers: [provideIcons({ heroPhoto, heroArrowUpTray, heroTrash })],
+  providers: [provideIcons({ heroPhoto, heroArrowUpTray, heroTrash, heroExclamationTriangle })],
   templateUrl: './image-selection.component.html',
   styleUrl: './image-selection.component.scss'
 })
