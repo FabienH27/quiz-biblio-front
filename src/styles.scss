@@ -40,3 +40,7 @@
         @apply bg-teal-400; 
     } 
 }
+
+.content-width{
+    @apply mx-auto max-w-screen-xl;
+}
