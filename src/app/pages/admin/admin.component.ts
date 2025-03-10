@@ -7,12 +7,13 @@ import { QuizService } from '../../services/quiz.service';
 import { Observable } from 'rxjs';
 import { QuizInfo } from '../../types/quiz-info';
 import { AsyncPipe, I18nPluralPipe } from '@angular/common';
+import { QuizListItemComponent } from "../../components/quiz-list-item/quiz-list-item.component";
 
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [ NgIconComponent, RouterLink, RouterLinkActive, AsyncPipe, I18nPluralPipe ],
+  imports: [NgIconComponent, RouterLink, RouterLinkActive, AsyncPipe, QuizListItemComponent],
   providers: [ provideIcons({ heroPlus, heroQuestionMarkCircleSolid, heroQueueList }) ],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss'
