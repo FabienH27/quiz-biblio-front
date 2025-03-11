@@ -1,6 +1,6 @@
-<div [ngClass]="color == 'primary' ? 'primary-color' : 'secondary-color' ">
+<div [ngClass]="color == 'primary' ? 'primary-color' : 'secondary-color'">
 	@if (imageId) { @if (imageSource) {
-	<img [src]="imageSource" class="max-w-96" />
+	<img [src]="imageSource" class="max-w-full p-2 max-h-64 mx-auto" />
 	} @else {
 	<div class="max-w-32 text-center mx-auto block">
 		<ng-icon class="text-orange-300" name="heroExclamationTriangle" size="1.5em" />
@@ -24,11 +24,11 @@
 		</button>
 	</div>
 	} @else {
-	<label class="cursor-pointer">
+	<label class="cursor-pointer flex items-center justify-center md:block">
 		<input type="file" class="hidden" accept="image/png, image/jpeg, image/webp"
 			(change)="handleFileInput($event)" />
 		<ng-icon name="heroPhoto" [size]="iconSize" />
-		<p class="my-0">Add image</p>
+		<p>Add image</p>
 	</label>
 	}
 </div>

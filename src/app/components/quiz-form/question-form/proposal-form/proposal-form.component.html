@@ -1,48 +1,23 @@
-<div class="flex items-center" [formGroup]="form">
-  <div>
-    <label
-      [class.selected]="isCorrect"
-      class="side-button text-teal-50 text-sm w-12 select-none"
-    >
-      <input
-        type="checkbox"
-        class="hidden"
-        [checked]="isCorrect"
-        (change)="onCorrectChange($event)"
-      />
-      <ng-icon
-        [name]="isCorrect ? 'heroCheckBadgeSolid' : 'heroCheckBadge'"
-        size="1.5em"
-        strokeWidth=".12em"
-      ></ng-icon>
-      Valid @if (!isCorrect) {?}
+<div [formGroup]="form">
+  <div class="flex justify-center items-end py-2">
+    <label [class.selected]="isCorrect" class="side-button text-teal-50 text-sm select-none">
+      <input type="checkbox" class="hidden" [checked]="isCorrect" (change)="onCorrectChange($event)" />
+      <ng-icon [name]="isCorrect ? 'heroCheckBadgeSolid' : 'heroCheckBadge'" size="1.5em" strokeWidth=".12em"
+        class="mr-1" />
+      <p>Valid @if (!isCorrect) {?}</p>
+    </label>
+    <label for="delete" class="h-auto">
+      <input type="button" id="delete" />
+      @if (proposalIndex > 1) {
+      <button class="side-button" (click)="removeProposal(proposalIndex)">
+        <ng-icon name="heroTrash" size="1.2em" strokeWidth=".12em" class="ml-2 delete-btn"></ng-icon>
+      </button>
+      }
     </label>
   </div>
-  <input
-    formControlName="text"
-    type="text"
-    [class.error]="isProposalValid"
-    [placeholder]="'Proposal ' + (proposalIndex + 1)"
-    class="proposal focus"
-  />
-  <input type="button" id="delete" />
-  <label for="delete" class="w-6">
-    @if (proposalIndex > 1) {
-    <button class="side-button" (click)="removeProposal(proposalIndex)">
-      <ng-icon
-        name="heroTrash"
-        size="1.2em"
-        strokeWidth=".12em"
-        class="ml-2 delete-btn"
-      ></ng-icon>
-    </button>
-    }
-  </label>
-</div>
-
-<div
-  class="text-red-400"
-  *ngIf="(proposal?.dirty || proposal?.touched) && proposal?.hasError('required')"
->
-  <p>Please fill in field.</p>
-</div>
+  <input formControlName="text" type="text" [class.error]="isProposalValid"
+    [placeholder]="'Proposal ' + (proposalIndex + 1)" class="proposal focus" />
+  <div class="text-red-400 text-sm text-center my-2"
+    *ngIf="(proposal?.dirty || proposal?.touched) && proposal?.hasError('required')">
+    <p>Please fill in field.</p>
+  </div>

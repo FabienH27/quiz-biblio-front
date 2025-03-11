@@ -1,8 +1,8 @@
 <section class="flex flex-col items-center lg:mt-48 mt-12">
   <section class="bg-slate-700 mx-auto py-5 px-4 lg:px-14 max-w-64 lg:max-w-sm">
-    <h1 class="text-white pb-5 text-3xl text-center">Log in</h1>
+    <h1 class=" pb-5 text-3xl text-center">Log in</h1>
     <form class="form-group" [formGroup]="loginForm" (submit)="onSubmit()">
-      <label class="text-white font-bold" for="email">Email <span class="text-red-500">*</span></label>
+      <label class="font-bold" for="email">Email <span class="text-red-500">*</span></label>
       <input
         class="form-input"
         name="email"
@@ -20,7 +20,7 @@
           <p class="text-red-500 font-semibold">Email is invalid</p>
         }
       }
-      <label class="text-white font-bold" for="email">Password <span class="text-red-500">*</span></label>
+      <label class="font-bold" for="email">Password <span class="text-red-500">*</span></label>
       <input
         class="form-input"
         type="password"
@@ -33,11 +33,11 @@
         }
       }
       <button
-        class="btn-action text-white bg-teal-500 px-8 py-3 mt-5 rounded-md hover:outline-none hover:bg-white hover:text-teal-500 block mx-auto w-full outline-none focus:bg-white focus:text-teal-500"
+        class="btn-action bg-teal-500 px-8 py-3 mt-5 rounded-md hover:outline-none hover:bg-white hover:text-teal-500 block mx-auto w-full outline-none focus:bg-white focus:text-teal-500"
       >
         Log in
       </button>
     </form>
   </section>
-  <span class="font-display text-white text-sm my-2">You don't have an account? <a routerLink="/register" class="hover:underline">Register</a></span>
+  <span class="font-display text-sm my-2">You don't have an account? <a routerLink="/register" class="hover:underline">Register</a></span>
 </section>

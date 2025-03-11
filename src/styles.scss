@@ -5,6 +5,11 @@
 @tailwind utilities;
 
 
+body{
+    @apply text-white;
+}
+
+
 .focus{
     @apply focus:outline-teal-700 focus:outline outline-none;
 
