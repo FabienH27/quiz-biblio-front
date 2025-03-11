@@ -27,7 +27,7 @@ export class PlayQuizComponent implements OnInit {
 
   quiz!: Quiz;
 
-  isQuizInProgress = false;
+  isQuizInProgress = true;
   checkStep = false;
   finalStep = false;
 
@@ -78,12 +78,12 @@ export class PlayQuizComponent implements OnInit {
     this.answers.set(updatedAnswers);
   }
 
-  @HostListener('window:beforeunload', ['$event'])
-  unloadNotification($event: BeforeUnloadEvent): void{
-    if(this.isQuizInProgress){
-      $event.preventDefault();
-    }
-  }
+  // @HostListener('window:beforeunload', ['$event'])
+  // unloadNotification($event: BeforeUnloadEvent): void{
+  //   if(this.isQuizInProgress){
+  //     $event.preventDefault();
+  //   }
+  // }
 
   get userScore(){
     const answerArray = Array.from(this.answers().values());

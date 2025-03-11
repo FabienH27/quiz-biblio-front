@@ -13,7 +13,7 @@ import { QuestionFormComponent } from './question-form/question-form.component';
 @Component({
   selector: 'app-quiz-form',
   standalone: true,
-  imports: [QuestionFormComponent, ImageSelectionComponent, ReactiveFormsModule, JsonPipe, NgIcon, NgIf, ThemeDropdownComponent],
+  imports: [QuestionFormComponent, ImageSelectionComponent, ReactiveFormsModule, NgIcon, NgIf, ThemeDropdownComponent],
   providers: [provideIcons({ heroPlusCircle, heroBeakerSolid })],
   templateUrl: './quiz-form.component.html',
   styleUrl: './quiz-form.component.scss'

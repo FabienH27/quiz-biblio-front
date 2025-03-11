@@ -5,6 +5,11 @@
 @tailwind utilities;
 
 
+body{
+    @apply text-white;
+}
+
+
 .focus{
     @apply focus:outline-teal-700 focus:outline outline-none;
 
@@ -39,4 +44,8 @@
     &::-webkit-scrollbar-thumb:hover {
         @apply bg-teal-400; 
     } 
+}
+
+.content-width{
+    @apply mx-auto max-w-screen-xl;
 }

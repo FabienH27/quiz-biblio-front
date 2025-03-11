@@ -1,8 +1,8 @@
-<div class="w-3/4 mx-auto">
+<div class="mx-auto">
     <div class="bg-slate-700 p-5 rounded-md">
-        <div class="flex items-center">
-            <img src="svg/gradient.svg" class="w-16 h-16 rounded-md">
-            <div class="ml-8">
+        <div class="md:flex text-center mx-auto items-center">
+            <img src="svg/gradient.svg" class="w-24 h-24 rounded-md mx-auto md:mx-0">
+            <div class="md:ml-8">
                 <h2 class="text-2xl">{{question().text}}</h2>
                 @if (isValidationStep()) {
                     @if (isCorrect) {
@@ -14,13 +14,13 @@
             </div>
         </div>
     
-        <div class="flex justify-evenly my-8">
+        <div class="md:flex md:justify-evenly my-8">
             @for (proposal of question().proposals; track $index) {
                 <label>
                     <input type="checkbox" class="proposal" [id]="'proposal-'+$index" [checked]="isChecked($index)" [disabled]="isValidationStep()">
-                    <span class="proposal-label" [ngClass]="getProposalClass($index)" (click)="addToAnswer($index)">
+                    <p class="proposal-label" [ngClass]="getProposalClass($index)" (click)="addToAnswer($index)">
                         {{proposal.text}}
-                    </span>
+                    </p>
                 </label>
             }
         </div>

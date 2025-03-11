@@ -1,47 +1,46 @@
-<section class="flex lg:h-screen lg:max-w-6xl items-center mx-auto">
-	<section class="lg:flex mx-auto">
-		<article class="max-w-lg mx-auto mt-8 text-center lg:text-left">
+<section class="flex items-center mx-8">
+	<section class="mx-auto lg:flex my-16 lg:items-center py-24">
+		<article class="mx-auto mt-8 text-center lg:text-left">
 			<h1
-				class="text-white text-4xl lg:text-5xl font-bold text-center lg:text-left"
+				class="font-title text-3xl font-bold lg:w-2/3"
 			>
-				Test your
+				Challenge your
 				<span class="text-teal-500">literary, cinematographic </span> and
 				<span class="text-teal-500">musical </span> culture !
 			</h1>
 			<p
-				class="font-display text-white font-normal text-sm text-center lg:text-left max-w-md my-8"
+				class="font-display font-normal text-sm my-8 lg:w-fit"
 			>
 				Develop your knowledge on different topics and test your general
 				knowledge
 			</p>
 			<a
 				href="#quiz-list"
-				class="text-slate-800 bg-teal-500 px-8 py-3 rounded-md hover:bg-white hover:text-teal-500"
+				class="font-title text-slate-800 bg-teal-500 px-8 py-3 rounded-md hover:bg-white hover:text-teal-500"
 				>Start a quiz</a
 			>
 		</article>
-		<aside class="mt-20 lg:mt-0 mx-auto lg:ml-40">
-			<img src="images/illustration.png" alt="app demo" width="450px" />
+		<aside class="my-20 mx-auto lg:ml-40 max-w-72">
+			<img src="images/illustration.png" alt="app demo" />
 		</aside>
 	</section>
 </section>
 
-<section class="bg-slate-700 pt-8 pb-52">
+<section class="bg-slate-700 pt-8 pb-52 mx-auto">
 	<div class="container mx-auto">
-		<h1 class="text-white text-4xl text-center">
+		<h1 class="text-xl text-center" id="quiz-list">
 			Play quizzes of your choice !
 		</h1>
         <div class="flex gap-8 mt-8 justify-center w-1/2 mx-auto">
             @for (quiz of quizzes$ | async; track $index) {
-                <app-quiz-list-item [quiz]="quiz">
+                <app-quiz-list-item [quiz]="quiz" [targetRoute]="['/play',quiz.id]" color="dark">
 					<quiz-actions>actions</quiz-actions>
 				</app-quiz-list-item>
             } @empty {
             <article
                 class="font-display p-2 mt-8 mx-auto flex justify-center flex-wrap"
-                id="quiz-list"
             >
-                <p class="text-white">No quiz available.</p>
+                <p class="">No quiz available.</p>
             </article>
             }
         </div>

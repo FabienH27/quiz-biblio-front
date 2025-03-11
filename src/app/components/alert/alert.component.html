@@ -1,16 +1,7 @@
 @if (visible) {
 <div
-  [ngClass]="[
-    'flex',
-    'items-center',
-    'p-4',
-    'mb-4',
-    'text-sm',
-    'border',
-    'rounded-lg',
-    'alert',
-    'alert-' + level
-  ]"
+  class="flex items-center p-4 mb-4 text-sm border-collapse rounded-lg alert z-50"
+  [ngClass]="['alert-' + level]"
   [@alertAnimation]="visible ? 'visible' : 'hidden'"
   role="alert"
 >
