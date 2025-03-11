@@ -1,25 +1,29 @@
-<h1 class="text-center text-2xl text-teal-200">You have completed the quiz</h1>
+<h1 class="text-center text-2xl text-teal-200 mx-2">You have completed the quiz</h1>
 <p class="text-center my-2">With a score of {{userScore()}} / {{quiz().questions.length}}</p>
 
 @for (answer of answers(); track $index) {
-    <div class="flex justify-center items-center mt-4">
-        <div class="mr-4 text-teal-500">
-            <p>Question</p>
-            <p class="text-center text-4xl">#{{getIndex($index)}} </p>
+<div class="md:flex justify-center items-center mt-4">
+    <div class="mr-4 mb-2 text-teal-500 text-center">
+        <p>Question</p>
+        <p class="text-center text-4xl">#{{getIndex($index)}} </p>
+    </div>
+    @let question = getQuestionByIndex($index);
+    <div class="md:flex w-full justify-between md:w-2/3 bg-slate-700 px-8 py-4 rounded-xl">
+        <div>
+            <p class="text-xl">{{question?.text}}</p>
+            <p class="text-slate-300">{{question?.details}}</p>
         </div>
-        @let question = getQuestionByIndex($index);
-        <div class="flex justify-between w-2/3 bg-slate-700 px-8 py-4 rounded-xl">
-            <div>
-                <p class="text-xl">{{question?.text}}</p>
-                <p class="text-slate-300">{{question?.details}}</p>
-            </div>
-            <div class="text-right">
-                <p class="text-slate-300">You answered : <span [ngClass]="isAnswerCorrect($index) ? 'text-teal-500' : 'text-red-500'">{{getSelectionForQuestion($index)}}</span></p>
-                <ng-icon size="2em" [ngClass]="isAnswerCorrect($index) ? 'text-teal-500' : 'text-red-500'" class="mt-2" 
-                    [name]="isAnswerCorrect($index) ? 'heroCheckCircle' : 'heroXMark'"></ng-icon>
-            </div>
+        <div class="text-right flex items-center justify-between">
+            <p class="text-slate-300">You answered : <span
+                    [ngClass]="isAnswerCorrect($index) ? 'text-teal-500' : 'text-red-500'">{{getSelectionForQuestion($index)}}</span>
+            </p>
+            <ng-icon size="2em" [ngClass]="isAnswerCorrect($index) ? 'text-teal-500' : 'text-red-500'" class="mt-2"
+                [name]="isAnswerCorrect($index) ? 'heroCheckCircle' : 'heroXMark'"></ng-icon>
         </div>
     </div>
+</div>
 }
 
-<a [routerLink]="['/']" class="text-center bg-teal-700 text-teal-50 px-8 py-6 rounded-xl block w-fit mx-auto cursor-pointer mt-24 hover:bg-teal-500">Back to homepage</a> 
+<a [routerLink]="['/']"
+    class="text-center bg-teal-500 text-teal-50 px-8 py-6 rounded-xl block w-fit mx-auto cursor-pointer mt-24 hover:bg-teal-300">Back
+    to homepage</a>

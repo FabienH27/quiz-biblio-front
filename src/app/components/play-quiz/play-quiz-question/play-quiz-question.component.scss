@@ -1,15 +1,15 @@
 .proposal{
     display: none;
 
-    &:checked+span{
+    &:checked+p{
         @apply outline-teal-500 outline-4 outline outline-offset-2;
     }
 
-    &:not(:checked):not(:disabled):hover+span{
+    &:not(:checked):not(:disabled):hover+p{
         @apply outline-blue-400 outline-2 outline outline-offset-2;
     }
 }
 
 .proposal-label{
-    @apply px-12 py-4 rounded-md transition-colors cursor-pointer;
+    @apply px-12 py-4 text-center my-4 rounded-md transition-colors cursor-pointer;
 }

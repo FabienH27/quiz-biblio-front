@@ -1,7 +1,7 @@
-<div class="lg:max-w-6xl mx-auto mt-8">
-    <div class="flex items-center ml-16">
-        <img src="svg/gradient.svg" class="rounded-full w-32 h-32" />
-        <div class="ml-8 flex-grow">
+<div class="max-w-screen-lg mx-auto mt-12">
+    <div class="md:flex text-center md:text-left justify-center mx-auto items-center md:ml-16">
+        <img src="svg/gradient.svg" class="rounded-full mx-auto w-32 h-32" />
+        <div class="md:ml-8 flex-grow">
             <h1 class="text-3xl text-slate-300">{{ quiz.title }}</h1>
             <p class="text-lg text-slate-500 block">
                 Theme{{quiz.themes.length>1 ? 's': ''}} : {{ quiz.themes.join(", ") }}
@@ -17,15 +17,15 @@
             Start quiz !
         </button>
         }@else if (finalStep){
-            {{answers | json }}
-            <app-play-final-step [answers]="answers()" [quiz]="quiz" [userScore]="userScore"></app-play-final-step>
+        {{answers | json }}
+        <app-play-final-step [answers]="answers()" [quiz]="quiz" [userScore]="userScore"></app-play-final-step>
         }
         @else {
-        <app-play-quiz-question #question [question]="currentQuestion" (answerChange)="onAnswerChange($event)" [isValidationStep]="checkStep"></app-play-quiz-question>
+        <app-play-quiz-question #question [question]="currentQuestion" (answerChange)="onAnswerChange($event)"
+            [isValidationStep]="checkStep"></app-play-quiz-question>
 
-        <button (click)="checkStep ? nextQuestion() : validateQuiz()" type="button"
-            [disabled]="!hasAnswered"
-            class="bg-teal-500 px-8 py-4 rounded-lg block !:disabled:hover:bg-teal-400 ml-auto mt-8 disabled:bg-teal-800 disabled:text-slate-800">
+        <button (click)="checkStep ? nextQuestion() : validateQuiz()" type="button" [disabled]="!hasAnswered"
+            class="bg-teal-500 px-8 py-4 rounded-lg block !:disabled:hover:bg-teal-400 md:ml-auto mx-auto my-8 disabled:bg-teal-800 disabled:text-slate-800">
             <ng-icon [name]="checkStep ? 'heroForwardSolid' : 'heroCheckSolid' "></ng-icon>
             {{ checkStep ? 'Next' : 'Validate' }}
         </button>
