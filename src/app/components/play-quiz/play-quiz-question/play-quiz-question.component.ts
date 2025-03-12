@@ -1,4 +1,4 @@
-import { Component, EventEmitter, input, Output } from '@angular/core';
+import { Component, EventEmitter, input, OnInit, Output } from '@angular/core';
 import { Question } from '../../../types/quiz';
 import { NgClass } from '@angular/common';
 import { Answer } from '../../../types/answer';
@@ -20,6 +20,12 @@ export class PlayQuizQuestionComponent {
 
   @Output() answerChange = new EventEmitter<Answer>();
 
+  get isCorrect(){
+    return this.selectedProposals.length === this.question().correctProposalIds.length &&
+    this.question().correctProposalIds.every(value => this.selectedProposals.includes(value));
+  }
+
+  
   addToAnswer(proposalIndex: number) {
     if(this.isValidationStep()){
       return;
@@ -35,11 +41,6 @@ export class PlayQuizQuestionComponent {
     const answer: Answer = { isCorrect: this.isCorrect, value: this.selectedProposals };
 
     this.answerChange.emit(answer);
-  }
-
-  get isCorrect(){
-    return this.selectedProposals.length === this.question().correctProposalIds.length &&
-    this.question().correctProposalIds.every(value => this.selectedProposals.includes(value));
   }
 
   isAnswerCorrect(index: number) {

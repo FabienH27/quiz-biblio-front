@@ -1,4 +1,4 @@
-import { JsonPipe } from '@angular/common';
+import { AsyncPipe, JsonPipe } from '@angular/common';
 import { Component, HostListener, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
@@ -8,11 +8,14 @@ import { PlayQuizQuestionComponent } from '../../components/play-quiz/play-quiz-
 import { Answer } from '../../types/answer';
 import { Quiz } from '../../types/quiz';
 import { UserScoreService } from '../../services/user-score.service';
+import { FireStorageService } from '../../services/fire-storage.service';
+import { ImageService } from '../../services/image.service';
+import { filter, Observable, of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-play-quiz',
   standalone: true,
-  imports: [NgIconComponent, PlayQuizQuestionComponent, PlayFinalStepComponent, JsonPipe],
+  imports: [NgIconComponent, PlayQuizQuestionComponent, PlayFinalStepComponent, AsyncPipe],
   providers: [provideIcons({ heroPlaySolid, heroForwardSolid, heroCheckSolid })],
   templateUrl: './play-quiz.component.html',
   styleUrl: './play-quiz.component.scss'
@@ -20,8 +23,9 @@ import { UserScoreService } from '../../services/user-score.service';
 export class PlayQuizComponent implements OnInit {
 
   private activatedRoute = inject(ActivatedRoute);
-
   private scoreService = inject(UserScoreService);
+  private imageService = inject(ImageService);
+  private fireStorage = inject(FireStorageService);
 
   @ViewChild('question') questionComponent!: PlayQuizQuestionComponent;
 
@@ -35,6 +39,8 @@ export class PlayQuizComponent implements OnInit {
 
   answers = signal<Map<string, Answer>>(new Map<string, Answer>());
 
+  imageUrl$!: Observable<string | null>;
+
   get currentQuestion() {
     return this.quiz.questions.at(this.currentStep())!;
   }
@@ -47,16 +53,34 @@ export class PlayQuizComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ quiz: quizData }) => {
       this.quiz = quizData;
     });
+    this.imageUrl$ = this.loadImage();
+  }
+
+  loadImage() {
+    if(!this.quiz.imageId){
+      return of('');
+    }
+
+    return this.imageService.getImage(this.quiz.imageId).pipe(
+      filter(x => !!x.originalUrl),
+      switchMap((response) => {
+        let url = response.resizedUrl;
+        if (!url) {
+          url = response.originalUrl;
+        }
+        return this.fireStorage.getImage(url);
+      })
+    );
   }
 
   nextQuestion() {
-    if(this.hasAnswered){
+    if (this.hasAnswered) {
       //More questions to proceed
-      if((this.currentStep()+1) < this.quiz.questions.length){
+      if ((this.currentStep() + 1) < this.quiz.questions.length) {
         this.currentStep.update(value => value + 1);
         this.checkStep = false;
         this.questionComponent.resetChoice();
-      }else{
+      } else {
         this.finalStep = true;
         this.isQuizInProgress = false;
         this.scoreService.saveUserScore(this.userScore).subscribe();
@@ -74,7 +98,7 @@ export class PlayQuizComponent implements OnInit {
 
   onAnswerChange(answer: Answer) {
     const updatedAnswers = new Map(this.answers());
-    updatedAnswers.set(this.currentStep().toString(), answer); 
+    updatedAnswers.set(this.currentStep().toString(), answer);
     this.answers.set(updatedAnswers);
   }
 
@@ -85,7 +109,7 @@ export class PlayQuizComponent implements OnInit {
   //   }
   // }
 
-  get userScore(){
+  get userScore() {
     const answerArray = Array.from(this.answers().values());
     return answerArray.filter((obj) => obj.isCorrect).length;
   }
