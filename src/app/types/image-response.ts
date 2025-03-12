@@ -1,5 +1,6 @@
 export type ImageResponse = {
     id: string;
-    url: string;
+    originalUrl: string;
+    resizedUrl: string;
     createdAt: Date;
 }

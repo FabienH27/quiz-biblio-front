@@ -27,4 +27,8 @@ export class ImageService {
       .pipe(catchError(err => { console.error(err); throw err }));
   }
 
+  constructUrl(path: string){
+    return environment.bucketUrl + path;
+  }
+
 }

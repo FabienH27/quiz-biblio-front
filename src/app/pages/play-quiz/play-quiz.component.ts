@@ -27,7 +27,7 @@ export class PlayQuizComponent implements OnInit {
 
   quiz!: Quiz;
 
-  isQuizInProgress = true;
+  isQuizInProgress = false;
   checkStep = false;
   finalStep = false;
 

@@ -57,7 +57,7 @@ export class ImageSelectionComponent implements OnInit {
 
   loadImage(imageId: string) {
     this.imageService.getImage(imageId).subscribe(response => {
-      this.imageUrl.set(response.url);
+      this.imageUrl.set(response.originalUrl);
     })
   }
 
