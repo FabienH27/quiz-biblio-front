@@ -14,7 +14,7 @@ import { heroBars3BottomRight, heroXMark } from '@ng-icons/heroicons/outline';
     imports: [RouterLink, RouterLinkActive, IsGrantedDirective, AsyncPipe, NgIconComponent],
     providers: [provideIcons({ heroXMark, heroBars3BottomRight })],
     templateUrl: './menu.component.html',
-    styleUrl: './menu.component.scss'
+    styleUrl: './menu.component.css'
 })
 export class MenuComponent {
 

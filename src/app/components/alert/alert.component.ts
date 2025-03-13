@@ -7,7 +7,7 @@ import { trigger, transition, style, animate, state } from '@angular/animations'
     selector: 'app-alert',
     imports: [NgClass],
     templateUrl: './alert.component.html',
-    styleUrl: './alert.component.scss',
+    styleUrl: './alert.component.css',
     animations: [
         trigger('alertAnimation', [
             state('visible', style({

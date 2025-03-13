@@ -5,6 +5,7 @@
 .checkbox{
     @apply appearance-none;
     @apply border-2 border-slate-500;
+    
     width: 20px;
     height: 20px;
     display: grid;
@@ -17,6 +18,7 @@
         transform: scale(0);
         transition: 120ms transform ease-in-out;
         box-shadow: inset 10px 10px;
+
         @apply text-teal-500;
     }
 

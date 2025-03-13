@@ -1,0 +1,21 @@
+.alert {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+.alert-error {
+    @apply dark:bg-red-950 dark:text-red-400 dark:border-red-800;
+}
+
+.alert-info {
+    @apply dark:bg-blue-950 dark:text-blue-400 dark:border-blue-800;
+}
+
+.alert-warning {
+    @apply dark:bg-amber-950 dark:text-amber-400 dark:border-amber-800;
+}
+
+.alert-success {
+    @apply dark:bg-teal-950 dark:text-teal-400 dark:border-teal-800;
+}

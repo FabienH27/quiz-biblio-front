@@ -12,7 +12,7 @@ import { ProposalFormComponent } from './proposal-form/proposal-form.component';
     imports: [ProposalFormComponent, ImageSelectionComponent, NgIcon, ReactiveFormsModule, NgIf, NgClass],
     providers: [provideIcons({ heroPlusCircle, heroTrash })],
     templateUrl: 'question-form.component.html',
-    styleUrl: './question-form.component.scss'
+    styleUrl: './question-form.component.css'
 })
 export class QuestionFormComponent implements OnInit {
 

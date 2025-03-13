@@ -10,7 +10,7 @@ import { QuizListItemComponent } from "../../components/quiz-list-item/quiz-list
     imports: [AsyncPipe, QuizListItemComponent],
     providers: [],
     templateUrl: './home.component.html',
-    styleUrl: './home.component.scss',
+    styleUrl: './home.component.css',
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomeComponent implements OnInit {

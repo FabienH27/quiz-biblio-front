@@ -9,7 +9,7 @@ import { ImageService } from '../../../services/image.service';
     selector: 'app-play-quiz-question',
     imports: [NgClass, AsyncPipe],
     templateUrl: './play-quiz-question.component.html',
-    styleUrl: './play-quiz-question.component.scss'
+    styleUrl: './play-quiz-question.component.css'
 })
 export class PlayQuizQuestionComponent implements OnInit {
 

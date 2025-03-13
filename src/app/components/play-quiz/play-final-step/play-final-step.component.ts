@@ -11,7 +11,7 @@ import { RouterLink } from '@angular/router';
     imports: [NgIconComponent, NgClass, RouterLink],
     providers: [provideIcons({ heroCheckCircle, heroXMark })],
     templateUrl: './play-final-step.component.html',
-    styleUrl: './play-final-step.component.scss'
+    styleUrl: './play-final-step.component.css'
 })
 export class PlayFinalStepComponent {
 

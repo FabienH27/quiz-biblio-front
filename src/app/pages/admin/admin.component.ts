@@ -15,7 +15,7 @@ import { QuizListItemComponent } from "../../components/quiz-list-item/quiz-list
     imports: [NgIconComponent, RouterLink, RouterLinkActive, AsyncPipe, QuizListItemComponent],
     providers: [provideIcons({ heroPlus, heroQuestionMarkCircleSolid, heroQueueList })],
     templateUrl: './admin.component.html',
-    styleUrl: './admin.component.scss'
+    styleUrl: './admin.component.css'
 })
 export class AdminComponent implements OnInit {
 

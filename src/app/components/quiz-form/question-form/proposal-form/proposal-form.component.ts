@@ -10,7 +10,7 @@ import { NgIf } from '@angular/common';
     imports: [NgIcon, ReactiveFormsModule, NgIf],
     providers: [provideIcons({ heroTrash, heroCheckBadge, heroCheckBadgeSolid })],
     templateUrl: './proposal-form.component.html',
-    styleUrl: './proposal-form.component.scss'
+    styleUrl: './proposal-form.component.css'
 })
 export class ProposalFormComponent implements OnInit {
 

@@ -1,7 +1,5 @@
 {
     "extends": [
-      "stylelint-config-standard-scss",
-      "stylelint-config-tailwindcss"
     ],
     "rules": {
       "at-rule-no-unknown": [
@@ -17,7 +15,6 @@
           ]
         }
       ],
-      "scss/at-rule-no-unknown": null,
       "no-descending-specificity": null,
       "block-no-empty": null,
       "no-empty-source": null
