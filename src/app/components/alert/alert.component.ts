@@ -4,36 +4,29 @@ import { AlertService } from '../../services/alert.service';
 import { trigger, transition, style, animate, state } from '@angular/animations';
 
 @Component({
-  selector: 'app-alert',
-  standalone: true,
-  imports: [NgClass],
-  templateUrl: './alert.component.html',
-  styleUrl: './alert.component.scss',
-  animations: [
-    trigger('alertAnimation', [
-      state(
-        'visible',
-        style({
-          opacity: 1,
-          transform: 'translateY(0)',
-        })
-      ),
-      state(
-        'hidden',
-        style({
-          opacity: 0,
-          transform: 'translateY(-20px)',
-        })
-      ),
-      transition(':enter', [
-        style({ opacity: 0, transform: 'translateX(20px)' }),
-        animate('200ms ease-out'),
-      ]),
-      transition(':leave', [
-        animate('200ms ease-in', style({ opacity: 0, transform: 'translateY(-10px)' })),
-      ])
-    ]),
-  ]
+    selector: 'app-alert',
+    imports: [NgClass],
+    templateUrl: './alert.component.html',
+    styleUrl: './alert.component.scss',
+    animations: [
+        trigger('alertAnimation', [
+            state('visible', style({
+                opacity: 1,
+                transform: 'translateY(0)',
+            })),
+            state('hidden', style({
+                opacity: 0,
+                transform: 'translateY(-20px)',
+            })),
+            transition(':enter', [
+                style({ opacity: 0, transform: 'translateX(20px)' }),
+                animate('200ms ease-out'),
+            ]),
+            transition(':leave', [
+                animate('200ms ease-in', style({ opacity: 0, transform: 'translateY(-10px)' })),
+            ])
+        ]),
+    ]
 })
 export class AlertComponent implements OnInit {
   timeoutId: any;

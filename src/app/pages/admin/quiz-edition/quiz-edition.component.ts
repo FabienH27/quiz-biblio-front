@@ -9,11 +9,10 @@ import { Quiz } from '../../../types/quiz';
 
 
 @Component({
-  selector: 'app-quiz-edition',
-  standalone: true,
-  imports: [QuizFormComponent, AsyncPipe, RouterLink],
-  templateUrl: './quiz-edition.component.html',
-  styleUrl: './quiz-edition.component.scss'
+    selector: 'app-quiz-edition',
+    imports: [QuizFormComponent, AsyncPipe, RouterLink],
+    templateUrl: './quiz-edition.component.html',
+    styleUrl: './quiz-edition.component.scss'
 })
 export class QuizEditionComponent {
 

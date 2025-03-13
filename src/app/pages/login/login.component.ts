@@ -13,11 +13,10 @@ import { AlertService } from '../../services/alert.service';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [ReactiveFormsModule, RouterModule],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+    selector: 'app-login',
+    imports: [ReactiveFormsModule, RouterModule],
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.scss'
 })
 export class LoginComponent {
   authService = inject(AuthService);

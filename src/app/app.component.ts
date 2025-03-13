@@ -4,11 +4,10 @@ import { AlertComponent } from "./components/alert/alert.component";
 import { MenuComponent } from './components/menu/menu.component';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, MenuComponent, AlertComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+    selector: 'app-root',
+    imports: [RouterOutlet, MenuComponent, AlertComponent],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'quizbiblio-front';

@@ -8,12 +8,11 @@ import { ImageSelectionComponent } from '../../form/image-selection/image-select
 import { ProposalFormComponent } from './proposal-form/proposal-form.component';
 
 @Component({
-  selector: 'create-question',
-  standalone: true,
-  imports: [ProposalFormComponent, ImageSelectionComponent, NgIcon, ReactiveFormsModule, NgIf, NgClass],
-  providers: [provideIcons({ heroPlusCircle, heroTrash })],
-  templateUrl: 'question-form.component.html',
-  styleUrl: './question-form.component.scss'
+    selector: 'create-question',
+    imports: [ProposalFormComponent, ImageSelectionComponent, NgIcon, ReactiveFormsModule, NgIf, NgClass],
+    providers: [provideIcons({ heroPlusCircle, heroTrash })],
+    templateUrl: 'question-form.component.html',
+    styleUrl: './question-form.component.scss'
 })
 export class QuestionFormComponent implements OnInit {
 

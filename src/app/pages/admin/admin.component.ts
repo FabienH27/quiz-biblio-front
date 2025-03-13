@@ -11,12 +11,11 @@ import { QuizListItemComponent } from "../../components/quiz-list-item/quiz-list
 
 
 @Component({
-  selector: 'app-admin',
-  standalone: true,
-  imports: [NgIconComponent, RouterLink, RouterLinkActive, AsyncPipe, QuizListItemComponent],
-  providers: [ provideIcons({ heroPlus, heroQuestionMarkCircleSolid, heroQueueList }) ],
-  templateUrl: './admin.component.html',
-  styleUrl: './admin.component.scss'
+    selector: 'app-admin',
+    imports: [NgIconComponent, RouterLink, RouterLinkActive, AsyncPipe, QuizListItemComponent],
+    providers: [provideIcons({ heroPlus, heroQuestionMarkCircleSolid, heroQueueList })],
+    templateUrl: './admin.component.html',
+    styleUrl: './admin.component.scss'
 })
 export class AdminComponent implements OnInit {
 

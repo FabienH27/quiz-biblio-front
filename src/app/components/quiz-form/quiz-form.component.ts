@@ -11,12 +11,11 @@ import { ThemeDropdownComponent } from '../form/theme-dropdown/theme-dropdown.co
 import { QuestionFormComponent } from './question-form/question-form.component';
 
 @Component({
-  selector: 'app-quiz-form',
-  standalone: true,
-  imports: [QuestionFormComponent, ImageSelectionComponent, ReactiveFormsModule, NgIcon, NgIf, ThemeDropdownComponent],
-  providers: [provideIcons({ heroPlusCircle, heroBeakerSolid })],
-  templateUrl: './quiz-form.component.html',
-  styleUrl: './quiz-form.component.scss'
+    selector: 'app-quiz-form',
+    imports: [QuestionFormComponent, ImageSelectionComponent, ReactiveFormsModule, NgIcon, NgIf, ThemeDropdownComponent],
+    providers: [provideIcons({ heroPlusCircle, heroBeakerSolid })],
+    templateUrl: './quiz-form.component.html',
+    styleUrl: './quiz-form.component.scss'
 })
 export class QuizFormComponent implements OnInit {
 

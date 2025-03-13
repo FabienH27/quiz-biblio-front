@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, provideZoneChangeDetection, inject, provideAppInitializer } from '@angular/core';
 import { provideRouter, Router, withComponentInputBinding } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { routes } from './app.routes';
@@ -30,7 +30,10 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, withComponentInputBinding()),
     provideHttpClient(withInterceptors([authInterceptor])),
     provideAnimationsAsync(),
-    { provide: APP_INITIALIZER, useFactory: preloadRoles, deps: [RbacService, Router], multi: true }, 
+    provideAppInitializer(() => {
+        const initializerFn = (preloadRoles)(inject(RbacService), inject(Router));
+        return initializerFn();
+      }), 
     provideFirebaseApp(() => initializeApp({storageBucket: environment.bucketName})), 
     provideStorage(() => getStorage())
   ],

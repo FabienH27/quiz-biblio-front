@@ -7,12 +7,11 @@ import { NgClass } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-play-final-step',
-  standalone: true,
-  imports: [NgIconComponent, NgClass, RouterLink],
-  providers: [provideIcons({heroCheckCircle, heroXMark})],
-  templateUrl: './play-final-step.component.html',
-  styleUrl: './play-final-step.component.scss'
+    selector: 'app-play-final-step',
+    imports: [NgIconComponent, NgClass, RouterLink],
+    providers: [provideIcons({ heroCheckCircle, heroXMark })],
+    templateUrl: './play-final-step.component.html',
+    styleUrl: './play-final-step.component.scss'
 })
 export class PlayFinalStepComponent {
 
