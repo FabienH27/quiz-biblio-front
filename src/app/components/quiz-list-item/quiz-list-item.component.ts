@@ -12,7 +12,7 @@ import { QuizInfo } from '../../types/quiz-info';
     imports: [NgIconComponent, I18nPluralPipe, RouterLink, NgClass, AsyncPipe],
     providers: [provideIcons({ heroQueueList })],
     templateUrl: './quiz-list-item.component.html',
-    styleUrl: './quiz-list-item.component.scss'
+    styleUrl: './quiz-list-item.component.css'
 })
 export class QuizListItemComponent implements OnInit {
 

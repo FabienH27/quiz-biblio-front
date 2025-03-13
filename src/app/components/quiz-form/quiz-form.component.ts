@@ -15,7 +15,7 @@ import { QuestionFormComponent } from './question-form/question-form.component';
     imports: [QuestionFormComponent, ImageSelectionComponent, ReactiveFormsModule, NgIcon, NgIf, ThemeDropdownComponent],
     providers: [provideIcons({ heroPlusCircle, heroBeakerSolid })],
     templateUrl: './quiz-form.component.html',
-    styleUrl: './quiz-form.component.scss'
+    styleUrl: './quiz-form.component.css'
 })
 export class QuizFormComponent implements OnInit {
 

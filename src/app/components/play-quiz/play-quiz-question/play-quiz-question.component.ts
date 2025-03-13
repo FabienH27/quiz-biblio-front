@@ -9,7 +9,7 @@ import { ImageService } from '../../../services/image.service';
     selector: 'app-play-quiz-question',
     imports: [NgClass, AsyncPipe],
     templateUrl: './play-quiz-question.component.html',
-    styleUrl: './play-quiz-question.component.scss'
+    styleUrl: './play-quiz-question.component.css'
 })
 export class PlayQuizQuestionComponent implements OnInit {
 
@@ -79,7 +79,7 @@ export class PlayQuizQuestionComponent implements OnInit {
     }
 
     if (userSelected && !isCorrect) {
-      return [...baseClass, '!outline-red-500'];
+      return [...baseClass, 'outline-red-500!'];
     }
 
     return baseClass;

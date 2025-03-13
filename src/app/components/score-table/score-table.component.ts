@@ -5,7 +5,7 @@ import { UserScore } from '../../types/user-score';
     selector: 'app-score-table',
     imports: [],
     templateUrl: './score-table.component.html',
-    styleUrl: './score-table.component.scss'
+    styleUrl: './score-table.component.css'
 })
 export class ScoreTableComponent {
 

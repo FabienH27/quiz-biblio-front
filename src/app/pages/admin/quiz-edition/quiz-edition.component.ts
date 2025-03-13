@@ -12,7 +12,7 @@ import { Quiz } from '../../../types/quiz';
     selector: 'app-quiz-edition',
     imports: [QuizFormComponent, AsyncPipe, RouterLink],
     templateUrl: './quiz-edition.component.html',
-    styleUrl: './quiz-edition.component.scss'
+    styleUrl: './quiz-edition.component.css'
 })
 export class QuizEditionComponent {
 

@@ -11,7 +11,7 @@ import { filter, Observable, switchMap } from 'rxjs';
     imports: [NgIcon, NgClass, AsyncPipe],
     providers: [provideIcons({ heroPhoto, heroArrowUpTray, heroTrash, heroExclamationTriangle })],
     templateUrl: './image-selection.component.html',
-    styleUrl: './image-selection.component.scss'
+    styleUrl: './image-selection.component.css'
 })
 export class ImageSelectionComponent implements OnInit {
 

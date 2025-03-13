@@ -1,14 +1,12 @@
-import { Component } from '@angular/core';
-import { inject } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, ActivatedRouteSnapshot, Router, RouterModule } from '@angular/router';
-import { Observable, switchMap, tap } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AlertService } from '../../services/alert.service';
 import { AuthService } from '../../services/auth.service';
 
@@ -16,7 +14,7 @@ import { AuthService } from '../../services/auth.service';
     selector: 'app-login',
     imports: [ReactiveFormsModule, RouterModule],
     templateUrl: './login.component.html',
-    styleUrl: './login.component.scss'
+    styleUrl: './login.component.css'
 })
 export class LoginComponent {
   authService = inject(AuthService);

@@ -16,7 +16,7 @@ import { heroArrowDown, heroArrowUp, heroXMark } from '@ng-icons/heroicons/outli
         },
     ],
     templateUrl: './multiselect.component.html',
-    styleUrl: './multiselect.component.scss'
+    styleUrl: './multiselect.component.css'
 })
 export class MultiSelectComponent implements ControlValueAccessor {
 

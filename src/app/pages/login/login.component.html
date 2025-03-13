@@ -4,13 +4,15 @@
     <form class="form-group" [formGroup]="loginForm" (submit)="onSubmit()">
       <label class="font-bold" for="email">Email <span class="text-red-500">*</span></label>
       <input
-        class="form-input"
+        class="placeholder-slate-600 bg-slate-800 outline-none my-3"
         name="email"
         type="email"
+        id="email"
         formControlName="email"
         placeholder="Email"
         required
         autofocus
+        autocomplete="email"
       />
       @if (email?.invalid && (email?.dirty && email?.touched)) {
         @if (email?.hasError('required')) {
@@ -20,12 +22,14 @@
           <p class="text-red-500 font-semibold">Email is invalid</p>
         }
       }
-      <label class="font-bold" for="email">Password <span class="text-red-500">*</span></label>
+      <label class="font-bold" for="password">Password <span class="text-red-500">*</span></label>
       <input
-        class="form-input"
+        class="placeholder-slate-600 bg-slate-800 outline-none my-3"
         type="password"
+        id="password"
         formControlName="password"
         placeholder="Password"
+        autocomplete="current-password"
       />
       @if (password?.invalid && (password?.dirty && password?.touched)) {
         @if (password?.hasError('required')) {
@@ -33,7 +37,7 @@
         }
       }
       <button
-        class="btn-action bg-teal-500 px-8 py-3 mt-5 rounded-md hover:outline-none hover:bg-white hover:text-teal-500 block mx-auto w-full outline-none focus:bg-white focus:text-teal-500"
+        class="btn-action bg-teal-500 px-8 py-3 mt-5 rounded-md hover:outline-hidden hover:bg-white hover:text-teal-500 block mx-auto w-full outline-hidden focus:bg-white focus:text-teal-500"
       >
         Log in
       </button>

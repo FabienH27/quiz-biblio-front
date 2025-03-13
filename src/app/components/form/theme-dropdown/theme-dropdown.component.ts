@@ -12,7 +12,7 @@ import { heroPuzzlePiece } from '@ng-icons/heroicons/outline';
     imports: [ReactiveFormsModule, MultiSelectComponent, AsyncPipe, NgIcon],
     providers: [provideIcons({ heroPuzzlePiece })],
     templateUrl: './theme-dropdown.component.html',
-    styleUrl: './theme-dropdown.component.scss'
+    styleUrl: './theme-dropdown.component.css'
 })
 export class ThemeDropdownComponent implements OnInit, OnDestroy {
 

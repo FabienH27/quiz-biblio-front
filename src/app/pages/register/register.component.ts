@@ -7,7 +7,7 @@ import { AuthService } from '../../services/auth.service';
     selector: 'app-register',
     imports: [ReactiveFormsModule, RouterModule],
     templateUrl: './register.component.html',
-    styleUrl: './register.component.scss'
+    styleUrl: './register.component.css'
 })
 export class RegisterComponent {
 

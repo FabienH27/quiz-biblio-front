@@ -16,7 +16,7 @@ import { Quiz } from '../../types/quiz';
     imports: [NgIconComponent, PlayQuizQuestionComponent, PlayFinalStepComponent, AsyncPipe],
     providers: [provideIcons({ heroPlaySolid, heroForwardSolid, heroCheckSolid })],
     templateUrl: './play-quiz.component.html',
-    styleUrl: './play-quiz.component.scss'
+    styleUrl: './play-quiz.component.css'
 })
 export class PlayQuizComponent implements OnInit {
 

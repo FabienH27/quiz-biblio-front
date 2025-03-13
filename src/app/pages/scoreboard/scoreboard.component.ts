@@ -9,7 +9,7 @@ import { AsyncPipe } from '@angular/common';
     selector: 'app-scoreboard',
     imports: [ScoreTableComponent, AsyncPipe],
     templateUrl: './scoreboard.component.html',
-    styleUrl: './scoreboard.component.scss'
+    styleUrl: './scoreboard.component.css'
 })
 export class ScoreboardComponent implements OnInit {
 

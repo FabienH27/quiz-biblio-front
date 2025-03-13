@@ -21,9 +21,13 @@
         <div class="md:flex md:justify-evenly my-8">
             @for (proposal of question().proposals; track $index) {
             <label>
-                <input type="checkbox" class="proposal" [id]="'proposal-'+$index" [checked]="isChecked($index)"
+                <input type="checkbox" class="peer hidden" [id]="'proposal-'+$index" [checked]="isChecked($index)"
                     [disabled]="isValidationStep()">
-                <p class="proposal-label" [ngClass]="getProposalClass($index)" (click)="addToAnswer($index)">
+                <p class="px-12 py-4 text-center my-4 rounded-md transition-colors cursor-pointer
+                    outline-blue-400 peer-hover:bg-slate-400 outline-offset-2
+                    peer-checked:outline-teal-500 peer-checked:outline-2
+                
+                    " [ngClass]="getProposalClass($index)" (click)="addToAnswer($index)">
                     {{proposal.text}}
                 </p>
             </label>

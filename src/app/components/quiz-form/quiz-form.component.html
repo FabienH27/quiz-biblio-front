@@ -1,6 +1,6 @@
 <form
 	[formGroup]="form"
-	class="my-4 max-w-screen-lg mx-auto"
+	class="my-4 max-w-(--breakpoint-lg) mx-auto"
 	(ngSubmit)="onSubmit()"
 >
 	<div class="text-center md:flex justify-evenly items-center">
@@ -16,8 +16,8 @@
 				id="title"
 				formControlName="title"
 				placeholder="Quiz title"
-				class="p-4 w-full bg-slate-700 text-lg focus placeholder-slate-500"
-				[class.error]="isTitleValid"
+				class="p-4 w-full bg-slate-700 text-lg focus:outline-teal-700 focus:outline outline-hidden placeholder-slate-500"
+				[class.outline-red-400]="isTitleValid"
 				maxlength="110"
 			></textarea>
 			<div class="text-red-400" *ngIf="isTitleValid">
@@ -56,7 +56,7 @@
 			size="1.5em"
 			strokeWidth=".12em"
 			name="heroBeakerSolid"
-			class="!align-middle mr-2"
+			class="align-middle! mr-2"
 		></ng-icon>
 		<p class="text-xl inline">{{ submitPlaceholder() }}</p>
 	</button>

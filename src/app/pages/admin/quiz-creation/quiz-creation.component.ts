@@ -12,7 +12,7 @@ import { QuizService } from '../../../services/quiz.service';
     imports: [QuizFormComponent],
     providers: [provideIcons({ heroPlusCircle, heroBeakerSolid })],
     templateUrl: './quiz-creation.component.html',
-    styleUrl: './quiz-creation.component.scss'
+    styleUrl: './quiz-creation.component.css'
 })
 export class QuizCreationComponent {
 

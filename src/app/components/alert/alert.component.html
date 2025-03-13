@@ -1,20 +1,14 @@
 @if (visible) {
-<div
-  class="flex items-center p-4 mb-4 text-sm border-collapse rounded-lg alert z-50"
-  [ngClass]="['alert-' + level]"
-  [@alertAnimation]="visible ? 'visible' : 'hidden'"
-  role="alert"
->
-  <svg
-    class="flex-shrink-0 inline w-4 h-4 me-3"
-    aria-hidden="true"
-    xmlns="http://www.w3.org/2000/svg"
-    fill="currentColor"
-    viewBox="0 0 20 20"
-  >
+<div class="flex items-center p-4 mb-4 text-sm border-collapse rounded-lg fixed bottom-10 right-10 z-50" [ngClass]="
+    {'bg-red-950 text-red-400 border-red-800': level === 'error',
+    'bg-blue-950 text-blue-400 border-blue-800': level === 'info',
+    'bg-amber-950 text-amber-400 border-amber-800': level === 'warning',
+    'bg-teal-950 text-teal-400 border-teal-800': level === 'success'
+  }" [@alertAnimation]="visible ? 'visible' : 'hidden'" role="alert">
+  <svg class="shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+    viewBox="0 0 20 20">
     <path
-      d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
-    />
+      d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
   </svg>
   <span class="sr-only">{{ level }}</span>
   <div><span class="font-medium"></span>{{ message }}</div>

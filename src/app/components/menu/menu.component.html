@@ -1,9 +1,9 @@
-<header class="pt-5 content-width">
+<header class="pt-5 mx-auto max-w-(--breakpoint-xl)">
 	<div class="mx-8 md:flex justify-between">
 		<div class="flex justify-between">
 			<a routerLink="" class="font-title font-bold text-3xl">Quiz<span
 					class="text-teal-500">Biblio</span></a>
-			<button class="md:hidden rounded-lg focus:outline-none focus:shadow-outline"
+			<button class="md:hidden rounded-lg focus:outline-hidden focus:shadow-outline"
 				(click)="toggleMenu()">
 				<ng-icon [name]="isOpen ? 'heroXMark' : 'heroBars3BottomRight'" size="1.5em" />
 			</button>
