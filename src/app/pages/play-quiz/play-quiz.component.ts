@@ -12,12 +12,11 @@ import { Answer } from '../../types/answer';
 import { Quiz } from '../../types/quiz';
 
 @Component({
-  selector: 'app-play-quiz',
-  standalone: true,
-  imports: [NgIconComponent, PlayQuizQuestionComponent, PlayFinalStepComponent, AsyncPipe],
-  providers: [provideIcons({ heroPlaySolid, heroForwardSolid, heroCheckSolid })],
-  templateUrl: './play-quiz.component.html',
-  styleUrl: './play-quiz.component.scss'
+    selector: 'app-play-quiz',
+    imports: [NgIconComponent, PlayQuizQuestionComponent, PlayFinalStepComponent, AsyncPipe],
+    providers: [provideIcons({ heroPlaySolid, heroForwardSolid, heroCheckSolid })],
+    templateUrl: './play-quiz.component.html',
+    styleUrl: './play-quiz.component.scss'
 })
 export class PlayQuizComponent implements OnInit {
 

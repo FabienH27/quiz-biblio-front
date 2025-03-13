@@ -6,11 +6,10 @@ import { Observable } from 'rxjs';
 import { ImageService } from '../../../services/image.service';
 
 @Component({
-  selector: 'app-play-quiz-question',
-  standalone: true,
-  imports: [NgClass, AsyncPipe],
-  templateUrl: './play-quiz-question.component.html',
-  styleUrl: './play-quiz-question.component.scss'
+    selector: 'app-play-quiz-question',
+    imports: [NgClass, AsyncPipe],
+    templateUrl: './play-quiz-question.component.html',
+    styleUrl: './play-quiz-question.component.scss'
 })
 export class PlayQuizQuestionComponent implements OnInit {
 

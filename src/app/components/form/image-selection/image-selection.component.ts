@@ -7,12 +7,11 @@ import { toObservable } from '@angular/core/rxjs-interop';
 import { filter, Observable, switchMap } from 'rxjs';
 
 @Component({
-  selector: 'app-image-selection',
-  standalone: true,
-  imports: [NgIcon, NgClass, AsyncPipe],
-  providers: [provideIcons({ heroPhoto, heroArrowUpTray, heroTrash, heroExclamationTriangle })],
-  templateUrl: './image-selection.component.html',
-  styleUrl: './image-selection.component.scss'
+    selector: 'app-image-selection',
+    imports: [NgIcon, NgClass, AsyncPipe],
+    providers: [provideIcons({ heroPhoto, heroArrowUpTray, heroTrash, heroExclamationTriangle })],
+    templateUrl: './image-selection.component.html',
+    styleUrl: './image-selection.component.scss'
 })
 export class ImageSelectionComponent implements OnInit {
 

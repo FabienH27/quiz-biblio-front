@@ -10,12 +10,11 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroBars3BottomRight, heroXMark } from '@ng-icons/heroicons/outline';
 
 @Component({
-  selector: 'app-menu',
-  standalone: true,
-  imports: [RouterLink, RouterLinkActive, IsGrantedDirective, AsyncPipe, NgIconComponent],
-  providers: [provideIcons({ heroXMark, heroBars3BottomRight })],
-  templateUrl: './menu.component.html',
-  styleUrl: './menu.component.scss'
+    selector: 'app-menu',
+    imports: [RouterLink, RouterLinkActive, IsGrantedDirective, AsyncPipe, NgIconComponent],
+    providers: [provideIcons({ heroXMark, heroBars3BottomRight })],
+    templateUrl: './menu.component.html',
+    styleUrl: './menu.component.scss'
 })
 export class MenuComponent {
 

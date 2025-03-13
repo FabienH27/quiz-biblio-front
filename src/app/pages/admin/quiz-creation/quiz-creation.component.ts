@@ -8,12 +8,11 @@ import { AlertService } from '../../../services/alert.service';
 import { QuizService } from '../../../services/quiz.service';
 
 @Component({
-  selector: 'app-quiz-creation',
-  standalone: true,
-  imports: [QuizFormComponent],
-  providers: [provideIcons({ heroPlusCircle, heroBeakerSolid })],
-  templateUrl: './quiz-creation.component.html',
-  styleUrl: './quiz-creation.component.scss'
+    selector: 'app-quiz-creation',
+    imports: [QuizFormComponent],
+    providers: [provideIcons({ heroPlusCircle, heroBeakerSolid })],
+    templateUrl: './quiz-creation.component.html',
+    styleUrl: './quiz-creation.component.scss'
 })
 export class QuizCreationComponent {
 

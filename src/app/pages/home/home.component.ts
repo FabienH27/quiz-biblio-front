@@ -6,13 +6,12 @@ import { AsyncPipe } from '@angular/common';
 import { QuizListItemComponent } from "../../components/quiz-list-item/quiz-list-item.component";
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [AsyncPipe, QuizListItemComponent],
-  providers: [],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    selector: 'app-home',
+    imports: [AsyncPipe, QuizListItemComponent],
+    providers: [],
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.scss',
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomeComponent implements OnInit {
 

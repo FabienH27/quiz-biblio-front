@@ -8,12 +8,11 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroPuzzlePiece } from '@ng-icons/heroicons/outline';
 
 @Component({
-  selector: 'app-theme-selection',
-  standalone: true,
-  imports: [ReactiveFormsModule, MultiSelectComponent, AsyncPipe, NgIcon],
-  providers: [provideIcons({heroPuzzlePiece})],
-  templateUrl: './theme-dropdown.component.html',
-  styleUrl: './theme-dropdown.component.scss',
+    selector: 'app-theme-selection',
+    imports: [ReactiveFormsModule, MultiSelectComponent, AsyncPipe, NgIcon],
+    providers: [provideIcons({ heroPuzzlePiece })],
+    templateUrl: './theme-dropdown.component.html',
+    styleUrl: './theme-dropdown.component.scss'
 })
 export class ThemeDropdownComponent implements OnInit, OnDestroy {
 

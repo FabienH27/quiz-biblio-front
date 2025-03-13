@@ -6,12 +6,11 @@ import { heroCheckBadgeSolid } from '@ng-icons/heroicons/solid';
 import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'create-proposal',
-  standalone: true,
-  imports: [NgIcon, ReactiveFormsModule, NgIf],
-  providers: [provideIcons({ heroTrash, heroCheckBadge, heroCheckBadgeSolid })],
-  templateUrl: './proposal-form.component.html',
-  styleUrl: './proposal-form.component.scss'
+    selector: 'create-proposal',
+    imports: [NgIcon, ReactiveFormsModule, NgIf],
+    providers: [provideIcons({ heroTrash, heroCheckBadge, heroCheckBadgeSolid })],
+    templateUrl: './proposal-form.component.html',
+    styleUrl: './proposal-form.component.scss'
 })
 export class ProposalFormComponent implements OnInit {
 

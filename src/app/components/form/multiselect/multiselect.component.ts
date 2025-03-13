@@ -5,19 +5,18 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroArrowDown, heroArrowUp, heroXMark } from '@ng-icons/heroicons/outline';
 
 @Component({
-  selector: 'app-multiselect',
-  standalone: true,
-  imports: [NgIf, NgIcon, NgClass, FormsModule],
-  providers: [
-    provideIcons({ heroArrowDown, heroArrowUp, heroXMark }),
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => MultiSelectComponent),
-      multi: true
-    },
-  ],
-  templateUrl: './multiselect.component.html',
-  styleUrl: './multiselect.component.scss',
+    selector: 'app-multiselect',
+    imports: [NgIf, NgIcon, NgClass, FormsModule],
+    providers: [
+        provideIcons({ heroArrowDown, heroArrowUp, heroXMark }),
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => MultiSelectComponent),
+            multi: true
+        },
+    ],
+    templateUrl: './multiselect.component.html',
+    styleUrl: './multiselect.component.scss'
 })
 export class MultiSelectComponent implements ControlValueAccessor {
 

@@ -6,11 +6,10 @@ import { UserScoreService } from '../../services/user-score.service';
 import { AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-scoreboard',
-  standalone: true,
-  imports: [ScoreTableComponent, AsyncPipe],
-  templateUrl: './scoreboard.component.html',
-  styleUrl: './scoreboard.component.scss'
+    selector: 'app-scoreboard',
+    imports: [ScoreTableComponent, AsyncPipe],
+    templateUrl: './scoreboard.component.html',
+    styleUrl: './scoreboard.component.scss'
 })
 export class ScoreboardComponent implements OnInit {
 
