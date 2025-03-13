@@ -1,12 +1,11 @@
 import { AsyncPipe, I18nPluralPipe, NgClass } from '@angular/common';
 import { Component, inject, input, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroQueueList } from '@ng-icons/heroicons/outline';
-import { QuizInfo } from '../../types/quiz-info';
-import { RouterLink } from '@angular/router';
+import { Observable } from 'rxjs';
 import { ImageService } from '../../services/image.service';
-import { FireStorageService } from '../../services/fire-storage.service';
-import { filter, Observable, switchMap } from 'rxjs';
+import { QuizInfo } from '../../types/quiz-info';
 
 @Component({
   selector: 'app-quiz-list-item',
@@ -19,7 +18,6 @@ import { filter, Observable, switchMap } from 'rxjs';
 export class QuizListItemComponent implements OnInit {
 
   private imageService = inject(ImageService);
-  private fireStorage = inject(FireStorageService);
 
   quiz = input.required<QuizInfo>();
   targetRoute = input.required<string[]>();
@@ -28,22 +26,8 @@ export class QuizListItemComponent implements OnInit {
   imageUrl$!: Observable<string | null>;
 
   ngOnInit() {
-    this.imageUrl$ = this.loadImage();
+    this.imageUrl$ = this.imageService.getImageUrl(this.quiz().imageId);
   }
-
-  loadImage() {
-    return this.imageService.getImage(this.quizData.imageId).pipe(
-      filter(x => !!x.originalUrl),
-      switchMap((response) => {
-        let url = response.resizedUrl;
-        if (!url) {
-          url = response.originalUrl;
-        }
-        return this.fireStorage.getImage(url);
-      })
-    );
-  }
-
 
   get quizData() {
     return this.quiz();

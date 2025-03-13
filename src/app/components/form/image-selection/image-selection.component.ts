@@ -1,14 +1,15 @@
-import { NgClass } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { Component, EventEmitter, inject, Input, OnInit, Output, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroArrowUpTray, heroExclamationTriangle, heroPhoto, heroTrash } from '@ng-icons/heroicons/outline';
 import { ImageService } from '../../../services/image.service';
-import { environment } from '../../../../environments/environment';
+import { toObservable } from '@angular/core/rxjs-interop';
+import { filter, Observable, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-image-selection',
   standalone: true,
-  imports: [NgIcon, NgClass],
+  imports: [NgIcon, NgClass, AsyncPipe],
   providers: [provideIcons({ heroPhoto, heroArrowUpTray, heroTrash, heroExclamationTriangle })],
   templateUrl: './image-selection.component.html',
   styleUrl: './image-selection.component.scss'
@@ -27,17 +28,20 @@ export class ImageSelectionComponent implements OnInit {
 
   private selectedFile: File | null = null;
 
-  imageUrl = signal<string | null>('');
+  imageUrlSignal = signal<string | null>('');
 
-  get imageSource() {
-    const imageUrl = this.imageUrl();
+  imageUrl$: Observable<string>;
 
-    return imageUrl ? environment.bucketUrl + this.imageUrl() : null;
+  constructor() {
+    this.imageUrl$ = toObservable(this.imageUrlSignal).pipe(
+      filter(value => value != null),
+      switchMap(value => this.imageService.getImageUrl(value))
+    );
   }
 
   ngOnInit(): void {
     if (this.imageId) {
-      this.loadImage(this.imageId);
+      this.imageUrlSignal.set(this.imageId);
     }
   }
 
@@ -51,21 +55,15 @@ export class ImageSelectionComponent implements OnInit {
   }
 
   removeImage() {
-    this.imageUrl.set(null);
+    this.imageUrlSignal.set(null);
     this.imageUrlChange.emit(null);
-  }
-
-  loadImage(imageId: string) {
-    this.imageService.getImage(imageId).subscribe(response => {
-      this.imageUrl.set(response.originalUrl);
-    })
   }
 
   uploadImage(file: File) {
     this.imageService.uploadImage(file)
       .subscribe(response => {
         if (response.id) {
-          this.imageUrl.set(response.url);
+          this.imageUrlSignal.set(response.url);
           this.imageUrlChange.emit(response.id);
         }
       });

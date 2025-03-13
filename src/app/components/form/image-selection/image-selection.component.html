@@ -1,11 +1,12 @@
 <div [ngClass]="color == 'primary' ? 'primary-color' : 'secondary-color'">
-	@if (imageId) { @if (imageSource) {
-	<img [src]="imageSource" class="max-w-full p-2 max-h-64 mx-auto" />
-	} @else {
-	<div class="max-w-32 text-center mx-auto block">
-		<ng-icon class="text-orange-300" name="heroExclamationTriangle" size="1.5em" />
-		<p class="text-slate-300">Could not load the image</p>
-	</div>
+	@if (imageId) { 
+		@if (imageUrl$ | async; as imageUrl) {
+		<img [src]="imageUrl" class="max-w-full p-2 max-h-64 mx-auto" />
+		} @else {
+		<div class="max-w-32 text-center mx-auto block">
+			<ng-icon class="text-orange-300" name="heroExclamationTriangle" size="1.5em" />
+			<p class="text-slate-300">Could not load the image</p>
+		</div>
 	}
 	<div class="flex justify-evenly mt-2">
 		<label class="text-center cursor-pointer text-sky-500 hover:text-sky-300">
