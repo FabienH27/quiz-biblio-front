@@ -1,9 +1,9 @@
-import { ChangeDetectorRef, Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { NgIf } from '@angular/common';
+import { Component, inject, input, OnInit, output } from '@angular/core';
+import { ControlContainer, FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroCheckBadge, heroTrash } from '@ng-icons/heroicons/outline';
-import { ControlContainer, FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { heroCheckBadgeSolid } from '@ng-icons/heroicons/solid';
-import { NgIf } from '@angular/common';
 
 @Component({
     selector: 'create-proposal',
@@ -20,11 +20,13 @@ export class ProposalFormComponent implements OnInit {
   proposals!: FormArray;
   formGroup!: FormGroup;
 
-  @Input() proposalIndex = 0;
-  @Input() isCorrect = false;
+  proposalIndex = input<number>(0);
+  isCorrect = input<boolean>(false);
 
-  @Output() correctChange = new EventEmitter<boolean>();
-  @Output() proposalRemoval = new EventEmitter();
+  isProposalCorrect = this.isCorrect();
+
+  readonly correctChange = output<boolean>();
+  readonly proposalRemoval = output<number>();
 
   get proposal(){
     return this.form.get('text');
@@ -36,13 +38,14 @@ export class ProposalFormComponent implements OnInit {
 
   ngOnInit() {
     this.proposals = this.controlContainer.control?.get(['proposals']) as FormArray;
-    this.formGroup = this.proposals.at(this.proposalIndex) as FormGroup;
+    this.formGroup = this.proposals.at(this.proposalIndex()) as FormGroup;
     this.form = this.formGroup;
+    this.isProposalCorrect = this.isCorrect();
   }
 
   onCorrectChange(event: Event) {
-    this.isCorrect = (event.target as HTMLInputElement).checked;
-    this.correctChange.emit(this.isCorrect);
+    this.isProposalCorrect = (event.target as HTMLInputElement).checked;
+    this.correctChange.emit(this.isProposalCorrect);
   }
 
   removeProposal(proposalIndex: number) {

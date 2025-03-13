@@ -1,4 +1,4 @@
-import { Component, HostListener, inject, Input, OnInit } from '@angular/core';
+import { Component, HostListener, inject, input, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { IsGrantedDirective } from '../../utils/is-granted/is-granted.directive';
@@ -28,7 +28,7 @@ export class MenuComponent {
 
   userData$: Observable<User | null> = this.authService.user$;
 
-  @Input() user: User = {} as User;
+  user = input<User>();
 
   logout() {
     this.authService.logout();

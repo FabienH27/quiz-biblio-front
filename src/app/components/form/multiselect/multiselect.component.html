@@ -34,7 +34,7 @@
 		class="absolute bg-slate-800 shadow-lg z-10 w-full border-r-2 border-b-2 border-l-2 border-slate-500"
 	>
 		<ul class="max-h-32 overflow-auto custom-scrollbar">
-			@for (option of options; track $index) {
+			@for (option of options(); track $index) {
 			<li>
 				<label
 					class="w-full text-slate-500 flex items-center cursor-pointer p-2 hover:bg-slate-700"
@@ -58,7 +58,7 @@
 			<input 
 	  			[(ngModel)]="newItem"
 				class="w-4/5 bg-slate-800 placeholder-slate-500 p-2 focus:outline-teal-700 outline-hidden"
-				[placeholder]="actionPlaceholder"
+				[placeholder]="actionPlaceholder()"
 			/>
 			<button (click)="performAction()" class="bg-slate-500 text-black w-1/5 hover:bg-slate-300 disabled:bg-slate-700 disabled:text-slate-500" [disabled]="isActionDisabled">
 	  <ng-content select="[actionContent]"></ng-content>

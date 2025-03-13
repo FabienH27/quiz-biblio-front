@@ -1,5 +1,5 @@
 import { AsyncPipe, NgClass } from '@angular/common';
-import { Component, EventEmitter, inject, Input, OnInit, Output, signal } from '@angular/core';
+import { Component, EventEmitter, inject, input, Input, OnInit, output, Output, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroArrowUpTray, heroExclamationTriangle, heroPhoto, heroTrash } from '@ng-icons/heroicons/outline';
 import { ImageService } from '../../../services/image.service';
@@ -17,13 +17,13 @@ export class ImageSelectionComponent implements OnInit {
 
   private imageService = inject(ImageService);
 
-  @Input() color: 'primary' | 'secondary' = 'primary';
+  color = input<'primary' | 'secondary'>('primary');
 
-  @Input() iconSize: string = '5em';
+  iconSize = input<string>('5em');
 
-  @Input() imageId: string | null = null;
+  imageId = input<string | null>(null);
 
-  @Output() imageUrlChange: EventEmitter<string | null> = new EventEmitter();
+  imageUrlChange = output<string | null>();
 
   private selectedFile: File | null = null;
 
@@ -40,7 +40,7 @@ export class ImageSelectionComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.imageId) {
-      this.imageUrlSignal.set(this.imageId);
+      this.imageUrlSignal.set(this.imageId());
     }
   }
 

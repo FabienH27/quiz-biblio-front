@@ -21,7 +21,8 @@ export class QuizEditionComponent {
 
   quiz$ = signal<Observable<Quiz>>((EMPTY));
 
-  //inputSignal does not work yet with config : withComponentInputBinding
+  // TODO: Skipped for migration because:
+  //  Accessor inputs cannot be migrated as they are too complex.
   @Input()
   set id(quizId: string) {
     this.quiz$.set(this.quizService.getQuizById(quizId));

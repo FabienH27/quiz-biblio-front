@@ -14,11 +14,15 @@ export class IsGrantedDirective implements OnInit {
   private _user!: User;
   private _roleOrPermission!: string;
 
+  // TODO: Skipped for migration because:
+  //  Accessor inputs cannot be migrated as they are too complex.
   @Input()
   set isGranted(roleOrPermission: string) {
     this._roleOrPermission = roleOrPermission;
   }
 
+  // TODO: Skipped for migration because:
+  //  Accessor inputs cannot be migrated as they are too complex.
   @Input('isGrantedFor')
   set isGrantedFor(user: User) {
     this._user = user;
