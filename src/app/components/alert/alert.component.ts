@@ -2,6 +2,7 @@ import { NgClass } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { AlertService } from '../../services/alert.service';
 import { trigger, transition, style, animate, state } from '@angular/animations';
+import { AlertLevel } from '../../types/alert-levels';
 
 @Component({
     selector: 'app-alert',
@@ -33,7 +34,7 @@ export class AlertComponent implements OnInit {
 
   alertService = inject(AlertService);
 
-  level: string | undefined;
+  level: AlertLevel | undefined;
 
   message: string = '';
   visible: boolean = false;

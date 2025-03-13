@@ -13,12 +13,15 @@
             <p class="text-xl">{{question?.text}}</p>
             <p class="text-slate-300">{{question?.details}}</p>
         </div>
-        <div class="text-right flex items-center justify-between">
-            <p class="text-slate-300">You answered : <span
-                    [ngClass]="isAnswerCorrect($index) ? 'text-teal-500' : 'text-red-500'">{{getSelectionForQuestion($index)}}</span>
-            </p>
-            <ng-icon size="2em" [ngClass]="isAnswerCorrect($index) ? 'text-teal-500' : 'text-red-500'" class="mt-2"
-                [name]="isAnswerCorrect($index) ? 'heroCheckCircle' : 'heroXMark'"></ng-icon>
+        <div class="text-right flex items-center ">
+            <div class="flex items-center">
+                <p class="mr-2">You answered :</p>
+                <span class="flex items-center" [ngClass]="isAnswerCorrect($index) ? 'text-teal-500' : 'text-red-500'">
+                    {{getSelectionForQuestion($index)}}                
+                    <ng-icon size="2em"
+                        [name]="isAnswerCorrect($index) ? 'heroCheckCircle' : 'heroXMark'"></ng-icon>
+                </span>
+            </div>
         </div>
     </div>
 </div>

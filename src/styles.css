@@ -1,51 +1,64 @@
 /* You can add global styles to this file, and also import other style files */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
+@theme {
+	--font-*: initial;
+	--font-title: Fira Sans, Open Sans, Nunito Sans, sans-serif, Arial, Segoe UI,
+		ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont;
+	--font-display: Karla, Nunito, Halant, PT Serif, sans-serif, Arial, system-ui,
+		-apple-system, BlinkMacSystemFont;
 
-body{
-    @apply text-white;
+	--breakpoint-3xl: 2500px;
 }
 
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
 
-.focus{
-    @apply focus:outline-teal-700 focus:outline outline-none;
-
-
-    &.error{
-        @apply outline-red-400;
-    }
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+	*,
+	::after,
+	::before,
+	::backdrop,
+	::file-selector-button {
+		border-color: var(--color-gray-200, currentColor);
+	}
 }
 
-.delete-btn{
-    @apply text-red-500 hover:text-red-300;
+@layer components{
+	.alert{
+		background-color: var(--color-violet-700);
+	}
 }
 
-.custom-scrollbar{
-    cursor: pointer;
-    
-    /* width */
-    &::-webkit-scrollbar {
-        width: 10px;
-    }
-    
-    /* Track */
-    &::-webkit-scrollbar-track {
-        @apply bg-slate-600; 
-    }
-    
-    /* Handle */
-    &::-webkit-scrollbar-thumb {
-        @apply bg-teal-600; 
-    }
-    
-    /* Handle on hover */
-    &::-webkit-scrollbar-thumb:hover {
-        @apply bg-teal-400; 
-    } 
+body {
+	color: white;
 }
 
-.content-width{
-    @apply mx-auto max-w-screen-xl;
+.custom-scrollbar {
+	cursor: pointer;
+
+	/* width */
+	&::-webkit-scrollbar {
+		width: 10px;
+	}
+
+	/* Track */
+	&::-webkit-scrollbar-track {
+		background-color: #45556c;
+	}
+
+	/* Handle */
+	&::-webkit-scrollbar-thumb {
+		background-color: oklch(0.6 0.118 184.704);
+	}
+
+	/* Handle on hover */
+	&::-webkit-scrollbar-thumb:hover {
+		background-color: oklch(0.777 0.152 181.912);
+	}
 }

@@ -3,7 +3,7 @@
 		<p class="text-2xl text-teal-500">#{{ questionIndex + 1 }}</p>
 		@if (questionIndex > 0) {
 		<button class="ml-4" type="button" (click)="removeQuestion(questionIndex)">
-			<ng-icon size="1.2em" strokeWidth=".12em" name="heroTrash" class="delete-btn !align-middle"></ng-icon>
+			<ng-icon size="1.2em" strokeWidth=".12em" name="heroTrash" class="text-red-500 hover:text-red-300 align-middle!"></ng-icon>
 		</button>
 		}
 	</div>
@@ -13,7 +13,7 @@
 				(imageUrlChange)="updateQuestionImage($event)"></app-image-selection>
 		</span>
 		<div class="w-full">
-			<input type="text" placeholder="Question" formControlName="text" [class.error]="isQuestionValid"
+			<input type="text" placeholder="Question" formControlName="text" [class.outline-red-400]="isQuestionValid"
 				class="text-xl bg-slate-600 w-full p-2 focus" />
 			<div class="text-red-400 text-sm" *ngIf="isQuestionValid">
 				<p>Please add a question text.</p>
@@ -24,8 +24,8 @@
 	<div class="mt-4 mx-2">
 		<p class="text-teal-200">Details :</p>
 		<div>
-			<textarea class="focus w-full bg-slate-600 p-2" maxlength="255" formControlName="details"
-				[class.error]="isDetailsValid" placeholder="Explain the answer"></textarea>
+			<textarea class="focus:outline-teal-700 focus:outline outline-hidden w-full bg-slate-600 p-2" maxlength="255" formControlName="details"
+				[class.outline-red-400]="isDetailsValid" placeholder="Explain the answer"></textarea>
 			<div class="text-red-400 text-sm" *ngIf="isDetailsValid">
 				<p>Please explain the answer.</p>
 			</div>
@@ -43,7 +43,7 @@
 	<div [ngClass]="hasCorrectProposal ? 'mt-4' : 'mt-8'">
 		@if (proposals.length < 4) { <button class="mx-auto block hover:text-teal-200" type="button"
 			(click)="addProposal()">
-			<ng-icon name="heroPlusCircle" size="1.5em" strokeWidth=".12em" class="mx-2 !align-sub"></ng-icon>
+			<ng-icon name="heroPlusCircle" size="1.5em" strokeWidth=".12em" class="mx-2 align-sub!"></ng-icon>
 			<p class="text-md inline">Add proposal</p>
 			</button>
 			}

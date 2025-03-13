@@ -1,7 +1,7 @@
 <div class="relative max-w-md mx-auto">
 	<button
 		(click)="toggleDropdown()"
-		class="dropdown"
+		class="p-4 bg-slate-800 border-2 w-full text-left"
 		type="button"
 		[ngClass]="{
 			'border-red-400': isControlInvalid,
@@ -45,9 +45,9 @@
 						[checked]="selectedOptions.includes(option)"
 						(change)="toggleOption(option)"
 						[disabled]="isDisabled(option)"
-						class="checkbox"
+						class="checkbox appearance-none border-2 border-slate-500 before:content-[''] text-teal-500 peer/checkbox disabled:border-slate-600"
 					/>
-					<p class="ml-2">{{ option }}</p>
+					<p class="ml-2 peer-checked/checkbox:text-teal-500 peer-disabled/checkbox:text-slate-600 peer-disabled/checkbox:cursor-not-allowed">{{ option }}</p>
 				</label>
 			</li>
 			} @empty {
@@ -57,7 +57,7 @@
 		<div class="flex w-full text-center border-t-2 border-slate-500">
 			<input 
 	  			[(ngModel)]="newItem"
-				class="w-4/5 bg-slate-800 placeholder-slate-500 p-2 focus:outline-teal-700 outline-none"
+				class="w-4/5 bg-slate-800 placeholder-slate-500 p-2 focus:outline-teal-700 outline-hidden"
 				[placeholder]="actionPlaceholder"
 			/>
 			<button (click)="performAction()" class="bg-slate-500 text-black w-1/5 hover:bg-slate-300 disabled:bg-slate-700 disabled:text-slate-500" [disabled]="isActionDisabled">

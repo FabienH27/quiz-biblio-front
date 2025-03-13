@@ -79,7 +79,7 @@ export class PlayQuizQuestionComponent implements OnInit {
     }
 
     if (userSelected && !isCorrect) {
-      return [...baseClass, '!outline-red-500'];
+      return [...baseClass, 'outline-red-500!'];
     }
 
     return baseClass;
