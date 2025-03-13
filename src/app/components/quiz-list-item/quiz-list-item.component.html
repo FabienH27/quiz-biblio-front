@@ -1,10 +1,13 @@
 <a class="rounded-lg relative cursor-pointer hover:quiz-item-hvr inline-block md:w-64 md:h-64 overflow-hidden w-full h-full"
-    [ngClass]="color() == 'dark' ? 'bg-slate-800' : 'bg-slate-700'"
-    [routerLink]="targetRoute()">
+    [ngClass]="color() == 'dark' ? 'bg-slate-800' : 'bg-slate-700'" [routerLink]="targetRoute()">
+    @if (imageUrl$ | async; as img) {
+    <img [src]="img" class="hidden md:block w-full" />
+    }@else {
     <img src="svg/gradient.svg" class="hidden md:block w-full" />
+    }
+
     <svg viewBox="0 0 900 600" class="absolute -top-2 left-0 wave hidden md:block w-full"
-    [ngClass]="color() == 'dark' ? 'text-slate-800' : 'text-slate-700'"
-        xmlns="http://www.w3.org/2000/svg">
+        [ngClass]="color() == 'dark' ? 'text-slate-800' : 'text-slate-700'" xmlns="http://www.w3.org/2000/svg">
         <path
             d="M0 445L21.5 439.5C43 434 86 423 128.8 432.7C171.7 442.3 214.3 472.7 257.2 482.7C300 492.7 343 482.3 385.8 475C428.7 467.7 471.3 463.3 514.2 461.3C557 459.3 600 459.7 642.8 463.5C685.7 467.3 728.3 474.7 771.2 461.8C814 449 857 416 878.5 399.5L900 383L900 601L878.5 601C857 601 814 601 771.2 601C728.3 601 685.7 601 642.8 601C600 601 557 601 514.2 601C471.3 601 428.7 601 385.8 601C343 601 300 601 257.2 601C214.3 601 171.7 601 128.8 601C86 601 43 601 21.5 601L0 601Z"
             fill="currentColor" stroke-linecap="round" stroke-linejoin="miter"></path>
@@ -14,17 +17,17 @@
             <span class="flex">
                 <ng-icon name="heroQueueList" size="1.2em" strokeWidth=".12em" class="mr-2"></ng-icon>
                 <p>
-                    {{ quiz().questionCount }}
+                    {{ quizData.questionCount }}
                     {{
-                    quiz().questionCount
+                    quizData.questionCount
                     | i18nPlural : { "=1": "Question", other: "Questions" }
                     }}
                 </p>
             </span>
             <p class="md:border-l-2 text-center md:text-left border-teal-500 mx-2 px-2 text-teal-500 italic">
-                {{ quiz().themes.join(", ") }}
+                {{ quizData.themes.join(", ") }}
             </p>
         </div>
     </div>
-    <p class="text-lg mx-2 my-6 font-title font-semibold">{{ quiz().title }}</p>
+    <p class="text-lg mx-2 my-6 font-title font-semibold">{{ quizData.title }}</p>
 </a>

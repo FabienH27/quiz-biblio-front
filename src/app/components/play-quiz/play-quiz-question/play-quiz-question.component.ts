@@ -1,17 +1,20 @@
-import { Component, EventEmitter, input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, input, OnInit, Output } from '@angular/core';
 import { Question } from '../../../types/quiz';
-import { NgClass } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { Answer } from '../../../types/answer';
+import { Observable } from 'rxjs';
+import { ImageService } from '../../../services/image.service';
 
 @Component({
   selector: 'app-play-quiz-question',
   standalone: true,
-  imports: [NgClass],
-  providers: [],
+  imports: [NgClass, AsyncPipe],
   templateUrl: './play-quiz-question.component.html',
   styleUrl: './play-quiz-question.component.scss'
 })
-export class PlayQuizQuestionComponent {
+export class PlayQuizQuestionComponent implements OnInit {
+
+  private imageService = inject(ImageService);
 
   question = input.required<Question>();
   selectedProposals: number[] = [];
@@ -19,6 +22,21 @@ export class PlayQuizQuestionComponent {
   isValidationStep = input.required<boolean>();
 
   @Output() answerChange = new EventEmitter<Answer>();
+
+  imageUrl$!: Observable<string | null>;
+
+  get isCorrect(){
+    return this.selectedProposals.length === this.question().correctProposalIds.length &&
+    this.question().correctProposalIds.every(value => this.selectedProposals.includes(value));
+  }
+
+  ngOnInit(): void {
+    const imageId = this.question().imageId;
+
+    if(imageId){
+      this.imageUrl$ = this.imageService.getImageUrl(imageId);
+    }
+  }
 
   addToAnswer(proposalIndex: number) {
     if(this.isValidationStep()){
@@ -35,11 +53,6 @@ export class PlayQuizQuestionComponent {
     const answer: Answer = { isCorrect: this.isCorrect, value: this.selectedProposals };
 
     this.answerChange.emit(answer);
-  }
-
-  get isCorrect(){
-    return this.selectedProposals.length === this.question().correctProposalIds.length &&
-    this.question().correctProposalIds.every(value => this.selectedProposals.includes(value));
   }
 
   isAnswerCorrect(index: number) {
