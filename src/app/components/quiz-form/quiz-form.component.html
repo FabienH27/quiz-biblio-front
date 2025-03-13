@@ -1,63 +1,67 @@
 <form
-	[formGroup]="form"
-	class="my-4 max-w-(--breakpoint-lg) mx-auto"
-	(ngSubmit)="onSubmit()"
->
-	<div class="text-center md:flex justify-evenly items-center">
-		<div class="mb-4 w-full md:w-4/5">
-			<app-image-selection
-				[color]="'secondary'"
-				[imageId]="imageId"
-				(imageUrlChange)="updateImage($event)"
-			></app-image-selection>
-		</div>
-		<div class="px-4 pb-4 w-full">
-			<textarea
-				id="title"
-				formControlName="title"
-				placeholder="Quiz title"
-				class="p-4 w-full bg-slate-700 text-lg focus:outline-teal-700 focus:outline outline-hidden placeholder-slate-500"
-				[class.outline-red-400]="isTitleValid"
-				maxlength="110"
-			></textarea>
-			<div class="text-red-400" *ngIf="isTitleValid">
-				<div *ngIf="title?.hasError('required')">
-					<p>Please add a title.</p>
-				</div>
-			</div>
-		</div>
-	</div>
+  [formGroup]="form"
+  class="my-4 max-w-(--breakpoint-lg) mx-auto"
+  (ngSubmit)="onSubmit()"
+  >
+  <div class="text-center md:flex justify-evenly items-center">
+    <div class="mb-4 w-full md:w-4/5">
+      <app-image-selection
+        [color]="'secondary'"
+        [imageId]="imageId"
+        (imageUrlChange)="updateImage($event)"
+      ></app-image-selection>
+    </div>
+    <div class="px-4 pb-4 w-full">
+      <textarea
+        id="title"
+        formControlName="title"
+        placeholder="Quiz title"
+        class="p-4 w-full bg-slate-700 text-lg focus:outline-teal-700 focus:outline outline-hidden placeholder-slate-500"
+        [class.outline-red-400]="isTitleValid"
+        maxlength="110"
+      ></textarea>
+      @if (isTitleValid) {
+        <div class="text-red-400">
+          @if (title?.hasError('required')) {
+            <div>
+              <p>Please add a title.</p>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
 
-	<app-theme-selection
-		(onSelectionChange)="onThemeChange($event)"
-	></app-theme-selection>
+  <app-theme-selection
+    (onSelectionChange)="onThemeChange($event)"
+  ></app-theme-selection>
 
-	@for (question of questions.controls; track question.value) {
-	<create-question
-		[questionIndex]="$index"
-		(questionRemoval)="onQuestionRemoval($event)"
-	></create-question>
-	} @if (questions.length < maxQuestionCount()) {
-	<button
-		class="text-xl md:ml-auto text-teal-500 block hover:text-teal-300"
-		(click)="addQuestion()"
-	>
-		<ng-icon name="heroPlusCircle"></ng-icon>
-		Add question
-	</button>
-	}
+  @for (question of questions.controls; track question.value) {
+    <create-question
+      [questionIndex]="$index"
+      (questionRemoval)="onQuestionRemoval($event)"
+    ></create-question>
+    } @if (questions.length < maxQuestionCount()) {
+    <button
+      class="text-xl md:ml-auto text-teal-500 block hover:text-teal-300"
+      (click)="addQuestion()"
+      >
+      <ng-icon name="heroPlusCircle"></ng-icon>
+      Add question
+    </button>
+  }
 
-	<button
-		type="submit"
-		[disabled]="!(form.valid && form.dirty)"
-		class="!disabled:cursor-pointer block mx-auto mt-4 bg-teal-500 px-5 py-3 hover:bg-white hover:text-teal-500 transition-colors disabled:hover:text-teal-950 disabled:bg-teal-900 disabled:text-teal-950"
-	>
-		<ng-icon
-			size="1.5em"
-			strokeWidth=".12em"
-			name="heroBeakerSolid"
-			class="align-middle! mr-2"
-		></ng-icon>
-		<p class="text-xl inline">{{ submitPlaceholder() }}</p>
-	</button>
+  <button
+    type="submit"
+    [disabled]="!(form.valid && form.dirty)"
+    class="!disabled:cursor-pointer block mx-auto mt-4 bg-teal-500 px-5 py-3 hover:bg-white hover:text-teal-500 transition-colors disabled:hover:text-teal-950 disabled:bg-teal-900 disabled:text-teal-950"
+    >
+    <ng-icon
+      size="1.5em"
+      strokeWidth=".12em"
+      name="heroBeakerSolid"
+      class="align-middle! mr-2"
+    ></ng-icon>
+    <p class="text-xl inline">{{ submitPlaceholder() }}</p>
+  </button>
 </form>

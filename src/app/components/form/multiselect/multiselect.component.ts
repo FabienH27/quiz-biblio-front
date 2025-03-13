@@ -1,4 +1,4 @@
-import { NgClass, NgForOf, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component, ElementRef, EventEmitter, forwardRef, HostListener, inject, input, Input, OnInit, output, Output } from '@angular/core';
 import { ControlValueAccessor, FormControl, FormsModule, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -6,7 +6,7 @@ import { heroArrowDown, heroArrowUp, heroXMark } from '@ng-icons/heroicons/outli
 
 @Component({
     selector: 'app-multiselect',
-    imports: [NgIf, NgIcon, NgClass, FormsModule],
+    imports: [NgIcon, NgClass, FormsModule],
     providers: [
         provideIcons({ heroArrowDown, heroArrowUp, heroXMark }),
         {

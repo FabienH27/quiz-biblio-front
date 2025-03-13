@@ -50,29 +50,6 @@ export class ThemeDropdownComponent implements OnInit, OnDestroy {
     this.themes = this.themesControl.value;
     this.themeSelection.setValue(this.themes);
 
-    // const initialTrigger$ = this.quizService.getThemes();
-
-    // this.options$ = merge(
-    //   initialTrigger$,
-    //   this.createTheme$,
-    // ).pipe(
-    //   tap((themeName) => {
-    //     this.quizService.createTheme('theme')
-    //   }),
-    //   switchMap(() => this.quizService.getThemes())
-    // );
-
-    // const getThemes$ = this.quizService.getThemes();
-
-    // this.options$ = this.quizService.getThemes();
-
-    // this.createTheme$.pipe(
-    //   switchMap(themeName => this.quizService.createTheme(themeName)),
-    //   tap(() => {        
-    //     this.options$ = this.quizService.getThemes();
-    //   })
-    // ).subscribe();
-
     this.options$ = merge(
       this.quizService.getThemes(),
       this.createTheme$.pipe(
