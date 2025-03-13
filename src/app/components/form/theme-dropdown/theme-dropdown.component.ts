@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, output } from '@angular/core';
 import { ControlContainer, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MultiSelectComponent } from "../multiselect/multiselect.component";
 import { QuizService } from '../../../services/quiz.service';
@@ -33,7 +33,7 @@ export class ThemeDropdownComponent implements OnInit, OnDestroy {
   
   options$!: Observable<string[]>;
 
-  @Output() onSelectionChange = new EventEmitter<string[]>();
+  readonly onSelectionChange = output<string[]>();
 
   constructor() {
     this.form = this.fb.group({

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, input, OnInit, Output } from '@angular/core';
+import { Component, inject, input, OnInit, output } from '@angular/core';
 import { Question } from '../../../types/quiz';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { Answer } from '../../../types/answer';
@@ -20,7 +20,7 @@ export class PlayQuizQuestionComponent implements OnInit {
 
   isValidationStep = input.required<boolean>();
 
-  @Output() answerChange = new EventEmitter<Answer>();
+  readonly answerChange = output<Answer>();
 
   imageUrl$!: Observable<string | null>;
 

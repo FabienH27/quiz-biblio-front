@@ -1,5 +1,5 @@
 import { NgClass, NgForOf, NgIf } from '@angular/common';
-import { Component, ElementRef, EventEmitter, forwardRef, HostListener, inject, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, forwardRef, HostListener, inject, input, Input, OnInit, output, Output } from '@angular/core';
 import { ControlValueAccessor, FormControl, FormsModule, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroArrowDown, heroArrowUp, heroXMark } from '@ng-icons/heroicons/outline';
@@ -26,15 +26,16 @@ export class MultiSelectComponent implements ControlValueAccessor {
   protected newItem: string = '';
   private disabledOptions = new Set<string>();
   
-  @Input() options: string[] | null = null;
-  @Input() placeholder: string = '';
-  @Input() actionPlaceholder: string = '';
-  @Input() control = new FormControl([''], Validators.required);
-  @Input() isActionDisabled = false;
-  @Input() maxSelectable = 3;
+  options = input<string[] | null>(null);
+  placeholder = input<string>();
+  actionPlaceholder = input<string>();
+  control = input(new FormControl([''], Validators.required));
 
-  @Output() selectionChange = new EventEmitter<string[]>();
-  @Output() actionChange = new EventEmitter<string>();
+  isActionDisabled = input<boolean>();
+  maxSelectable = input<number>(3);
+
+  selectionChange = output<string[]>();
+  actionChange = output<string>();
 
   /**
    * list of selected options
@@ -44,7 +45,7 @@ export class MultiSelectComponent implements ControlValueAccessor {
   }
 
   get isControlInvalid(){
-    return this.control.invalid && this.control.dirty;
+    return this.control().invalid && this.control().dirty;
   }
 
   private onChange: (value: string[]) => void = () => { };
@@ -88,7 +89,7 @@ export class MultiSelectComponent implements ControlValueAccessor {
     this.onTouched();
     this.selectionChange.emit(this.selectedOptions);
 
-    if(this.selectedOptions.length === this.maxSelectable){
+    if(this.selectedOptions.length === this.maxSelectable()){
       this.updateDisabledOptions();
     }else{
       this.disabledOptions.clear();
@@ -100,7 +101,7 @@ export class MultiSelectComponent implements ControlValueAccessor {
    */
   updateDisabledOptions(){
     this.disabledOptions.clear();
-    this.options?.forEach((option) => {
+    this.options()?.forEach((option) => {
       if(!this.selectedOptions.includes(option)){
         this.disabledOptions.add(option);
       }
@@ -123,7 +124,7 @@ export class MultiSelectComponent implements ControlValueAccessor {
     event.stopPropagation();
     this.selectedOptions = [];
     this.onChange([]);
-    this.control.setValue([]);
+    this.control().setValue([]);
     this.selectionChange.emit([]);
   }
 
@@ -143,7 +144,7 @@ export class MultiSelectComponent implements ControlValueAccessor {
   isDisabled(option: string): boolean{
     return (
       this.disabledOptions.has(option)||
-      (this.selectedOptions.length === this.maxSelectable && !this.selectedOptions.includes(option))
+      (this.selectedOptions.length === this.maxSelectable() && !this.selectedOptions.includes(option))
     );
   }
 

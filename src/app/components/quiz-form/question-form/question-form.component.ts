@@ -1,5 +1,5 @@
 import { NgClass, NgIf } from '@angular/common';
-import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, input, Input, OnInit, output, Output } from '@angular/core';
 import { ControlContainer, FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroPlusCircle, heroTrash } from '@ng-icons/heroicons/outline';
@@ -23,9 +23,9 @@ export class QuestionFormComponent implements OnInit {
   formGroup!: FormGroup;
   questions!: FormArray;
 
-  @Input() questionIndex = 0;
+  questionIndex = input<number>(0);
 
-  @Output() questionRemoval = new EventEmitter();
+  questionRemoval = output<number>();
 
   get proposals() {
     const test = this.formGroup.get('proposals') as FormArray;
@@ -33,7 +33,7 @@ export class QuestionFormComponent implements OnInit {
   }
 
   get correctProposalIds() {
-    const question = this.questions.at(this.questionIndex);
+    const question = this.questions.at(this.questionIndex());
     return question.get('correctProposalIds');
   }
 
@@ -71,7 +71,7 @@ export class QuestionFormComponent implements OnInit {
 
   ngOnInit() {
     this.questions = this.controlContainer.control?.get(['questions']) as FormArray;
-    this.formGroup = this.questions.at(this.questionIndex) as FormGroup;
+    this.formGroup = this.questions.at(this.questionIndex()) as FormGroup;
     this.form = this.formGroup;
   }
 

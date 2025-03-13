@@ -1,8 +1,8 @@
 <div class="bg-slate-700 py-6 mt-4 mb-6 mx-auto px-5" [formGroup]="form">
 	<div class="flex justify-end">
-		<p class="text-2xl text-teal-500">#{{ questionIndex + 1 }}</p>
-		@if (questionIndex > 0) {
-		<button class="ml-4" type="button" (click)="removeQuestion(questionIndex)">
+		<p class="text-2xl text-teal-500">#{{ questionIndex() + 1 }}</p>
+		@if (questionIndex() > 0) {
+		<button class="ml-4" type="button" (click)="removeQuestion(questionIndex())">
 			<ng-icon size="1.2em" strokeWidth=".12em" name="heroTrash" class="text-red-500 hover:text-red-300 align-middle!"></ng-icon>
 		</button>
 		}

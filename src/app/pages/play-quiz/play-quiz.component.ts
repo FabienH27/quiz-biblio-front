@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, HostListener, inject, OnInit, signal, ViewChild } from '@angular/core';
+import { Component, HostListener, inject, OnInit, signal, viewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroCheckSolid, heroForwardSolid, heroPlaySolid } from '@ng-icons/heroicons/solid';
@@ -24,7 +24,7 @@ export class PlayQuizComponent implements OnInit {
   private scoreService = inject(UserScoreService);
   private imageService = inject(ImageService);
 
-  @ViewChild('question') questionComponent!: PlayQuizQuestionComponent;
+  readonly questionComponent = viewChild.required<PlayQuizQuestionComponent>('question');
 
   quiz!: Quiz;
 
@@ -72,7 +72,7 @@ export class PlayQuizComponent implements OnInit {
       if ((this.currentStep() + 1) < this.quiz.questions.length) {
         this.currentStep.update(value => value + 1);
         this.checkStep = false;
-        this.questionComponent.resetChoice();
+        this.questionComponent().resetChoice();
       } else {
         this.finalStep = true;
         this.isQuizInProgress = false;

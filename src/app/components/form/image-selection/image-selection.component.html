@@ -1,5 +1,5 @@
-<div [ngClass]="color == 'primary' ? 'text-teal-500 hover:text-teal-300' : 'text-slate-500 hover:text-slate-300'">
-	@if (imageId) {
+<div [ngClass]="color() == 'primary' ? 'text-teal-500 hover:text-teal-300' : 'text-slate-500 hover:text-slate-300'">
+	@if (imageId()) {
 	@if (imageUrl$ | async; as imageUrl) {
 	<img [src]="imageUrl" class="max-w-full p-2 max-h-64 mx-auto" />
 	} @else {
@@ -28,7 +28,7 @@
 	<label class="cursor-pointer flex items-center justify-center md:block">
 		<input type="file" class="hidden" accept="image/png, image/jpeg, image/webp"
 			(change)="handleFileInput($event)" />
-		<ng-icon name="heroPhoto" [size]="iconSize" />
+		<ng-icon name="heroPhoto" [size]="iconSize()" />
 		<p>Add image</p>
 	</label>
 	}
