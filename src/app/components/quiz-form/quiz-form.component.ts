@@ -2,7 +2,7 @@ import { Component, inject, input, OnInit, output } from '@angular/core';
 import { Quiz } from '../../types/quiz';
 import { FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { QuizFormService } from '../../services/quiz-form.service';
-import { JsonPipe, NgIf } from '@angular/common';
+import { JsonPipe } from '@angular/common';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroPlusCircle } from '@ng-icons/heroicons/outline';
 import { heroBeakerSolid } from '@ng-icons/heroicons/solid';
@@ -12,7 +12,7 @@ import { QuestionFormComponent } from './question-form/question-form.component';
 
 @Component({
     selector: 'app-quiz-form',
-    imports: [QuestionFormComponent, ImageSelectionComponent, ReactiveFormsModule, NgIcon, NgIf, ThemeDropdownComponent],
+    imports: [QuestionFormComponent, ImageSelectionComponent, ReactiveFormsModule, NgIcon, ThemeDropdownComponent],
     providers: [provideIcons({ heroPlusCircle, heroBeakerSolid })],
     templateUrl: './quiz-form.component.html',
     styleUrl: './quiz-form.component.css'

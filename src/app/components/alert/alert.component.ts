@@ -1,8 +1,9 @@
 import { NgClass } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, effect, inject, Signal } from '@angular/core';
 import { AlertService } from '../../services/alert.service';
 import { trigger, transition, style, animate, state } from '@angular/animations';
 import { AlertLevel } from '../../types/alert-levels';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-alert',
@@ -29,7 +30,7 @@ import { AlertLevel } from '../../types/alert-levels';
         ]),
     ]
 })
-export class AlertComponent implements OnInit {
+export class AlertComponent {
   timeoutId: any;
 
   alertService = inject(AlertService);
@@ -39,19 +40,22 @@ export class AlertComponent implements OnInit {
   message: string = '';
   visible: boolean = false;
 
-  ngOnInit() {
-    this.alertService.alert$.subscribe(({level, message}) => {
-      this.level = level;
-      this.message = message;
+  alertData: Signal<{level: AlertLevel; message: string;} | null>;
+
+  constructor() {
+    this.alertData = toSignal(this.alertService.alert$, { initialValue: null });
+
+    effect(() => {
+      const alert = this.alertData();
+      if (!alert) return;
+
+      this.level = alert.level;
+      this.message = alert.message;
       this.visible = true;
 
       if (this.timeoutId) clearTimeout(this.timeoutId);
-
-      this.timeoutId = setTimeout(() => {
-        this.visible = false;
-      }, 3000);
+      this.timeoutId = setTimeout(() => (this.visible = false), 3000);
     });
-
   }
 
 }

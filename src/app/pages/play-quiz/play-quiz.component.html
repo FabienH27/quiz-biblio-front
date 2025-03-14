@@ -1,6 +1,6 @@
 <div class="max-w-(--breakpoint-lg) mx-auto mt-12">
     <div class="md:flex text-center md:text-left justify-center mx-auto items-center md:ml-16">
-        @if (imageUrl$ | async; as img) {
+        @if (imageUrl() | async; as img) {
         <img [src]="img" class="hidden md:block w-32 h-32 object-cover rounded-full" />
         }@else {
         <img src="svg/gradient.svg" class="hidden md:block w-32 h-32 rounded-full" />

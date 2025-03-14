@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import { Component, inject, input, OnInit, output } from '@angular/core';
 import { ControlContainer, FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -7,7 +7,7 @@ import { heroCheckBadgeSolid } from '@ng-icons/heroicons/solid';
 
 @Component({
     selector: 'create-proposal',
-    imports: [NgIcon, ReactiveFormsModule, NgIf],
+    imports: [NgIcon, ReactiveFormsModule],
     providers: [provideIcons({ heroTrash, heroCheckBadge, heroCheckBadgeSolid })],
     templateUrl: './proposal-form.component.html',
     styleUrl: './proposal-form.component.css'

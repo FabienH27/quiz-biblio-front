@@ -1,6 +1,6 @@
 @if ((quiz$() | async); as quiz){
     <h1 class="mt-8 text-xl text-center text-teal-300">Edit quiz</h1>
-    <app-quiz-form [quiz]="quiz" submitPlaceholder="Edit quiz" (onFormSubmit)="onQuizEdition($event)"></app-quiz-form>
+    <app-quiz-form [quiz]="quiz" submitPlaceholder="Edit quiz" (onFormSubmit)="onQuizEdition($event)" />
 }@else {
     <div class="text-center">
         <img src="svg/404-dark.svg" class="w-72 block mx-auto my-8">

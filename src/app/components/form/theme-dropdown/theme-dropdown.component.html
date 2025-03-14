@@ -7,10 +7,10 @@
 			placeholder="Select theme(s)"
 			[control]="themeSelection"
 			(selectionChange)="onOptionChange($event)"
-      actionPlaceholder="Type in your new theme"
-      (actionChange)="onThemeCreation($event)"
-      [isActionDisabled]="isCooldownActive"
-	  [maxSelectable]="maxSelectable"
+			actionPlaceholder="Type in your new theme"
+			(actionChange)="onThemeCreation($event)"
+			[isActionDisabled]="isCooldownActive"
+			[maxSelectable]="maxSelectable"
 		>
 			<div actionContent class="flex items-center justify-center">
 				<ng-icon name="heroPuzzlePiece" class="mr-1"></ng-icon>
