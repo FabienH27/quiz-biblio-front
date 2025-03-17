@@ -11,7 +11,9 @@
 		<nav class="flex gap-2 mt-2 justify-center flex-col md:flex-row text-center" [class.hidden]="!isOpen">
 			@if (userData$ | async; as user) {
 			<a class="mx-5 hover:text-teal-100" routerLink="/scoreboard">Scoreboard</a>
-			<a class="text-teal-500 mx-5 hover:text-teal-100" routerLink="/admin" *isGranted="'ADMIN'">Admin Panel</a>
+			@if (isAdmin(user)) {
+				<a class="text-teal-500 mx-5 hover:text-teal-100" routerLink="/admin">Admin Panel</a>
+			}			
 			<p class="">{{ user.userName }}</p>
 			<a (click)="logout()" routerLink="logout"
 				class="text-slate-400 mx-5 self-center text-center px-5 font-semibold md:border-l-2 border-slate-400 hover:">Log
