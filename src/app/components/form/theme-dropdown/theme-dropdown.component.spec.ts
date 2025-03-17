@@ -1,23 +1,29 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ThemeDropdownComponent } from './theme-dropdown.component';
+import { appConfig } from '../../../app.config';
+import { ThemeDropdownHostComponent } from './specs/theme-dropdown-host.component';
 
 describe('ThemeDropdownComponent', () => {
   let component: ThemeDropdownComponent;
-  let fixture: ComponentFixture<ThemeDropdownComponent>;
+  let fixture: ComponentFixture<ThemeDropdownHostComponent>;
+  let hostComponent: ThemeDropdownHostComponent;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ThemeDropdownComponent]
+      imports: [ThemeDropdownHostComponent],
+      providers: [
+        appConfig.providers
+      ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ThemeDropdownComponent);
-    component = fixture.componentInstance;
+    fixture = TestBed.createComponent(ThemeDropdownHostComponent);
+    hostComponent = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(hostComponent).toBeTruthy();
   });
 });

@@ -1,11 +1,11 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit, output } from '@angular/core';
 import { ControlContainer, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MultiSelectComponent } from "../multiselect/multiselect.component";
-import { QuizService } from '../../../services/quiz.service';
-import { BehaviorSubject, catchError, combineLatest, debounceTime, filter, from, merge, mergeMap, Observable, of, skipWhile, startWith, Subject, switchMap, tap } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroPuzzlePiece } from '@ng-icons/heroicons/outline';
+import { merge, Observable, Subject, switchMap } from 'rxjs';
+import { QuizService } from '../../../services/quiz.service';
+import { MultiSelectComponent } from "../multiselect/multiselect.component";
 
 @Component({
     selector: 'app-theme-selection',

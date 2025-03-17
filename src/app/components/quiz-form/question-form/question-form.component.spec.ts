@@ -1,23 +1,31 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { QuestionFormComponent } from './question-form.component';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { appConfig } from '../../../app.config';
+import { QuestionHostComponent } from './specs/question-host.component';
 
-describe('QuizCreationQuestionComponent', () => {
+describe('QuestionFormComponent', () => {
   let component: QuestionFormComponent;
-  let fixture: ComponentFixture<QuestionFormComponent>;
+  let fixture: ComponentFixture<QuestionHostComponent>;
+  let hostComponent: QuestionHostComponent;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [QuestionFormComponent]
+      imports: [QuestionHostComponent],
+      providers: [
+        appConfig.providers,
+        provideHttpClientTesting(),
+      ]
     })
-    .compileComponents();
+      .compileComponents();
 
-    fixture = TestBed.createComponent(QuestionFormComponent);
-    component = fixture.componentInstance;
+    fixture = TestBed.createComponent(QuestionHostComponent);
+    hostComponent = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(hostComponent).toBeTruthy();
   });
 });

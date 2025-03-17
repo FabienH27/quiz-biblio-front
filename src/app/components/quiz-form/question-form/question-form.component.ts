@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, EventEmitter, inject, input, Input, OnInit, output, Output } from '@angular/core';
+import { Component, inject, input, OnInit, output } from '@angular/core';
 import { ControlContainer, FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroPlusCircle, heroTrash } from '@ng-icons/heroicons/outline';
@@ -28,8 +28,7 @@ export class QuestionFormComponent implements OnInit {
   questionRemoval = output<number>();
 
   get proposals() {
-    const test = this.formGroup.get('proposals') as FormArray;
-    return test;
+    return this.formGroup.get('proposals') as FormArray;
   }
 
   get correctProposalIds() {

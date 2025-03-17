@@ -1,23 +1,31 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProposalFormComponent } from './proposal-form.component';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { appConfig } from '../../../../app.config';
+import { ProposalHostComponent } from './specs/proposal-host.component';
 
-describe('QuizCreationProposalComponent', () => {
+describe('ProposalFormComponent', () => {
   let component: ProposalFormComponent;
-  let fixture: ComponentFixture<ProposalFormComponent>;
+  let fixture: ComponentFixture<ProposalHostComponent>;
+  let hostComponent: ProposalHostComponent;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProposalFormComponent]
+      imports: [ProposalHostComponent],
+      providers: [
+        appConfig.providers,
+        provideHttpClientTesting(),
+      ]
     })
-    .compileComponents();
+      .compileComponents();
 
-    fixture = TestBed.createComponent(ProposalFormComponent);
-    component = fixture.componentInstance;
+    fixture = TestBed.createComponent(ProposalHostComponent);
+    hostComponent = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(hostComponent).toBeTruthy();
   });
 });

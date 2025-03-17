@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { QuizEditionComponent } from './quiz-edition.component';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { appConfig } from '../../../app.config';
 
 describe('QuizEditionComponent', () => {
   let component: QuizEditionComponent;
@@ -8,7 +10,11 @@ describe('QuizEditionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [QuizEditionComponent]
+      imports: [QuizEditionComponent],
+      providers: [
+        appConfig.providers,
+        provideHttpClientTesting()
+      ]
     })
     .compileComponents();
 

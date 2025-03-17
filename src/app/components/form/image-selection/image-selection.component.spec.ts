@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ImageSelectionComponent } from './image-selection.component';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { appConfig } from '../../../app.config';
 
 describe('ImageSelectionComponent', () => {
   let component: ImageSelectionComponent;
@@ -8,7 +10,11 @@ describe('ImageSelectionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ImageSelectionComponent]
+      imports: [ImageSelectionComponent],
+      providers: [
+        appConfig.providers,
+        provideHttpClientTesting()
+      ]
     })
     .compileComponents();
 

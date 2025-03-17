@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
+import { appConfig } from '../../app.config';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -8,13 +9,16 @@ describe('HomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HomeComponent]
+      imports: [HomeComponent],
+      providers: [
+        appConfig.providers
+      ]
     })
     .compileComponents();
 
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+      fixture.detectChanges();
   });
 
   it('should create', () => {

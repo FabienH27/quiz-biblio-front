@@ -20,7 +20,7 @@ export class QuizListItemComponent implements OnInit {
 
   quiz = input.required<QuizInfo>();
   targetRoute = input.required<string[]>();
-  color = input.required<'dark' | 'lighter'>();
+  color = input<'dark' | 'lighter'>('lighter');
 
   imageUrl$!: Observable<string | null>;
 

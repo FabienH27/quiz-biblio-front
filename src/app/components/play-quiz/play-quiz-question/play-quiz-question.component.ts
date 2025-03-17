@@ -18,7 +18,7 @@ export class PlayQuizQuestionComponent implements OnInit {
   question = input.required<Question>();
   selectedProposals: number[] = [];
 
-  isValidationStep = input.required<boolean>();
+  isValidationStep = input<boolean>(false);
 
   readonly answerChange = output<Answer>();
 
