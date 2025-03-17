@@ -40,7 +40,7 @@
       @for (proposal of proposals.controls; track $index) {
         <create-proposal [isCorrect]="correctProposalIdsValue.includes($index)" [proposalIndex]="$index"
           (correctChange)="onProposalCorrectChange($index, $event)"
-        (proposalRemoval)="onProposalRemoval($event)"></create-proposal>
+        (proposalRemoval)="onProposalRemoval($event)" />
       }
     </div>
 

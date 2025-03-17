@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { QuizCreationComponent } from './quiz-creation.component';
+import { appConfig } from '../../../app.config';
 
 describe('QuizCreationComponent', () => {
   let component: QuizCreationComponent;
@@ -8,7 +9,10 @@ describe('QuizCreationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [QuizCreationComponent]
+      imports: [QuizCreationComponent],
+      providers: [
+        appConfig.providers
+      ]
     })
     .compileComponents();
 

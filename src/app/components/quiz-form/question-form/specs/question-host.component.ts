@@ -1,0 +1,27 @@
+import { Component, inject } from "@angular/core";
+import { ReactiveFormsModule, FormGroup, FormArray, FormControl } from "@angular/forms";
+import { QuestionFormComponent } from "../question-form.component";
+import { QuizFormService } from "../../../../services/quiz-form.service";
+
+@Component({
+    template: `<form [formGroup]="form">
+        @for(proposal of questions.controls; track $index) {
+          <create-question [questionIndex]="$index" />
+        }
+      </form>`,
+    imports: [QuestionFormComponent, ReactiveFormsModule]
+})
+export class QuestionHostComponent {
+  
+    quizFormService = inject(QuizFormService);
+  
+    form = new FormGroup({
+        questions: new FormArray([
+            this.quizFormService.createQuestionForm()
+        ])
+    });
+
+    get questions() {
+        return this.form.get('questions') as FormArray;
+    }
+}

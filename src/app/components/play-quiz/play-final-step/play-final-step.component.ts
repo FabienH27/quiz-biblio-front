@@ -17,7 +17,7 @@ export class PlayFinalStepComponent {
 
   answers = input.required<Map<string, Answer>>();
   quiz = input.required<Quiz>();
-  userScore = input.required<number>();
+  userScore = input<number>(0);
 
   getIndex(index: number){
     return (index+1).toString().padStart(2,"0");

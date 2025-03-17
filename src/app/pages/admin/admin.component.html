@@ -31,7 +31,7 @@
 	<!--Quizzes list -->
 	<div class="mt-4 grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid gap-2 px-2 text-center">
 		@for (quiz of quizList | async; track $index) {
-		<app-quiz-list-item [quiz]="quiz" [targetRoute]="['edit',quiz.id]" color="lighter"></app-quiz-list-item>
+		<app-quiz-list-item [quiz]="quiz" [targetRoute]="['edit',quiz.id]"></app-quiz-list-item>
 		} @empty {
 		<p class="text-slate-500 text-center mt-8">No quiz found.</p>
 		}

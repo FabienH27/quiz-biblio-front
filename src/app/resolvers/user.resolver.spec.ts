@@ -2,9 +2,10 @@ import { TestBed } from '@angular/core/testing';
 import { ResolveFn } from '@angular/router';
 
 import { userResolver } from './user.resolver';
+import { User } from '../types/user';
 
 describe('userResolver', () => {
-  const executeResolver: ResolveFn<boolean> = (...resolverParameters) => 
+  const executeResolver: ResolveFn<User | null> = (...resolverParameters) => 
       TestBed.runInInjectionContext(() => userResolver(...resolverParameters));
 
   beforeEach(() => {
