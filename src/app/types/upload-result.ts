@@ -1,4 +1,4 @@
-export type UploadResult = {
+export interface UploadResult {
     message: string;
     id: string;
     url: string;

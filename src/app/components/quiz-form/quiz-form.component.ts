@@ -1,11 +1,11 @@
+import { NgClass } from '@angular/common';
 import { Component, inject, input, OnInit, output } from '@angular/core';
-import { Quiz } from '../../types/quiz';
 import { FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { QuizFormService } from '../../services/quiz-form.service';
-import { JsonPipe, NgClass } from '@angular/common';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroPlusCircle } from '@ng-icons/heroicons/outline';
 import { heroBeakerSolid } from '@ng-icons/heroicons/solid';
+import { QuizFormService } from '../../services/quiz-form.service';
+import { Quiz } from '../../types/quiz';
 import { ImageSelectionComponent } from '../form/image-selection/image-selection.component';
 import { ThemeDropdownComponent } from '../form/theme-dropdown/theme-dropdown.component';
 import { QuestionFormComponent } from './question-form/question-form.component';
@@ -27,7 +27,7 @@ export class QuizFormComponent implements OnInit {
   submitPlaceholder = input<string>("Create quiz");
   maxQuestionCount = input<number>(10);
 
-  onFormSubmit = output<Quiz>();
+  formSubmit = output<Quiz>();
 
   get questions(): FormArray {
     return this.form.get('questions') as FormArray;
@@ -54,7 +54,7 @@ export class QuizFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    var quizData = this.quiz();
+    const quizData = this.quiz();
     this.form = this.quizFormService.createQuizForm(quizData);
 
     if (quizData) {
@@ -74,7 +74,7 @@ export class QuizFormComponent implements OnInit {
     if (this.form.valid && this.form.dirty && this.form.touched) {
       const formValue: Quiz = this.form.value;
       const quizFormValue = { ...formValue, creator: this.quiz()?.creator ?? null };
-      this.onFormSubmit.emit(quizFormValue);
+      this.formSubmit.emit(quizFormValue);
       this.form.markAsPristine();
       this.form.markAsUntouched();
     }

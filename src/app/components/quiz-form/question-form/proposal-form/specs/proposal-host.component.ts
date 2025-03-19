@@ -5,7 +5,7 @@ import { ProposalFormComponent } from "../proposal-form.component";
 @Component({
     template: `<form [formGroup]="form">
         @for(proposal of proposals.controls; track $index) {
-          <create-proposal [proposalIndex]="$index" />
+          <app-create-proposal [proposalIndex]="$index" />
         }
       </form>`,
     imports: [ProposalFormComponent, ReactiveFormsModule]

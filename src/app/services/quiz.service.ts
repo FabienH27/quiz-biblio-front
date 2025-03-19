@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { BehaviorSubject, catchError, Observable, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Quiz } from '../types/quiz';
-import { BehaviorSubject, catchError, Observable, tap } from 'rxjs';
 import { QuizInfo } from '../types/quiz-info';
 import { AlertService } from './alert.service';
 

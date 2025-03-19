@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { catchError, filter, Observable, switchMap } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { catchError, filter, Observable, of, switchMap } from 'rxjs';
-import { UploadResult } from '../types/upload-result';
 import { ImageResponse } from '../types/image-response';
+import { UploadResult } from '../types/upload-result';
 import { FireStorageService } from './fire-storage.service';
 
 @Injectable({

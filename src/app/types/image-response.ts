@@ -1,4 +1,4 @@
-export type ImageResponse = {
+export interface ImageResponse {
     id: string;
     originalUrl: string;
     resizedUrl: string;

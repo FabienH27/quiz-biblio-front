@@ -1,7 +1,7 @@
-import { inject, Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { catchError, Observable } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 import { UserScore } from '../types/user-score';
 
 @Injectable({

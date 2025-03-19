@@ -1,4 +1,4 @@
-export type UserScore = {
+export interface UserScore {
     userId: string;
     userName: string;
     score: number;

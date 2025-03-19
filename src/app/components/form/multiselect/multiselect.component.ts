@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, ElementRef, EventEmitter, forwardRef, HostListener, inject, input, Input, OnInit, output, Output } from '@angular/core';
+import { Component, ElementRef, forwardRef, HostListener, inject, input, output } from '@angular/core';
 import { ControlValueAccessor, FormControl, FormsModule, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroArrowDown, heroArrowUp, heroXMark } from '@ng-icons/heroicons/outline';
@@ -23,7 +23,7 @@ export class MultiSelectComponent implements ControlValueAccessor {
   private elementRef = inject(ElementRef);
   protected selectedOptions: string[] = [];
   protected isDropdownOpen = false;
-  protected newItem: string = '';
+  protected newItem = '';
   private disabledOptions = new Set<string>();
   
   options = input<string[] | null>(null);
@@ -48,8 +48,10 @@ export class MultiSelectComponent implements ControlValueAccessor {
     return this.control().invalid && this.control().dirty;
   }
 
+  /* eslint-disable @typescript-eslint/no-empty-function */
   private onChange: (value: string[]) => void = () => { };
   private onTouched: () => void = () => { };
+/* eslint-enable @typescript-eslint/no-empty-function */
 
   writeValue(value: string[]): void {
     this.selectedOptions = value || [];
@@ -59,7 +61,7 @@ export class MultiSelectComponent implements ControlValueAccessor {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: () => {}): void {
+  registerOnTouched(fn: () => unknown): void {
     this.onTouched = fn;
   }
 

@@ -38,7 +38,7 @@
 
     <div class="md:grid grid-cols-2">
       @for (proposal of proposals.controls; track $index) {
-        <create-proposal [isCorrect]="correctProposalIdsValue.includes($index)" [proposalIndex]="$index"
+        <app-create-proposal [isCorrect]="correctProposalIdsValue.includes($index)" [proposalIndex]="$index"
           (correctChange)="onProposalCorrectChange($index, $event)"
         (proposalRemoval)="onProposalRemoval($event)" />
       }

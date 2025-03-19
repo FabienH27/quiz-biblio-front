@@ -1,4 +1,4 @@
-export type QuizInfo = {
+export interface QuizInfo {
     id: string;
     title: string;
     themes: string[];

@@ -1,28 +1,12 @@
-import { ApplicationConfig, provideZoneChangeDetection, inject, provideAppInitializer } from '@angular/core';
-import { provideRouter, Router, withComponentInputBinding } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { routes } from './app.routes';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { RbacService } from './services/rbac.service';
-import { authInterceptor } from './interceptor/auth.interceptor';
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getStorage, provideStorage } from '@angular/fire/storage';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { environment } from '../environments/environment';
-
-// function preloadRoles(rbacService: RbacService, router: Router) {
-//   return () => new Promise<void>((resolve, reject) => {
-//     rbacService.fetchRoles().subscribe({
-//       next: (roles) => {
-//         rbacService.setRoles(roles.roles);
-//         resolve();
-//       },
-//       error: (error) => {
-//         router.navigate(['/']);
-//         resolve();
-//       }
-//     })
-//   });
-// }
+import { routes } from './app.routes';
+import { authInterceptor } from './interceptor/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -30,10 +14,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, withComponentInputBinding()),
     provideHttpClient(withInterceptors([authInterceptor])),
     provideAnimationsAsync(),
-    // provideAppInitializer(() => {
-    //     const initializerFn = (preloadRoles)(inject(RbacService), inject(Router));
-    //     return initializerFn();
-    //   }), 
     provideFirebaseApp(() => initializeApp({storageBucket: environment.bucketName})), 
     provideStorage(() => getStorage())
   ],

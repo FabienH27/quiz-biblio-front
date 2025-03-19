@@ -1,10 +1,10 @@
 import { AsyncPipe, NgClass } from '@angular/common';
-import { Component, EventEmitter, inject, input, Input, OnInit, output, Output, signal } from '@angular/core';
+import { Component, inject, input, OnInit, output, signal } from '@angular/core';
+import { toObservable } from '@angular/core/rxjs-interop';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroArrowUpTray, heroExclamationTriangle, heroPhoto, heroTrash } from '@ng-icons/heroicons/outline';
-import { ImageService } from '../../../services/image.service';
-import { toObservable } from '@angular/core/rxjs-interop';
 import { filter, Observable, switchMap } from 'rxjs';
+import { ImageService } from '../../../services/image.service';
 
 @Component({
     selector: 'app-image-selection',
