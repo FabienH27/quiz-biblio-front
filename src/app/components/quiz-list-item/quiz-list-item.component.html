@@ -1,21 +1,18 @@
-<a class="rounded-lg relative cursor-pointer group hover:bg-slate-900 inline-block md:w-64 md:h-64 overflow-hidden w-full h-full"
+<a class="rounded-lg relative cursor-pointer group hover:bg-slate-600 transition-colors inline-block md:w-64 md:h-64 overflow-hidden w-full h-full"
     [ngClass]="color() == 'dark' ? 'bg-slate-800' : 'bg-slate-700'" [routerLink]="targetRoute()">
-    @if (imageUrl$ | async; as img) {
-    <img [src]="img" class="hidden md:block w-full" />
-    }@else {
-    <img src="svg/gradient.svg" class="hidden md:block w-full" />
-    }
+    <img [src]="(quiz().imageId ? (imageUrl$ | async) : 'svg/gradient.svg')" class="hidden md:block w-full" />
 
-    <svg viewBox="0 0 900 600" class="absolute -top-2 left-0 group-hover:text-slate-900 hidden md:block w-full"
+    <svg viewBox="0 0 900 600"
+        class="absolute -top-2 left-0 transition-colors group-hover:text-slate-600 hidden md:block w-full"
         [ngClass]="color() == 'dark' ? 'text-slate-800' : 'text-slate-700'" xmlns="http://www.w3.org/2000/svg">
         <path
             d="M0 445L21.5 439.5C43 434 86 423 128.8 432.7C171.7 442.3 214.3 472.7 257.2 482.7C300 492.7 343 482.3 385.8 475C428.7 467.7 471.3 463.3 514.2 461.3C557 459.3 600 459.7 642.8 463.5C685.7 467.3 728.3 474.7 771.2 461.8C814 449 857 416 878.5 399.5L900 383L900 601L878.5 601C857 601 814 601 771.2 601C728.3 601 685.7 601 642.8 601C600 601 557 601 514.2 601C471.3 601 428.7 601 385.8 601C343 601 300 601 257.2 601C214.3 601 171.7 601 128.8 601C86 601 43 601 21.5 601L0 601Z"
             fill="currentColor" stroke-linecap="round" stroke-linejoin="miter"></path>
     </svg>
-    <div class="mx-2 z-10 relative text-sm my-4">
+    <div class="mx-2 z-10 relative text-sm my-4 flex justify-between">
         <div class="md:flex items-center">
-            <span class="flex">
-                <ng-icon name="heroQueueList" size="1.2em" strokeWidth=".12em" class="mr-2"></ng-icon>
+            <span class="flex items-center">
+                <ng-icon name="heroQueueList" size="1.2em" class="mr-1"></ng-icon>
                 <p>
                     {{ quizData.questionCount }}
                     {{
@@ -24,10 +21,21 @@
                     }}
                 </p>
             </span>
-            <p class="md:border-l-2 text-center md:text-left border-teal-500 mx-2 px-2 text-teal-500 italic">
+            <p class="md:border-l-2 text-center md:text-left border-teal-500 mx-2 pl-1 text-teal-500 italic">
                 {{ quizData.themes.join(", ") }}
             </p>
         </div>
+        @if (displayAction()) {
+        <div class="grow flex justify-evenly">
+            <a [routerLink]="getPlayQuizUrl()" (click)="playQuiz($event)" type="button"
+                class="cursor-pointer hover:text-teal-300">
+                <ng-icon name="heroPlayCircle" size="1.5em" />
+            </a>
+            <button (click)="deleteQuiz($event)" class="text-red-500 hover:text-red-300 cursor-pointer" type="button">
+                <ng-icon name="heroTrash" size="1.5em" />
+            </button>
+        </div>
+        }
     </div>
     <p class="text-lg mx-2 my-6 font-title font-semibold">{{ quizData.title }}</p>
 </a>

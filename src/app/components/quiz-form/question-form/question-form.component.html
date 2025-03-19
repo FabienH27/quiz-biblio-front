@@ -13,9 +13,9 @@
       (imageUrlChange)="updateQuestionImage($event)"></app-image-selection>
     </span>
     <div class="w-full">
-      <input type="text" placeholder="Question" formControlName="text" [class.outline-red-400]="isQuestionValid"
-        class="text-xl bg-slate-600 w-full p-2 focus" />
-        @if (isQuestionValid) {
+      <input type="text" placeholder="Question" formControlName="text" [ngClass]="{'outline-red-400 outline-2': isQuestionInvalid}"
+        class="text-xl bg-slate-600 w-full p-2 focus:outline-teal-700 focus:outline-2 outline-offset-2" />
+        @if (isQuestionInvalid) {
           <div class="text-red-400 text-sm">
             <p>Please add a question text.</p>
           </div>
@@ -24,11 +24,11 @@
     </div>
 
     <div class="mt-4 mx-2">
-      <p class="text-teal-200">Details :</p>
+      <p class="text-teal-200 mb-2">Details :</p>
       <div>
-        <textarea class="focus:outline-teal-700 focus:outline outline-hidden w-full bg-slate-600 p-2" maxlength="255" formControlName="details"
-        [class.outline-red-400]="isDetailsValid" placeholder="Explain the answer"></textarea>
-        @if (isDetailsValid) {
+        <textarea class="focus:outline-teal-700 focus:outline-2 outline-offset-2 w-full bg-slate-600 p-2" maxlength="255" formControlName="details"
+        [ngClass]="{'outline-red-400 outline-2': isDetailsInvalid}" placeholder="Explain the answer"></textarea>
+        @if (isDetailsInvalid) {
           <div class="text-red-400 text-sm">
             <p>Please explain the answer.</p>
           </div>

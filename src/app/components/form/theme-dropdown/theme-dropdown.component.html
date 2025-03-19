@@ -1,6 +1,6 @@
-<div [formGroup]="form" class="text-center">
+<div [formGroup]="form" class="text-center w-1/2 mx-auto">
 	<p class="mr-8 text-teal-500 font-bold text-xl">Theme :</p>
-	<div class="mx-4">
+	<div class="mx-auto">
 		<app-multiselect
 			formControlName="themeSelection"
 			[options]="options$ | async"

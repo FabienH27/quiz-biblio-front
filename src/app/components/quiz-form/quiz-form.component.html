@@ -16,12 +16,12 @@
         id="title"
         formControlName="title"
         placeholder="Quiz title"
-        class="p-4 w-full bg-slate-700 text-lg focus:outline-teal-700 focus:outline outline-hidden placeholder-slate-500"
-        [class.outline-red-400]="isTitleValid"
+        class="p-4 w-full bg-slate-700 text-lg focus:outline-teal-700 focus:outline-2 outline-offset-2 placeholder-slate-500"
+        [ngClass]="{'outline-red-400 outline-2': isTitleInvalid}"
         maxlength="110"
       ></textarea>
-      @if (isTitleValid) {
-        <div class="text-red-400">
+      @if (isTitleInvalid) {
+        <div class="text-red-400 text-left">
           @if (title?.hasError('required')) {
             <div>
               <p>Please add a title.</p>
@@ -43,7 +43,8 @@
     ></create-question>
     } @if (questions.length < maxQuestionCount()) {
     <button
-      class="text-xl md:ml-auto text-teal-500 block hover:text-teal-300"
+      type="button"
+      class="text-xl md:ml-auto cursor-pointer text-teal-500 block hover:text-teal-300"
       (click)="addQuestion()"
       >
       <ng-icon name="heroPlusCircle"></ng-icon>
@@ -54,7 +55,7 @@
   <button
     type="submit"
     [disabled]="!(form.valid && form.dirty)"
-    class="!disabled:cursor-pointer block mx-auto mt-4 bg-teal-500 px-5 py-3 hover:bg-white hover:text-teal-500 transition-colors disabled:hover:text-teal-950 disabled:bg-teal-900 disabled:text-teal-950"
+    class="not-disabled:cursor-pointer block mx-auto mt-4 bg-teal-500 px-5 py-3 hover:bg-white hover:text-teal-500 transition-colors disabled:hover:text-teal-950 disabled:bg-teal-900 disabled:text-teal-950"
     >
     <ng-icon
       size="1.5em"

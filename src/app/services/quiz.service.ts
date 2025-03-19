@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Quiz } from '../types/quiz';
-import { catchError, Observable, tap } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, tap } from 'rxjs';
 import { QuizInfo } from '../types/quiz-info';
 import { AlertService } from './alert.service';
 
@@ -16,9 +16,13 @@ export class QuizService {
   private httpClient = inject(HttpClient);
   private alertService = inject(AlertService);
 
-  getQuizzes(): Observable<QuizInfo[]> {
-    return this.httpClient.get<QuizInfo[]>(`${this.baseUrl}/quizzes/`, { withCredentials: true })
-      .pipe(catchError(err => { console.error(err); throw err }));
+  private quizItemsSubject = new BehaviorSubject<QuizInfo[]>([]);
+  quizzes$ = this.quizItemsSubject.asObservable();
+
+  getQuizzes() {
+    this.httpClient.get<QuizInfo[]>(`${this.baseUrl}/quizzes/`, { withCredentials: true })
+      .pipe(catchError(err => { console.error(err); throw err }))
+      .subscribe(data => this.quizItemsSubject.next(data));
   }
 
   getQuizById(quizId: string) {
@@ -26,9 +30,10 @@ export class QuizService {
       .pipe(catchError(err => { console.error(err); throw err }));
   }
 
-  getUserQuizzes(): Observable<QuizInfo[]> {
+  getUserQuizzes() {
     return this.httpClient.get<QuizInfo[]>(`${this.baseUrl}/quizzes/user`, { withCredentials: true })
-      .pipe(catchError(err => { console.error(err); throw err }));
+      .pipe(catchError(err => { console.error(err); throw err }))
+      .subscribe(data => this.quizItemsSubject.next(data))
   }
 
   createQuiz(quiz: Quiz) {
@@ -40,9 +45,23 @@ export class QuizService {
     return this.httpClient.put(`${this.baseUrl}/quizzes/${quiz.id}`, quiz, { withCredentials: true })
       .pipe(catchError(err => {
         console.error(err);
-        this.alertService.showAlert('an error occured while saving quiz.', 'error');
+        this.alertService.showAlert('An error occured while saving quiz.', 'error');
         throw err;
       }));
+  }
+
+  deleteQuiz(quizId: string) {
+    return this.httpClient.delete(`${this.baseUrl}/quizzes/${quizId}`, { withCredentials: true })
+      .pipe(
+        tap(() => {
+          const updatedItems = this.quizItemsSubject.value.filter(item => item.id !== quizId);
+          this.quizItemsSubject.next(updatedItems);
+        }),
+        catchError((err) => {
+          console.error(err);
+          this.alertService.showAlert('An error occured while deleting the quiz. Please retry later.', 'error');
+          throw err;
+        }))
   }
 
   /* TODO: Move themes to new service */

@@ -1,4 +1,5 @@
 
+import { NgClass } from '@angular/common';
 import { Component, inject, input, OnInit, output } from '@angular/core';
 import { ControlContainer, FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -7,7 +8,7 @@ import { heroCheckBadgeSolid } from '@ng-icons/heroicons/solid';
 
 @Component({
     selector: 'create-proposal',
-    imports: [NgIcon, ReactiveFormsModule],
+    imports: [NgIcon, ReactiveFormsModule, NgClass],
     providers: [provideIcons({ heroTrash, heroCheckBadge, heroCheckBadgeSolid })],
     templateUrl: './proposal-form.component.html',
     styleUrl: './proposal-form.component.css'
@@ -32,7 +33,7 @@ export class ProposalFormComponent implements OnInit {
     return this.form.get('text');
   }
 
-  get isProposalValid(){
+  get isProposalInvalid(){
     return (this.proposal?.dirty || this.proposal?.touched) && this.proposal?.hasError('required');
   }
 

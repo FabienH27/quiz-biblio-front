@@ -20,7 +20,8 @@ export class HomeComponent implements OnInit {
   quizzes$ : Observable<QuizInfo[]> = new Observable<QuizInfo[]>();
 
   ngOnInit(): void {
-    this.quizzes$ = this.quizService.getQuizzes();
+    this.quizzes$ = this.quizService.quizzes$;
+    this.quizService.getQuizzes();
   }
 
 }

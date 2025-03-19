@@ -60,11 +60,11 @@ export class QuestionFormComponent implements OnInit {
     return this.form.get('imageId');
   }
 
-  get isQuestionValid() {
+  get isQuestionInvalid() {
     return (this.questionText?.dirty || this.questionText?.touched) && this.questionText?.hasError('required');
   }
 
-  get isDetailsValid() {
+  get isDetailsInvalid() {
     return (this.details?.dirty || this.details?.touched) && this.details?.hasError('required');
   }
 
