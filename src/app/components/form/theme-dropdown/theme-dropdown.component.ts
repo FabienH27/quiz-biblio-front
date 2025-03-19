@@ -26,14 +26,14 @@ export class ThemeDropdownComponent implements OnInit, OnDestroy {
   formGroup!: FormGroup;
   themesControl!: FormControl;
   themes: string[] = [];
-  newTheme: string = '';
+  newTheme = '';
   errorMessage: string | null = null;
   isCooldownActive = false;
   maxSelectable = 3;
   
   options$!: Observable<string[]>;
 
-  readonly onSelectionChange = output<string[]>();
+  readonly selectionChange = output<string[]>();
 
   constructor() {
     this.form = this.fb.group({
@@ -73,7 +73,7 @@ export class ThemeDropdownComponent implements OnInit, OnDestroy {
     } else {
       this.errorMessage = null;
     }
-    this.onSelectionChange.emit(selectionOptions);
+    this.selectionChange.emit(selectionOptions);
   }
 
   onThemeCreation(theme: string){

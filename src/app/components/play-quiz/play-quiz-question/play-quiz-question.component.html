@@ -1,10 +1,11 @@
 <div class="mx-auto">
     <div class="bg-slate-700 p-5 rounded-md">
         <div class="md:flex text-center mx-auto items-center">
+            
             @if (imageUrl$ | async; as img) {
-            <img [src]="img" class="hidden md:block w-32 h-32 object-cover rounded-full" />
+            <img [src]="img" class="hidden md:block w-32 h-32 object-cover rounded-full" alt="image associated to the quiz" />
             }@else {
-            <img src="svg/gradient.svg" class="hidden md:block w-32 h-32 rounded-full" />
+            <img src="svg/gradient.svg" class="hidden md:block w-32 h-32 rounded-full" alt="placeholder image if the image is not found" />
             }
             <div class="md:ml-8">
                 <h2 class="text-2xl">{{question().text}}</h2>
@@ -23,13 +24,12 @@
             <label>
                 <input type="checkbox" class="peer hidden" [id]="'proposal-'+$index" [checked]="isChecked($index)"
                     [disabled]="isValidationStep()">
-                <p class="px-12 py-4 text-center my-4 rounded-md transition-colors cursor-pointer
+                <button type="button" class="px-12 py-4 text-center my-4 rounded-md transition-colors cursor-pointer
                     outline-blue-400 peer-hover:bg-slate-400 outline-offset-2
-                    peer-checked:outline-teal-500 peer-checked:outline-2
-                
-                    " [ngClass]="getProposalClass($index)" (click)="addToAnswer($index)">
+                    peer-checked:outline-teal-500 peer-checked:outline-2"
+                    [ngClass]="getProposalClass($index)" (click)="addToAnswer($index)">
                     {{proposal.text}}
-                </p>
+                </button>
             </label>
             }
         </div>

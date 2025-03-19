@@ -1,12 +1,13 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { inject } from '@angular/core';
-import { catchError, first, map, tap } from 'rxjs/operators';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { AlertService } from '../services/alert.service';
+import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { BehaviorSubject, of } from 'rxjs';
+import { catchError, first, map, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { AlertService } from '../services/alert.service';
 import { User } from '../types/user';
+import { RegisterData } from '../types/register-form';
+import { LoginData } from '../types/login-form';
 
 @Injectable({
   providedIn: 'root'
@@ -22,11 +23,11 @@ export class AuthService {
   private userSubject = new BehaviorSubject<User | null>(null);
   user$ = this.userSubject.asObservable();
 
-  register(data: any) {
-    return this.httpClient.post(`${this.baseUrl}/auth/register`, data);
+  register(credentials: RegisterData) {
+    return this.httpClient.post(`${this.baseUrl}/auth/register`, credentials);
   }
 
-  login(credentials: { email: string; password: string }) {
+  login(credentials: LoginData) {
     return this.httpClient.post(`${this.baseUrl}/auth/login`, credentials, { withCredentials: true });
   }
 
@@ -38,8 +39,9 @@ export class AuthService {
         tap(user => {
           this.userSubject.next(user);
         }),
-        catchError(_ => {
+        catchError((err: HttpErrorResponse) => {
           this.userSubject.next(null);
+          console.error(err);
           return of(null);
         })
       );

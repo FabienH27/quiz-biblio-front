@@ -8,10 +8,13 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "test:ci": "ng test --no-watch --no-progress --browsers=ChromeHeadless"
+    "test:ci": "ng test --no-watch --no-progress --browsers=ChromeHeadless",
+    "lint": "ng lint",
+    "lint:fix": "ng lint --fix"
   },
   "private": true,
   "dependencies": {
+    "@angular-eslint/eslint-plugin": "^19.2.1",
     "@angular/animations": "^19.2.2",
     "@angular/common": "^19.2.2",
     "@angular/compiler": "^19.2.2",
@@ -34,8 +37,12 @@
     "@angular-devkit/build-angular": "^19.2.2",
     "@angular/cli": "^19.2.2",
     "@angular/compiler-cli": "^19.2.2",
+    "@eslint/js": "^9.22.0",
     "@types/jasmine": "~5.1.0",
+    "angular-eslint": "19.2.1",
     "autoprefixer": "^10.4.20",
+    "eslint": "^9.22.0",
+    "globals": "^16.0.0",
     "jasmine-core": "~5.6.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
@@ -47,6 +54,7 @@
     "stylelint-config-standard": "^37.0.0",
     "stylelint-config-tailwindcss": "^1.0.0",
     "tailwindcss": "^4.0.14",
-    "typescript": "~5.8.2"
+    "typescript": "~5.8.2",
+    "typescript-eslint": "8.26.0"
   }
 }

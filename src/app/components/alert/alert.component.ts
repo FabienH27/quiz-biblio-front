@@ -31,14 +31,14 @@ import { toSignal } from '@angular/core/rxjs-interop';
     ]
 })
 export class AlertComponent {
-  timeoutId: any;
+  timeoutId = 0;
 
   alertService = inject(AlertService);
 
   level: AlertLevel | undefined;
 
-  message: string = '';
-  visible: boolean = false;
+  message = '';
+  visible = false;
 
   alertData: Signal<{level: AlertLevel; message: string;} | null>;
 
@@ -54,7 +54,7 @@ export class AlertComponent {
       this.visible = true;
 
       if (this.timeoutId) clearTimeout(this.timeoutId);
-      this.timeoutId = setTimeout(() => (this.visible = false), 3000);
+      this.timeoutId = window.setTimeout(() => (this.visible = false), 3000);
     });
   }
 

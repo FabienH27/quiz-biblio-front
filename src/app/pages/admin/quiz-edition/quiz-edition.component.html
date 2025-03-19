@@ -1,9 +1,9 @@
 @if ((quiz$() | async); as quiz){
     <h1 class="mt-8 text-xl text-center text-teal-300">Edit quiz</h1>
-    <app-quiz-form [quiz]="quiz" submitPlaceholder="Edit quiz" (onFormSubmit)="onQuizEdition($event)" />
+    <app-quiz-form [quiz]="quiz" submitPlaceholder="Edit quiz" (formSubmit)="onQuizEdition($event)" />
 }@else {
     <div class="text-center">
-        <img src="svg/404-dark.svg" class="w-72 block mx-auto my-8">
+        <img src="svg/404-dark.svg" class="w-72 block mx-auto my-8" alt="not found image">
         <p class="text-xl my-2">Resource not found.</p>
         <a class="text-md text-teal-400 underline" [routerLink]="['/']" >Back to home</a>
     </div>

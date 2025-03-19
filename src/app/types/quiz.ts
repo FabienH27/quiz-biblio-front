@@ -1,13 +1,13 @@
-export type Proposal = {
+export interface Proposal {
     text: string | null;
 }
 
-export type QuizCreator = {
+export interface QuizCreator {
     id: string;
     name: string;
 }
 
-export type Question = {
+export interface Question {
     text: string | null;
     imageId: string | null;
     details: string | null;
@@ -15,7 +15,7 @@ export type Question = {
     correctProposalIds: number[];
 }
 
-export type Quiz = {
+export interface Quiz {
     id: string | null;
     themes: string[];
     title: string;

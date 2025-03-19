@@ -1,12 +1,12 @@
 import { Component, inject } from "@angular/core";
-import { ReactiveFormsModule, FormGroup, FormArray, FormControl } from "@angular/forms";
-import { QuestionFormComponent } from "../question-form.component";
+import { FormArray, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { QuizFormService } from "../../../../services/quiz-form.service";
+import { QuestionFormComponent } from "../question-form.component";
 
 @Component({
     template: `<form [formGroup]="form">
         @for(proposal of questions.controls; track $index) {
-          <create-question [questionIndex]="$index" />
+          <app-create-question [questionIndex]="$index" />
         }
       </form>`,
     imports: [QuestionFormComponent, ReactiveFormsModule]

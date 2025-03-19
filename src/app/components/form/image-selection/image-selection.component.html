@@ -1,7 +1,7 @@
-<div [ngClass]="color() == 'primary' ? 'text-teal-500 hover:text-teal-300' : 'text-slate-500 hover:text-slate-300'">
+<div [ngClass]="color() === 'primary' ? 'text-teal-500 hover:text-teal-300' : 'text-slate-500 hover:text-slate-300'">
 	@if (imageId()) {
 	@if (imageUrl$ | async; as imageUrl) {
-	<img [src]="imageUrl" class="max-w-full p-2 max-h-64 mx-auto" />
+	<img [src]="imageUrl" class="max-w-full p-2 max-h-64 mx-auto" alt="selected quiz image" />
 	} @else {
 	<div class="max-w-32 text-center mx-auto block">
 		<ng-icon class="text-orange-300" name="heroExclamationTriangle" size="1.5em" />

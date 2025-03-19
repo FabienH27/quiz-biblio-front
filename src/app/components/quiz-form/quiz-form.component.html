@@ -33,14 +33,14 @@
   </div>
 
   <app-theme-selection
-    (onSelectionChange)="onThemeChange($event)"
+    (selectionChange)="onThemeChange($event)"
   ></app-theme-selection>
 
   @for (question of questions.controls; track question.value) {
-    <create-question
+    <app-create-question
       [questionIndex]="$index"
       (questionRemoval)="onQuestionRemoval($event)"
-    ></create-question>
+    />
     } @if (questions.length < maxQuestionCount()) {
     <button
       type="button"

@@ -7,7 +7,7 @@ import { heroCheckBadge, heroTrash } from '@ng-icons/heroicons/outline';
 import { heroCheckBadgeSolid } from '@ng-icons/heroicons/solid';
 
 @Component({
-    selector: 'create-proposal',
+    selector: 'app-create-proposal',
     imports: [NgIcon, ReactiveFormsModule, NgClass],
     providers: [provideIcons({ heroTrash, heroCheckBadge, heroCheckBadgeSolid })],
     templateUrl: './proposal-form.component.html',

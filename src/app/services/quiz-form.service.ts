@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Proposal, Question, Quiz } from '../types/quiz';
 import { noWhitespaceValidator } from '../utils/validators/no-whitespace';
 

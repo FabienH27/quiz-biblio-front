@@ -8,7 +8,7 @@ import { ImageSelectionComponent } from '../../form/image-selection/image-select
 import { ProposalFormComponent } from './proposal-form/proposal-form.component';
 
 @Component({
-    selector: 'create-question',
+    selector: 'app-create-question',
     imports: [ProposalFormComponent, ImageSelectionComponent, NgIcon, ReactiveFormsModule, NgClass],
     providers: [provideIcons({ heroPlusCircle, heroTrash })],
     templateUrl: 'question-form.component.html',

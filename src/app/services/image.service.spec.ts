@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { ImageService } from './image.service';
-import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { appConfig } from '../app.config';
 
 describe('ImageService', () => {
@@ -17,7 +17,6 @@ describe('ImageService', () => {
     });
     service = TestBed.inject(ImageService);
     
-    const httpTesting = TestBed.inject(HttpTestingController);
   });
 
   it('should be created', () => {

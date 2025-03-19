@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 
-import { QuizFormService } from './quiz-form.service';
 import { provideHttpClient } from '@angular/common/http';
-import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { QuizFormService } from './quiz-form.service';
 
 describe('QuizFormService', () => {
   let service: QuizFormService;
@@ -17,7 +17,6 @@ describe('QuizFormService', () => {
     });
     service = TestBed.inject(QuizFormService);
 
-    const httpTesting = TestBed.inject(HttpTestingController);
   });
 
   it('should be created', () => {

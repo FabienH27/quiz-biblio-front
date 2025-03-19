@@ -1,13 +1,13 @@
-import { Component, HostListener, inject, input, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { Observable, of, tap } from 'rxjs';
-import { User } from '../../types/user';
 import { AsyncPipe } from '@angular/common';
-import { RbacService } from '../../services/rbac.service';
-import { AuthService } from '../../services/auth.service';
+import { Component, HostListener, inject, input } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroBars3BottomRight, heroXMark } from '@ng-icons/heroicons/outline';
+import { Observable } from 'rxjs';
+import { AuthService } from '../../services/auth.service';
+import { RbacService } from '../../services/rbac.service';
 import { Roles } from '../../types/roles';
+import { User } from '../../types/user';
 
 @Component({
     selector: 'app-menu',

@@ -1,4 +1,4 @@
-export type Answer = {
+export interface Answer {
     value: number[];
     isCorrect: boolean;
 }
