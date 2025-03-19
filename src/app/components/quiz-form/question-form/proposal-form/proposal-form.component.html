@@ -15,8 +15,8 @@
         }
       </label>
     </div>
-    <input formControlName="text" type="text" [class.outline-red-400]="isProposalValid"
-      [placeholder]="'Proposal ' + (proposalIndex() + 1)" class="bg-slate-600 text-xl p-2 mx-auto block focus" />
+    <input formControlName="text" type="text" [ngClass]="{'outline-red-400 outline-2': isProposalInvalid}"
+      [placeholder]="'Proposal ' + (proposalIndex() + 1)" class="bg-slate-600 text-xl p-2 mx-auto block focus:outline-teal-700 focus:outline-2 outline-offset-2" />
       @if ((proposal?.dirty || proposal?.touched) && proposal?.hasError('required')) {
         <div class="text-red-400 text-sm text-center my-2"
           >

@@ -16,9 +16,9 @@ import { authGuard } from './guards/auth.guard';
 export const routes: Routes = [
     { path: '', component: HomeComponent, resolve: { user: userResolver } },
     { path: 'login', component: LoginComponent },
-    {   
-        path: 'play/:id', component: PlayQuizComponent, 
-        resolve: {quiz: quizResolver, user: userResolver},
+    {
+        path: 'play/:id', component: PlayQuizComponent,
+        resolve: { quiz: quizResolver, user: userResolver },
         canActivate: [authGuard],
         canDeactivate: [leaveQuizGuard]
     },
@@ -26,6 +26,7 @@ export const routes: Routes = [
     { path: 'register', component: RegisterComponent },
     {
         path: 'admin',
+        resolve: { user: userResolver },
         canActivate: [adminGuard],
         children: [
             {

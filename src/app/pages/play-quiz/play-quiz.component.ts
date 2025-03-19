@@ -28,6 +28,7 @@ export class PlayQuizComponent {
   readonly questionComponent = viewChild.required<PlayQuizQuestionComponent>('question');
 
   quiz!: Quiz;
+  quizSignal: Signal<Quiz>;
 
   isQuizInProgress = false;
   checkStep = false;
@@ -52,7 +53,6 @@ export class PlayQuizComponent {
     return answerArray.filter((obj) => obj.isCorrect).length;
   }
 
-  quizSignal: Signal<Quiz>;
 
   constructor(){
     this.quizSignal = toSignal(this.activatedRoute.data.pipe(map((data) => data['quiz'])), 

@@ -2,7 +2,7 @@ import { Component, inject, input, OnInit, output } from '@angular/core';
 import { Quiz } from '../../types/quiz';
 import { FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { QuizFormService } from '../../services/quiz-form.service';
-import { JsonPipe } from '@angular/common';
+import { JsonPipe, NgClass } from '@angular/common';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroPlusCircle } from '@ng-icons/heroicons/outline';
 import { heroBeakerSolid } from '@ng-icons/heroicons/solid';
@@ -12,7 +12,7 @@ import { QuestionFormComponent } from './question-form/question-form.component';
 
 @Component({
     selector: 'app-quiz-form',
-    imports: [QuestionFormComponent, ImageSelectionComponent, ReactiveFormsModule, NgIcon, ThemeDropdownComponent],
+    imports: [QuestionFormComponent, ImageSelectionComponent, ReactiveFormsModule, NgIcon, ThemeDropdownComponent, NgClass],
     providers: [provideIcons({ heroPlusCircle, heroBeakerSolid })],
     templateUrl: './quiz-form.component.html',
     styleUrl: './quiz-form.component.css'
@@ -25,7 +25,7 @@ export class QuizFormComponent implements OnInit {
 
   quiz = input<Quiz | null>();
   submitPlaceholder = input<string>("Create quiz");
-  maxQuestionCount = input<number>(50);
+  maxQuestionCount = input<number>(10);
 
   onFormSubmit = output<Quiz>();
 
@@ -41,7 +41,7 @@ export class QuizFormComponent implements OnInit {
     return this.form.get('themes');
   }
 
-  get isTitleValid() {
+  get isTitleInvalid() {
     return this.title?.invalid && (this.title?.dirty || this.title?.touched);
   }
 
