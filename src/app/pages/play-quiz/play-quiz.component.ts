@@ -53,6 +53,10 @@ export class PlayQuizComponent {
     return answerArray.filter((obj) => obj.isCorrect).length;
   }
 
+  get themes(){
+    return this.quiz.themes.sort().join(', ');
+  }
+
 
   constructor(){
     this.quizSignal = toSignal(this.activatedRoute.data.pipe(map((data) => data['quiz'])), 

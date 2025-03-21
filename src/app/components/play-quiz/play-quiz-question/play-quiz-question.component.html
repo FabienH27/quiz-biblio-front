@@ -7,11 +7,11 @@
             }@else {
             <img src="svg/gradient.svg" class="hidden md:block w-32 h-32 rounded-full" alt="placeholder image if the image is not found" />
             }
-            <div class="md:ml-8">
+            <div class="md:ml-8 text-left">
                 <h2 class="md:text-2xl">{{question().text}}</h2>
                 @if (isValidationStep()) {
                 @if (isCorrect) {
-                <p class="text-teal-500 text-left">😎 Correct !</p>
+                <p class="text-teal-500 ">😎 Correct !</p>
                 }@else {
                 <p class="text-red-500">🥹 Incorrect</p>
                 }
@@ -21,16 +21,18 @@
 
         <div class="md:flex md:justify-evenly flex-wrap my-8">
             @for (proposal of question().proposals; track $index) {
-            <label class="w-1/2">
-                <input type="checkbox" class="peer hidden" [id]="'proposal-'+$index" [checked]="isChecked($index)"
-                    [disabled]="isValidationStep()">
-                <button type="button" class="px-12 py-4 text-center text-sm my-4 w-3/4 block mx-auto rounded-md transition-colors cursor-pointer
-                    outline-blue-400 peer-hover:bg-slate-400 outline-offset-2
-                    peer-checked:outline-teal-500 peer-checked:outline-2"
-                    [ngClass]="getProposalClass($index)" (click)="addToAnswer($index)">
-                    {{proposal.text}}
-                </button>
-            </label>
+                <div class="w-1/2">
+                    <label class="block w-3/4 mx-auto ">
+                        <input type="checkbox" class="peer hidden" [id]="'proposal-'+$index" [checked]="isChecked($index)"
+                            [disabled]="isValidationStep()">
+                        <button type="button" class="px-12 py-4 text-center text-sm my-4 w-3/4 block mx-auto rounded-md transition-colors cursor-pointer
+                            outline-blue-400 peer-hover:bg-slate-400 outline-offset-2
+                            peer-checked:outline-teal-500 peer-checked:outline-2"
+                            [ngClass]="getProposalClass($index)" (click)="addToAnswer($index)">
+                            {{proposal.text}}
+                        </button>
+                    </label>
+                </div>
             }
         </div>
 
