@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, of } from 'rxjs';
@@ -39,9 +39,8 @@ export class AuthService {
         tap(user => {
           this.userSubject.next(user);
         }),
-        catchError((err: HttpErrorResponse) => {
+        catchError(() => {
           this.userSubject.next(null);
-          console.error(err);
           return of(null);
         })
       );
