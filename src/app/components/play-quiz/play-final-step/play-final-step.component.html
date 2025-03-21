@@ -16,7 +16,7 @@
         <div class="text-right flex items-center md:w-2/6">
             <div class="mx-auto text-center items-center">
                 <p class="mr-2">You answered :</p>
-                <span class="flex items-center justify-evenly" [ngClass]="isAnswerCorrect($index) ? 'text-teal-500' : 'text-red-500'">
+                <span class="flex items-center justify-evenly flex-wrap-reverse" [ngClass]="isAnswerCorrect($index) ? 'text-teal-500' : 'text-red-500'">
                     {{getSelectionForQuestion($index)}}                
                     <ng-icon size="2em"
                         [name]="isAnswerCorrect($index) ? 'heroCheckCircle' : 'heroXMark'"></ng-icon>
