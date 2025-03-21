@@ -1,7 +1,7 @@
 <div class="max-w-(--breakpoint-lg) mx-auto mt-12">
     <div class="md:flex text-center md:text-left justify-center mx-auto items-center md:ml-16">
         @if (imageUrl() | async; as img) {
-        <img [src]="img" class="hidden md:block w-32 h-32 object-cover rounded-full" alt="quiz image" />
+        <img [src]="img" class="hidden md:block max-w-64 max-h-64" alt="quiz image" />
         }@else {
         <img src="svg/gradient.svg" class="hidden md:block w-32 h-32 rounded-full" alt="placeholder image" />
         }
@@ -16,7 +16,7 @@
     <div class="mt-8">
         @if (!isQuizInProgress && !finalStep) {
         <button (click)="startQuiz()" type="button"
-            class="bg-teal-500 px-8 py-4 rounded-lg mx-auto block hover:bg-teal-400">
+            class="bg-teal-500 px-8 py-4 rounded-lg mx-auto block hover:bg-teal-400 cursor-pointer">
             <ng-icon name="heroPlaySolid"></ng-icon>
             Start quiz !
         </button>

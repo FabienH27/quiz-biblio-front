@@ -5,16 +5,16 @@
       <form class="form-group" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <label class=" font-bold" for="username">Username <span class="text-red-500">*</span></label>
         <input
-          class="placeholder-slate-600 bg-slate-800 outline-none my-3"
+          class="placeholder-slate-600 bg-slate-800 my-3 focus:outline-teal-700 focus:outline-2 outline-offset-2"
+          [ngClass]="{'outline-red-400 outline-2': isUsernameInvalid }"
           name="username"
           type="text"
           formControlName="username"
           placeholder="Username"
           required
-         
           autocomplete="name"
         />
-        @if (username?.invalid && (username?.dirty || username?.touched)) {
+        @if (isUsernameInvalid) {
             <div class="text-red-500 text-sm">
                 @if (username?.hasError('required')) {
                   <p>Username fied is required.</p>
@@ -29,7 +29,8 @@
           }
         <label class="font-bold" for="email">Email <span class="text-red-500">*</span></label>
         <input
-          class="placeholder-slate-600 bg-slate-800 outline-none my-3"
+          class="placeholder-slate-600 bg-slate-800 my-3 focus:outline-teal-700 focus:outline-2 outline-offset-2"
+          [ngClass]="{'outline-red-400 outline-2': isEmailInvalid }"
           name="email"
           type="email"
           formControlName="email"
@@ -37,7 +38,7 @@
           autocomplete="email"
           required
         />
-        @if (email?.invalid && (email?.dirty || email?.touched)) {
+        @if (isEmailInvalid) {
           @if (email?.hasError('required')) {
             <p class="text-red-500">Email fied is required.</p>
           }
@@ -47,19 +48,22 @@
         }
         <label class="font-bold" for="email">Password <span class="text-red-500">*</span></label>
         <input
-          class="placeholder-slate-600 bg-slate-800 outline-none my-3"
+          class="placeholder-slate-600 bg-slate-800 my-3 focus:outline-teal-700 focus:outline-2 outline-offset-2"
+          [ngClass]="{'outline-red-400 outline-2': isPasswordInvalid }"
           type="password"
           formControlName="password"
           placeholder="Password"
           autocomplete="new-password"
         />
-        @if (password?.invalid && (password?.dirty || password?.touched)) {
+        @if (isPasswordInvalid) {
           @if (password?.hasError('required')) {
             <p class="text-red-500">Password fied is required.</p>
           }
         }
         <button
-          class="bg-teal-500 px-8 py-3 mt-5 rounded-md hover:outline-hidden hover:bg-white hover:text-teal-500 block mx-auto w-full outline-hidden focus:bg-white focus:text-teal-500"
+          type="submit"
+          (click)="onSubmit()"
+          class="cursor-pointer bg-teal-500 px-8 py-3 mt-5 rounded-md hover:outline-hidden hover:bg-white hover:text-teal-500 block mx-auto w-full outline-hidden focus:bg-white focus:text-teal-500"
         >
           Register
         </button>

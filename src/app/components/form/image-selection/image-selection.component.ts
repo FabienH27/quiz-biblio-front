@@ -62,7 +62,7 @@ export class ImageSelectionComponent implements OnInit {
     this.imageService.uploadImage(file)
       .subscribe(response => {
         if (response.id) {
-          this.imageUrlSignal.set(response.url);
+          this.imageUrlSignal.set(response.id);
           this.imageUrlChange.emit(response.id);
         }
       });
