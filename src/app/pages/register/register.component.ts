@@ -3,10 +3,11 @@ import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angula
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { RegisterForm } from '../../types/register-form';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule, RouterModule],
+  imports: [ReactiveFormsModule, RouterModule, NgClass],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
@@ -33,9 +34,22 @@ export class RegisterComponent {
     return this.registerForm.get('username');
   }
 
+  get isUsernameInvalid(){
+    return this.username?.invalid && (this.username?.dirty || this.username?.touched);
+  }
+
+  get isEmailInvalid(){
+    return this.email?.invalid && (this.email?.dirty || this.email?.touched);
+  }
+
+  get isPasswordInvalid(){
+    return this.password?.invalid && (this.password?.dirty || this.password?.touched);
+  }
+
   onSubmit() {
     if (this.registerForm.valid) {
-      this.authService.register(this.registerForm.getRawValue());
+      this.authService.register(this.registerForm.getRawValue()).subscribe();
+      this.router.navigate(['/login']);
     }
   }
 

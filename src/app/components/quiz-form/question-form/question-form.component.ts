@@ -106,8 +106,6 @@ export class QuestionFormComponent implements OnInit {
   }
 
   updateQuestionImage(imageId: string | null) {
-    console.log(imageId);
-    
     this.formImage?.setValue(imageId);
     this.formImage?.markAsDirty();
     this.formImage?.markAsTouched();

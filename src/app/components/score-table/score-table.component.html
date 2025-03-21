@@ -14,5 +14,10 @@
 			<td class="border-slate-500 border-x-2 p-2 text-center">{{ score.score }}</td>
 		</tr>
 		}
+		@empty {
+			<tr>
+				<td colspan="3" class="text-center text-slate-500 py-4">No user scores found.</td>
+			</tr>
+		}
 	</tbody>
 </table>

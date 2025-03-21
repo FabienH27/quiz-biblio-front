@@ -82,6 +82,8 @@ export class QuizFormComponent implements OnInit {
 
   onThemeChange(data: string[]) {
     this.themes?.setValue(data);
+    this.themes?.markAsDirty();
+    this.themes?.markAsTouched();
   }
 
   updateImage(imageId: string | null) {
