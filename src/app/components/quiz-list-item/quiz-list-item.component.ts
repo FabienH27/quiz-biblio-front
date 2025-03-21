@@ -6,7 +6,6 @@ import { heroPlayCircle, heroQueueList, heroTrash } from '@ng-icons/heroicons/ou
 import { Observable } from 'rxjs';
 import { ImageService } from '../../services/image.service';
 import { QuizInfo } from '../../types/quiz-info';
-import { Quiz } from '../../types/quiz';
 
 @Component({
     selector: 'app-quiz-list-item',
@@ -23,7 +22,7 @@ export class QuizListItemComponent implements OnInit {
   targetRoute = input.required<string[]>();
 
   displayAction = input<boolean>(false);
-  onDelete = output<QuizInfo>();
+  delete = output<QuizInfo>();
 
   color = input<'dark' | 'lighter'>('lighter');
 
@@ -46,7 +45,7 @@ export class QuizListItemComponent implements OnInit {
   deleteQuiz(event: Event){
     event.stopPropagation();
     event.preventDefault();
-    this.onDelete.emit(this.quiz());
+    this.delete.emit(this.quiz());
   }
 
   getPlayQuizUrl(){

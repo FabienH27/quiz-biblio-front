@@ -13,9 +13,9 @@ export class ModalComponent {
 
   isOpen = input<boolean>(false);
 
-  onModalClose = output();
+  modalClose = output();
 
   closeModal(){
-    this.onModalClose.emit();
+    this.modalClose.emit();
   }
 }
