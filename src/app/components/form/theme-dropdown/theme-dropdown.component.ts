@@ -3,7 +3,7 @@ import { Component, inject, OnDestroy, OnInit, output } from '@angular/core';
 import { ControlContainer, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroPuzzlePiece } from '@ng-icons/heroicons/outline';
-import { merge, Observable, Subject, switchMap } from 'rxjs';
+import { map, merge, Observable, Subject, switchMap } from 'rxjs';
 import { QuizService } from '../../../services/quiz.service';
 import { MultiSelectComponent } from "../multiselect/multiselect.component";
 
@@ -51,7 +51,9 @@ export class ThemeDropdownComponent implements OnInit, OnDestroy {
     this.themeSelection.setValue(this.themes);
 
     this.options$ = merge(
-      this.quizService.getThemes(),
+      this.quizService.getThemes().pipe(
+        map(arr => arr.sort())
+      ),
       this.createTheme$.pipe(
         switchMap((themeName) => 
           this.quizService.createTheme(themeName).pipe(

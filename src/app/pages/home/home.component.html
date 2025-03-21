@@ -31,7 +31,7 @@
 		<h1 class="text-xl text-center" id="quiz-list">
 			Play quizzes of your choice !
 		</h1>
-        <div class="flex gap-8 mt-8 justify-center w-1/2 mx-auto">
+        <div class="md:flex gap-8 mt-8 justify-center w-1/2 mx-auto">
             @for (quiz of quizzes$ | async; track $index) {
                 <app-quiz-list-item [quiz]="quiz" [targetRoute]="['/play',quiz.id]" color="dark">
 					<quiz-actions>actions</quiz-actions>

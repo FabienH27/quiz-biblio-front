@@ -41,7 +41,7 @@ export class MultiSelectComponent implements ControlValueAccessor {
    * list of selected options
    */
   get selectedOptionsList(){
-    return [...this.selectedOptions].join(', ');
+    return [...this.selectedOptions].sort().join(', ');
   }
 
   get isControlInvalid(){
