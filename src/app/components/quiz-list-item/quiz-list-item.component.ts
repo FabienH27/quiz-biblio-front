@@ -36,6 +36,10 @@ export class QuizListItemComponent implements OnInit {
     return this.quiz();
   }
 
+  get themes(){
+    return this.quizData.themes.sort().join(", ").substring(0, 20) + "...";
+  }
+
   playQuiz(event: Event){
     event.stopPropagation();
     event.preventDefault();

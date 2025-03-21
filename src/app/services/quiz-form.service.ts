@@ -12,7 +12,7 @@ export class QuizFormService {
 
   quizForm: FormGroup;
 
-  get questions(): FormArray{
+  get questions(): FormArray {
     return this.quizForm.get('questions') as FormArray;
   }
 
@@ -20,33 +20,35 @@ export class QuizFormService {
     this.quizForm = this.createQuizForm();
   }
 
-  createQuizForm(quiz?: Quiz | null): FormGroup{
+  createQuizForm(quiz?: Quiz | null): FormGroup {
     return this.fb.group({
-      id: [quiz?.id || null ],
+      id: [quiz?.id || null],
       imageId: [quiz?.imageId || null],
       themes: [quiz?.themes || []],
       title: [quiz?.title || '', [Validators.required, noWhitespaceValidator]],
-      questions: this.fb.array([
-        this.createQuestionForm(),
-      ]),
+      questions: this.fb.array(
+        quiz?.questions?.length 
+          ? quiz.questions.map((question) => this.createQuestionForm(question))
+          : [this.createQuestionForm()]
+      )
     });
   }
 
-  createQuestionForm(question?: Question): FormGroup{
+  createQuestionForm(question?: Question): FormGroup {
     return this.fb.group({
       text: [question?.text || '', [Validators.required, noWhitespaceValidator]],
       details: [question?.details || null, [Validators.required]],
       imageId: [question?.imageId || null],
-      proposals: this.fb.array([
-        this.createProposalForm(),
-        this.createProposalForm()
-      ]
-      ),
+      proposals: this.fb.array(
+        question?.proposals?.length 
+          ? question.proposals.map((proposal) => this.createProposalForm(proposal))
+          : [this.createProposalForm(), this.createProposalForm()]
+      ),      
       correctProposalIds: [question?.correctProposalIds || [], [Validators.required]]
     });
   }
 
-  createProposalForm(proposal?: Proposal): FormGroup{
+  createProposalForm(proposal?: Proposal): FormGroup {
     return this.fb.group({
       text: [proposal?.text || '', [Validators.required]],
     });

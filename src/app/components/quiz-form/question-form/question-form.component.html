@@ -2,61 +2,64 @@
   <div class="flex justify-end">
     <p class="text-2xl text-teal-500">#{{ questionIndex() + 1 }}</p>
     @if (questionIndex() > 0) {
-      <button class="ml-4" type="button" (click)="removeQuestion(questionIndex())">
-        <ng-icon size="1.2em" strokeWidth=".12em" name="heroTrash" class="text-red-500 hover:text-red-300 align-middle!"></ng-icon>
-      </button>
+    <button class="ml-4" type="button" (click)="removeQuestion(questionIndex())">
+      <ng-icon size="1.2em" strokeWidth=".12em" name="heroTrash"
+        class="text-red-500 hover:text-red-300 align-middle!"></ng-icon>
+    </button>
     }
   </div>
   <div class="px-2 md:flex items-center">
     <span class="w-2/12">
-      <app-image-selection [imageId]="imageId"
-      (imageUrlChange)="updateQuestionImage($event)"></app-image-selection>
+      <app-image-selection [imageId]="imageId" (imageUrlChange)="updateQuestionImage($event)"></app-image-selection>
     </span>
     <div class="w-full">
-      <input type="text" placeholder="Question" formControlName="text" [ngClass]="{'outline-red-400 outline-2': isQuestionInvalid}"
+      <input type="text" placeholder="Question" formControlName="text"
+        [ngClass]="{'outline-red-400 outline-2': isQuestionInvalid}"
         class="text-xl bg-slate-600 w-full p-2 focus:outline-teal-700 focus:outline-2 outline-offset-2" />
-        @if (isQuestionInvalid) {
-          <div class="text-red-400 text-sm">
-            <p>Please add a question text.</p>
-          </div>
-        }
+      @if (isQuestionInvalid) {
+      <div class="text-red-400 text-sm">
+        <p>Please add a question text.</p>
       </div>
-    </div>
-
-    <div class="mt-4 mx-2">
-      <p class="text-teal-200 mb-2">Details :</p>
-      <div>
-        <textarea class="focus:outline-teal-700 focus:outline-2 outline-offset-2 w-full bg-slate-600 p-2" maxlength="255" formControlName="details"
-        [ngClass]="{'outline-red-400 outline-2': isDetailsInvalid}" placeholder="Explain the answer"></textarea>
-        @if (isDetailsInvalid) {
-          <div class="text-red-400 text-sm">
-            <p>Please explain the answer.</p>
-          </div>
-        }
-      </div>
-    </div>
-
-    <div class="md:grid grid-cols-2">
-      @for (proposal of proposals.controls; track $index) {
-        <app-create-proposal [isCorrect]="correctProposalIdsValue.includes($index)" [proposalIndex]="$index"
-          (correctChange)="onProposalCorrectChange($index, $event)"
-        (proposalRemoval)="onProposalRemoval($event)" />
       }
     </div>
+  </div>
 
-    <div [ngClass]="hasCorrectProposal ? 'mt-4' : 'mt-8'">
-      @if (proposals.length < 4) { <button class="mx-auto block hover:text-teal-200" type="button"
-        (click)="addProposal()">
-        <ng-icon name="heroPlusCircle" size="1.5em" strokeWidth=".12em" class="mx-2 align-sub!"></ng-icon>
-        <p class="text-md inline">Add proposal</p>
-      </button>
+  <div class="mt-4 mx-2">
+    <p class="text-teal-200 mb-2">Details :</p>
+    <div>
+      <textarea class="focus:outline-teal-700 focus:outline-2 outline-offset-2 w-full bg-slate-600 p-2" maxlength="255"
+        formControlName="details" [ngClass]="{'outline-red-400 outline-2': isDetailsInvalid}"
+        placeholder="Explain the answer"></textarea>
+      @if (isDetailsInvalid) {
+      <div class="text-red-400 text-sm">
+        <p>Please explain the answer.</p>
+      </div>
+      }
+    </div>
+  </div>
+
+  <div class="md:flex flex-wrap mt-4">
+    @for (proposal of proposals.controls; track $index) {
+    <app-create-proposal class="w-1/2 mx-auto" [isCorrect]="correctProposalIdsValue.includes($index)"
+      [proposalIndex]="$index" (correctChange)="onProposalCorrectChange($index, $event)"
+      (proposalRemoval)="onProposalRemoval($event)" />
     }
   </div>
 
-  @if (hasCorrectProposal) {
-    <div class="text-amber-100 m-2 text-sm text-center">
-      <p>Don't forget to mark the correct proposal(s).</p>
+  <div class="mx-auto block" [ngClass]="hasCorrectProposal ? 'mt-4' : 'mt-8'">
+    @if (proposals.length < 4) { 
+      <button class="mx-auto block cursor-pointer hover:text-teal-200" type="button"
+      (click)="addProposal()">
+        <ng-icon name="heroPlusCircle" size="1.5em" strokeWidth=".12em" class="mx-2 align-sub!"></ng-icon>
+        <p class="text-md inline">Add proposal</p>
+      </button>
+      }
     </div>
+
+  @if (hasCorrectProposal) {
+  <div class="text-amber-100 m-2 text-sm text-center">
+    <p>Don't forget to mark the correct proposal(s).</p>
+  </div>
   }
 
 </div>

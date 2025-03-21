@@ -14,7 +14,7 @@
             <p class="text-slate-300">{{question?.details}}</p>
         </div>
         <div class="text-right flex items-center ">
-            <div class="flex items-center">
+            <div class="md:flex mx-auto text-center items-center">
                 <p class="mr-2">You answered :</p>
                 <span class="flex items-center" [ngClass]="isAnswerCorrect($index) ? 'text-teal-500' : 'text-red-500'">
                     {{getSelectionForQuestion($index)}}                

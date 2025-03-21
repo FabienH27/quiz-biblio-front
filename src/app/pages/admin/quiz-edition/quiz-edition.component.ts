@@ -19,7 +19,7 @@ export class QuizEditionComponent {
   quizService = inject(QuizService);
   alertService = inject(AlertService);
 
-  quiz$ = signal<Observable<Quiz>>((EMPTY));
+  quiz$ = signal<Observable<Quiz>>(EMPTY);
 
   // TODO: Skipped for migration because:
   //  Accessor inputs cannot be migrated as they are too complex.
