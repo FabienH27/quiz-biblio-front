@@ -3,20 +3,20 @@
 
 @for (answer of answers(); track $index) {
 <div class="md:flex justify-center items-center mt-4">
-    <div class="mr-4 mb-2 text-teal-500 text-center">
+    <div class="mr-4 mb-2 text-teal-500 text-center max-md:flex justify-evenly items-center">
         <p>Question</p>
         <p class="text-center text-4xl">#{{getIndex($index)}} </p>
     </div>
     @let question = getQuestionByIndex($index);
     <div class="md:flex w-full justify-between md:w-2/3 bg-slate-700 px-8 py-4 rounded-xl">
-        <div>
+        <div class="md:max-w-4/6">
             <p class="text-xl">{{question?.text}}</p>
             <p class="text-slate-300">{{question?.details}}</p>
         </div>
-        <div class="text-right flex items-center ">
-            <div class="md:flex mx-auto text-center items-center">
+        <div class="text-right flex items-center md:w-2/6">
+            <div class="mx-auto text-center items-center">
                 <p class="mr-2">You answered :</p>
-                <span class="flex items-center" [ngClass]="isAnswerCorrect($index) ? 'text-teal-500' : 'text-red-500'">
+                <span class="flex items-center justify-evenly" [ngClass]="isAnswerCorrect($index) ? 'text-teal-500' : 'text-red-500'">
                     {{getSelectionForQuestion($index)}}                
                     <ng-icon size="2em"
                         [name]="isAnswerCorrect($index) ? 'heroCheckCircle' : 'heroXMark'"></ng-icon>
