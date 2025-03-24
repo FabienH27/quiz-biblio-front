@@ -23,7 +23,7 @@
     "@angular/forms": "^19.2.2",
     "@angular/platform-browser": "^19.2.2",
     "@angular/platform-browser-dynamic": "^19.2.2",
-    "@angular/router": "^19.2.2",
+    "@angular/router": "^19.2.3",
     "@ng-icons/core": "^31.2.0",
     "@ng-icons/heroicons": "^29.10.0",
     "@tailwindcss/postcss": "^4.0.14",
