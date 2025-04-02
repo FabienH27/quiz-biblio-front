@@ -19,9 +19,9 @@
             </div>
         </div>
 
-        <div class="md:flex md:justify-evenly flex-wrap my-8">
+        <div class="md:flex md:justify-evenly md:flex-wrap my-8">
             @for (proposal of question().proposals; track $index) {
-                <div class="w-1/2">
+                <div class="md:w-1/2">
                     <label class="block w-3/4 mx-auto ">
                         <input type="checkbox" class="peer hidden" [id]="'proposal-'+$index" [checked]="isChecked($index)"
                             [disabled]="isValidationStep()">
