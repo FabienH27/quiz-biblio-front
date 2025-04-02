@@ -31,7 +31,7 @@ export class PlayFinalStepComponent {
     const userSelection = this.answers().get(questionIndex.toString());
     const question = this.quiz().questions.at(questionIndex);
 
-    return userSelection?.value?.map(index => question?.proposals[index]?.text ?? '').join(', ') ?? '';
+    return userSelection?.value?.map(index => question?.proposals[index]?.text ?? '') ?? [];
   }
 
   isAnswerCorrect(questionId: number){

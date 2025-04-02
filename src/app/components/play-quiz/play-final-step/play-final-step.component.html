@@ -13,13 +13,19 @@
             <p class="text-xl">{{question?.text}}</p>
             <p class="text-slate-300">{{question?.details}}</p>
         </div>
-        <div class="text-right flex items-center md:w-2/6">
-            <div class="mx-auto text-center items-center">
-                <p class="mr-2">You answered :</p>
+        <div class="flex items-center md:w-3/6">
+            <div class="mx-auto items-center">
+                <p class="mr-2 text-center">You answered :</p>
                 <span class="flex items-center justify-evenly flex-wrap-reverse" [ngClass]="isAnswerCorrect($index) ? 'text-teal-500' : 'text-red-500'">
-                    {{getSelectionForQuestion($index)}}                
+                    <ul class="w-2/3">
+                        @for (answer of getSelectionForQuestion($index); track $index) {
+                            <li class="list-disc">
+                                {{answer}}
+                            </li>
+                        }
+                    </ul>
                     <ng-icon size="2em"
-                        [name]="isAnswerCorrect($index) ? 'heroCheckCircle' : 'heroXMark'"></ng-icon>
+                        [name]="isAnswerCorrect($index) ? 'heroCheckCircle' : 'heroXMark'" />
                 </span>
             </div>
         </div>
