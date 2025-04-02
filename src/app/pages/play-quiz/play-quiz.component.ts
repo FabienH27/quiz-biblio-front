@@ -39,7 +39,7 @@ export class PlayQuizComponent {
   answers = signal<Map<string, Answer>>(new Map<string, Answer>());
 
   imageUrl = computed(() => this.quiz ? this.loadImage() : null);
-
+  
   get currentQuestion() {
     return this.quiz.questions.at(this.currentStep())!;
   }
@@ -57,10 +57,8 @@ export class PlayQuizComponent {
     return this.quiz.themes.sort().join(', ');
   }
 
-
   constructor(){
-    this.quizSignal = toSignal(this.activatedRoute.data.pipe(map((data) => data['quiz'])), 
-    {initialValue: null});
+    this.quizSignal = toSignal(this.activatedRoute.data.pipe(map((data) => data['quiz'])), {initialValue: null});
 
     effect(() => {
       const data = this.quizSignal();
@@ -104,6 +102,14 @@ export class PlayQuizComponent {
     const updatedAnswers = new Map(this.answers());
     updatedAnswers.set(this.currentStep().toString(), answer);
     this.answers.set(updatedAnswers);
+  }
+
+  handleClick(){
+    if(this.checkStep === true){
+      this.nextQuestion();
+    } else {
+      this.validateQuiz();
+    }
   }
 
   @HostListener('window:beforeunload', ['$event'])
