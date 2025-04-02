@@ -24,10 +24,22 @@ export class PlayQuizQuestionComponent implements OnInit {
 
   imageUrl$!: Observable<string | null>;
 
+  get selectionCount(){
+    return this.selectedProposals.length;
+  }
+
+  get correctSelectionCount(){
+    return this.question().correctProposalIds.length;
+  }
+
   get isCorrect(){
-    return this.selectedProposals.length === this.question().correctProposalIds.length &&
+    return this.selectionCount === this.question().correctProposalIds.length &&
     this.question().correctProposalIds.every(value => this.selectedProposals.includes(value));
   }
+
+  get hasMultipleCorrectAnswers(){
+    return this.question().correctProposalIds.length > 1;
+  }  
 
   ngOnInit(): void {
     const imageId = this.question().imageId;

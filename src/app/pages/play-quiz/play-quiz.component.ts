@@ -2,7 +2,7 @@ import { AsyncPipe } from '@angular/common';
 import { Component, computed, effect, HostListener, inject, Signal, signal, viewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { heroCheckSolid, heroForwardSolid, heroPlaySolid } from '@ng-icons/heroicons/solid';
+import { heroCheckSolid, heroForwardSolid, heroInformationCircleSolid, heroPlaySolid } from '@ng-icons/heroicons/solid';
 import { map, of } from 'rxjs';
 import { PlayFinalStepComponent } from "../../components/play-quiz/play-final-step/play-final-step.component";
 import { PlayQuizQuestionComponent } from '../../components/play-quiz/play-quiz-question/play-quiz-question.component';
@@ -15,7 +15,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 @Component({
     selector: 'app-play-quiz',
     imports: [NgIconComponent, PlayQuizQuestionComponent, PlayFinalStepComponent, AsyncPipe],
-    providers: [provideIcons({ heroPlaySolid, heroForwardSolid, heroCheckSolid })],
+    providers: [provideIcons({ heroPlaySolid, heroForwardSolid, heroCheckSolid, heroInformationCircleSolid })],
     templateUrl: './play-quiz.component.html',
     styleUrl: './play-quiz.component.css'
 })

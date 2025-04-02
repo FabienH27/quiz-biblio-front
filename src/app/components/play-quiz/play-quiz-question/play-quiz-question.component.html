@@ -9,12 +9,17 @@
             }
             <div class="md:ml-8 text-left">
                 <h2 class="md:text-2xl">{{question().text}}</h2>
-                @if (isValidationStep()) {
-                @if (isCorrect) {
-                <p class="text-teal-500 ">😎 Correct !</p>
-                }@else {
-                <p class="text-red-500">🥹 Incorrect</p>
+                @if (hasMultipleCorrectAnswers) {
+                    <p class="text-amber-200 italic">Multiple answers expected.</p>
                 }
+
+                @if (isValidationStep()) {
+                    @if (isCorrect) {
+                    <p class="text-teal-500 ">😎 Correct !</p>
+                }@else {
+                    <p class="text-red-500">🥹 Incorrect</p>
+                }
+                <p>{{selectionCount}} answer(s) given for {{correctSelectionCount}} correct answer(s)</p>
                 }
             </div>
         </div>
@@ -26,8 +31,9 @@
                         <input type="checkbox" class="peer hidden" [id]="'proposal-'+$index" [checked]="isChecked($index)"
                             [disabled]="isValidationStep()">
                         <button type="button" class="px-12 py-4 text-center text-sm my-4 w-3/4 block mx-auto rounded-md transition-colors cursor-pointer
-                            outline-blue-400 peer-hover:bg-slate-400 outline-offset-2
-                            peer-checked:outline-teal-500 peer-checked:outline-2"
+                            peer-hover:bg-slate-400 outline-offset-2
+                            outline-blue-300
+                            peer-checked:outline-blue-300 peer-checked:outline-2"
                             [ngClass]="getProposalClass($index)" (click)="addToAnswer($index)">
                             {{proposal.text}}
                         </button>
