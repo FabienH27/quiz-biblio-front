@@ -1,0 +1,36 @@
+{
+    "home": {
+        "description": "Développez vos connaissances sur différents sujets et testez votre culture générale",
+        "title": {
+            "challenge": "Challengez votre culture",
+            "literary": "littéraire",
+            "cinematographic": "cinématographique",
+            "and": "et",
+            "musical": "musicale",
+            "culture": ""
+        },
+        "start": "Commencer un quiz",
+        "list": {
+            "title": "Jouez aux quiz de votre choix !"
+        }
+    },
+    "auth": {
+        "login": "Se connecter",
+        "register": "S'inscrire",
+        "no-account": "Pas de compte ?",
+        "username": "Nom d'utilisateur",
+        "email": {
+            "invalid": "L'adresse email est invalide",
+            "required": "L'adresse email est requise"
+        },
+        "password" : {
+            "text": "Mot de passe",
+            "required": "Le mot de passe est requis",
+            "invalid": "Le mot de passe est invalide"
+        }
+    },
+    "menu": {
+        "scoreboard": "Tableau des scores",
+        "logout": "Se déconnecter"
+    }
+}

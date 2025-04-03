@@ -1,47 +1,33 @@
 <section class="flex flex-col items-center lg:mt-48 mt-12">
   <section class="bg-slate-700 mx-auto py-5 px-4 lg:px-14 max-w-64 lg:max-w-sm">
-    <h1 class=" pb-5 text-3xl text-center">Log in</h1>
+    <h1 class=" pb-5 text-3xl text-center">{{'auth.login' | translate}}</h1>
     <form class="form-group" [formGroup]="loginForm" (submit)="onSubmit()">
       <label class="font-bold" for="email">Email <span class="text-red-500">*</span></label>
-      <input
-        class="placeholder-slate-600 bg-slate-800 outline-none my-3"
-        name="email"
-        type="email"
-        id="email"
-        formControlName="email"
-        placeholder="Email"
-        required
-       
-        autocomplete="email"
-      />
+      <input class="placeholder-slate-600 bg-slate-800 outline-none my-3" name="email" type="email" id="email"
+        formControlName="email" placeholder="Email" required autocomplete="email" />
       @if (email?.invalid && (email?.dirty && email?.touched)) {
-        @if (email?.hasError('required')) {
-          <p class="text-red-500">Email fied is required.</p>
-        }
-        @if (email?.hasError('email')) {
-          <p class="text-red-500 font-semibold">Email is invalid</p>
-        }
+      @if (email?.hasError('required')) {
+      <p class="text-red-500">Email fied is required.</p>
       }
-      <label class="font-bold" for="password">Password <span class="text-red-500">*</span></label>
-      <input
-        class="placeholder-slate-600 bg-slate-800 outline-none my-3"
-        type="password"
-        id="password"
-        formControlName="password"
-        placeholder="Password"
-        autocomplete="current-password"
-      />
+      @if (email?.hasError('email')) {
+      <p class="text-red-500 font-semibold">Email is invalid</p>
+      }
+      }
+      <label class="font-bold" for="password"> {{'auth.password.text' | translate}} <span
+          class="text-red-500">*</span></label>
+      <input class="placeholder-slate-600 bg-slate-800 outline-none my-3" type="password" id="password"
+        formControlName="password" [placeholder]="'auth.password.text' | translate" autocomplete="current-password" />
       @if (password?.invalid && (password?.dirty && password?.touched)) {
-        @if (password?.hasError('required')) {
-          <p class="text-red-500">Password fied is required.</p>
-        }
+      @if (password?.hasError('required')) {
+      <p class="text-red-500">Password fied is required.</p>
+      }
       }
       <button type="submit"
-        class="btn-action cursor-pointer bg-teal-500 px-8 py-3 mt-5 rounded-md hover:outline-hidden hover:bg-white hover:text-teal-500 block mx-auto w-full outline-hidden focus:bg-white focus:text-teal-500"
-      >
-        Log in
+        class="btn-action cursor-pointer bg-teal-500 px-8 py-3 mt-5 rounded-md hover:outline-hidden hover:bg-white hover:text-teal-500 block mx-auto w-full outline-hidden focus:bg-white focus:text-teal-500">
+        {{'auth.login' | translate}}
       </button>
     </form>
   </section>
-  <span class="font-display text-sm my-2">You don't have an account? <a routerLink="/register" class="hover:underline">Register</a></span>
+  <p class="font-display text-sm my-2"> {{ 'auth.no-account' | translate }} <a routerLink="/register"
+      class="hover:underline"> {{ 'auth.register' | translate}} </a></p>
 </section>

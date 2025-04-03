@@ -1,0 +1,36 @@
+{
+    "home": {
+        "description": "Develop your knowledge on different topics and test your general knowledge",
+        "title": {
+            "challenge": "Challenge your",
+            "literary": "literary",
+            "cinematographic": "cinematographic",
+            "and": "and",
+            "musical": "musical",
+            "culture": "culture"
+        },
+        "start": "Start a quiz",
+        "list": {
+            "title": "Play quizzes of your choice !"
+        }
+    },
+    "auth": {
+        "login": "Login",
+        "register": "Register",
+        "no-account": "No account?",
+        "username": "Username",
+        "email": {
+            "invalid": "Invalid email",
+            "required": "Email is required"
+        },
+        "password" : {
+            "text": "Password",
+            "required": "Password is required",
+            "invalid": "Invalid password"
+        }
+    },
+    "menu": {
+        "scoreboard": "Scoreboard",
+        "logout": "Log out"
+    }
+}
