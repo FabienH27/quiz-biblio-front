@@ -7,10 +7,10 @@
         formControlName="email" placeholder="Email" required autocomplete="email" />
       @if (email?.invalid && (email?.dirty && email?.touched)) {
       @if (email?.hasError('required')) {
-      <p class="text-red-500">Email fied is required.</p>
+      <p class="text-red-500">{{'auth.email.required' | translate}}</p>
       }
       @if (email?.hasError('email')) {
-      <p class="text-red-500 font-semibold">Email is invalid</p>
+      <p class="text-red-500 font-semibold">{{'auth.email.invalid' | translate}}</p>
       }
       }
       <label class="font-bold" for="password"> {{'auth.password.text' | translate}} <span
@@ -19,7 +19,7 @@
         formControlName="password" [placeholder]="'auth.password.text' | translate" autocomplete="current-password" />
       @if (password?.invalid && (password?.dirty && password?.touched)) {
       @if (password?.hasError('required')) {
-      <p class="text-red-500">Password fied is required.</p>
+      <p class="text-red-500"> {{'auth.password.required' | translate}} </p>
       }
       }
       <button type="submit"

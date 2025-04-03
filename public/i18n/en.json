@@ -11,14 +11,22 @@
         },
         "start": "Start a quiz",
         "list": {
-            "title": "Play quizzes of your choice !"
+            "title": "Play quizzes of your choice!"
         }
     },
     "auth": {
         "login": "Login",
         "register": "Register",
+        "logout": "Log out",
         "no-account": "No account?",
-        "username": "Username",
+        "account-exist": "Already have an account?",
+        "register-desc": "Create an account to play quizzes!",
+        "username": {
+            "text": "Username",
+            "required": "Username is required",
+            "minlength": "Username must be at least 3 characters long",
+            "maxlength": "Username must be at most 20 characters long"
+        },
         "email": {
             "invalid": "Invalid email",
             "required": "Email is required"
@@ -31,6 +39,22 @@
     },
     "menu": {
         "scoreboard": "Scoreboard",
-        "logout": "Log out"
+        "admin-panel": "Admin panel"
+    },
+    "play": {
+        "themes": "Theme",
+        "start": "Start quiz!",
+        "guide": {
+            "one": "For each question, select one or multiple answers (when explicitly asked).",
+            "two": "User selection is shown with a green outline. To undo a selection, click again on the same answer.",
+            "three": "You will not gain any point if you do not give exact answer(s)."
+        },
+        "validate": "Validate",
+        "next": "Next",
+        "answer": "Answer",
+        "multiple-answers": "Multiple answers expected.",
+        "Correct": "Correct!",
+        "Incorrect": "Incorrect",
+        "answer-ratio": "{{selectionCount}} answer(s) given for {{correctSelectionCount}} correct answer(s)"
     }
 }

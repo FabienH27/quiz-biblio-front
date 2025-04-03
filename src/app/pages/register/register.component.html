@@ -1,73 +1,54 @@
 <section class="flex flex-col items-center lg:mt-48 mt-12">
   <section class="bg-slate-700 mx-auto py-5 px-4 lg:px-14 max-w-64 lg:max-w-sm">
-      <h1 class="pb-5 text-3xl text-center">Register</h1>
-      <p class="text-sm text-center mb-5 font-normal">Create an account to play quizzes!</p>
-      <form class="form-group" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-        <label class=" font-bold" for="username">Username <span class="text-red-500">*</span></label>
-        <input
-          class="placeholder-slate-600 bg-slate-800 my-3 focus:outline-teal-700 focus:outline-2 outline-offset-2"
-          [ngClass]="{'outline-red-400 outline-2': isUsernameInvalid }"
-          name="username"
-          type="text"
-          formControlName="username"
-          placeholder="Username"
-          required
-          autocomplete="name"
-        />
-        @if (isUsernameInvalid) {
-            <div class="text-red-500 text-sm">
-                @if (username?.hasError('required')) {
-                  <p>Username fied is required.</p>
-                }
-                @if (username?.hasError('minlength')) {
-                    <p>Username fied must be greater than 3 characters.</p>
-                }
-                @if (username?.hasError('maxlength')) {
-                    <p>Username fied must be lower than 20 characters.</p>
-                }
-            </div>
-          }
-        <label class="font-bold" for="email">Email <span class="text-red-500">*</span></label>
-        <input
-          class="placeholder-slate-600 bg-slate-800 my-3 focus:outline-teal-700 focus:outline-2 outline-offset-2"
-          [ngClass]="{'outline-red-400 outline-2': isEmailInvalid }"
-          name="email"
-          type="email"
-          formControlName="email"
-          placeholder="Email"
-          autocomplete="email"
-          required
-        />
-        @if (isEmailInvalid) {
-          @if (email?.hasError('required')) {
-            <p class="text-red-500">Email fied is required.</p>
-          }
-          @if (email?.hasError('email')) {
-            <p class="text-red-500 font-semibold">Email is invalid</p>
-          }
+    <h1 class="pb-5 text-3xl text-center"> {{'auth.register' | translate}} </h1>
+    <p class="text-sm text-center mb-5 font-normal"> {{'auth.register-desc' | translate}} </p>
+    <form class="form-group" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <label class=" font-bold" for="username"> {{ 'auth.username.text' | translate }} <span
+          class="text-red-500">*</span></label>
+      <input class="placeholder-slate-600 bg-slate-800 my-3 focus:outline-teal-700 focus:outline-2 outline-offset-2"
+        [ngClass]="{'outline-red-400 outline-2': isUsernameInvalid }" name="username" type="text"
+        formControlName="username" [placeholder]="'auth.username.text' | translate" required autocomplete="name" />
+      @if (isUsernameInvalid) {
+      <div class="text-red-500 text-sm">
+        @if (username?.hasError('required')) {
+        <p> {{ 'auth.username.required' | translate }} </p>
         }
-        <label class="font-bold" for="email">Password <span class="text-red-500">*</span></label>
-        <input
-          class="placeholder-slate-600 bg-slate-800 my-3 focus:outline-teal-700 focus:outline-2 outline-offset-2"
-          [ngClass]="{'outline-red-400 outline-2': isPasswordInvalid }"
-          type="password"
-          formControlName="password"
-          placeholder="Password"
-          autocomplete="new-password"
-        />
-        @if (isPasswordInvalid) {
-          @if (password?.hasError('required')) {
-            <p class="text-red-500">Password fied is required.</p>
-          }
+        @if (username?.hasError('minlength')) {
+        <p> {{ 'auth.username.minlength' | translate }}</p>
         }
-        <button
-          type="submit"
-          (click)="onSubmit()"
-          class="cursor-pointer bg-teal-500 px-8 py-3 mt-5 rounded-md hover:outline-hidden hover:bg-white hover:text-teal-500 block mx-auto w-full outline-hidden focus:bg-white focus:text-teal-500"
-        >
-          Register
-        </button>
-      </form>
-    </section>
-    <span class="font-display text-sm my-2">You already have an account? <a routerLink="/login" class="hover:underline cursor-pointer">Log in</a></span>
+        @if (username?.hasError('maxlength')) {
+        <p> {{ 'auth.username.maxlength' | translate }}</p>
+        }
+      </div>
+      }
+      <label class="font-bold" for="email">Email <span class="text-red-500">*</span></label>
+      <input class="placeholder-slate-600 bg-slate-800 my-3 focus:outline-teal-700 focus:outline-2 outline-offset-2"
+        [ngClass]="{'outline-red-400 outline-2': isEmailInvalid }" name="email" type="email" formControlName="email"
+        placeholder="Email" autocomplete="email" required />
+      @if (isEmailInvalid) {
+      @if (email?.hasError('required')) {
+      <p class="text-red-500">{{'auth.email.required' | translate}}</p>
+      }
+      @if (email?.hasError('email')) {
+      <p class="text-red-500 font-semibold">{{'auth.email.invalid' | translate}}</p>
+      }
+      }
+      <label class="font-bold" for="email"> {{'auth.password.text' | translate}} <span
+          class="text-red-500">*</span></label>
+      <input class="placeholder-slate-600 bg-slate-800 my-3 focus:outline-teal-700 focus:outline-2 outline-offset-2"
+        [ngClass]="{'outline-red-400 outline-2': isPasswordInvalid }" type="password" formControlName="password"
+        [placeholder]="'auth.password.text' | translate" autocomplete="new-password" />
+      @if (isPasswordInvalid) {
+      @if (password?.hasError('required')) {
+      <p class="text-red-500">{{'auth.password.required' | translate}}</p>
+      }
+      }
+      <button type="submit" (click)="onSubmit()"
+        class="cursor-pointer bg-teal-500 px-8 py-3 mt-5 rounded-md hover:outline-hidden hover:bg-white hover:text-teal-500 block mx-auto w-full outline-hidden focus:bg-white focus:text-teal-500">
+        {{'auth.register' | translate}}
+      </button>
+    </form>
   </section>
+  <span class="font-display text-sm my-2"> {{'auth.account-exist' | translate}} <a routerLink="/login"
+      class="hover:underline cursor-pointer"> {{ 'auth.login' | translate}} </a></span>
+</section>

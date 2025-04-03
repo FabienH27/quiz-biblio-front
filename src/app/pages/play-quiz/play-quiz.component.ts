@@ -11,10 +11,11 @@ import { UserScoreService } from '../../services/user-score.service';
 import { Answer } from '../../types/answer';
 import { Quiz } from '../../types/quiz';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-play-quiz',
-    imports: [NgIconComponent, PlayQuizQuestionComponent, PlayFinalStepComponent, AsyncPipe],
+    imports: [NgIconComponent, PlayQuizQuestionComponent, PlayFinalStepComponent, AsyncPipe, TranslatePipe],
     providers: [provideIcons({ heroPlaySolid, heroForwardSolid, heroCheckSolid, heroInformationCircleSolid })],
     templateUrl: './play-quiz.component.html',
     styleUrl: './play-quiz.component.css'

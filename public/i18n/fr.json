@@ -14,11 +14,20 @@
             "title": "Jouez aux quiz de votre choix !"
         }
     },
+    
     "auth": {
         "login": "Se connecter",
         "register": "S'inscrire",
+        "logout": "Se déconnecter",
         "no-account": "Pas de compte ?",
-        "username": "Nom d'utilisateur",
+        "account-exist": "Vous possédez déjà un compte ?",
+        "register-desc": "Créez un compte pour jouer aux quiz !",
+        "username": {
+            "text": "Nom d'utilisateur",
+            "required": "Le nom d'utilisateur est requis",
+            "minlength": "Le nom d'utilisateur doit contenir au moins 3 caractères",
+            "maxlength": "Le nom d'utilisateur doit contenir au plus 20 caractères"
+        },
         "email": {
             "invalid": "L'adresse email est invalide",
             "required": "L'adresse email est requise"
@@ -31,6 +40,17 @@
     },
     "menu": {
         "scoreboard": "Tableau des scores",
-        "logout": "Se déconnecter"
+        "admin-panel": "Panneau d'administration"
+    },
+    "play": {
+        "themes": "Thème",
+        "start": "Commencer le quiz !",
+        "guide": {
+            "one": "Pour chaque question, sélectionnez une ou plusieurs réponses (lorsque cela est explicitement demandé).",
+            "two": "La sélection de l'utilisateur est indiquée par un contour vert. Pour annuler une sélection, cliquez à nouveau sur la réponse sélectionnée.",
+            "three": "Vous ne gagnerez aucun point si vous ne donnez pas la ou les réponse(s) exacte(s)."
+        },
+        "validate": "Valider",
+        "next": "Suivant"
     }
 }

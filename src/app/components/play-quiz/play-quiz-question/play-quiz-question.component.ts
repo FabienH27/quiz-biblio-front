@@ -4,10 +4,11 @@ import { AsyncPipe, NgClass } from '@angular/common';
 import { Answer } from '../../../types/answer';
 import { Observable } from 'rxjs';
 import { ImageService } from '../../../services/image.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-play-quiz-question',
-    imports: [NgClass, AsyncPipe],
+    imports: [NgClass, AsyncPipe, TranslatePipe],
     templateUrl: './play-quiz-question.component.html',
     styleUrl: './play-quiz-question.component.css'
 })

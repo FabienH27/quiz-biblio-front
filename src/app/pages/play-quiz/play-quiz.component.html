@@ -8,7 +8,7 @@
         <div class="md:ml-8 grow">
             <h1 class="text-3xl text-slate-300">{{ quiz.title }}</h1>
             <p class="text-lg text-slate-500 block">
-                Theme{{quiz.themes.length>1 ? 's': ''}} : {{ themes }}
+                {{ 'play.themes' | translate }}{{quiz.themes.length>1 ? 's': ''}} : {{ themes }}
             </p>
         </div>
     </div>
@@ -18,7 +18,7 @@
         <button (click)="startQuiz()" type="button"
             class="bg-teal-500 px-8 py-4 rounded-lg mx-auto block hover:bg-teal-400 cursor-pointer">
             <ng-icon name="heroPlaySolid" />
-            Start quiz !
+            {{ 'play.start' | translate }}
         </button>
 
         <div class="mx-auto text-slate-400 my-5 w-3/4">
@@ -26,9 +26,9 @@
                 <ng-icon size="2em" name="heroInformationCircleSolid" />
             </span>
             <ul>
-                <li class="list-decimal">For each question, select one or multiple answers (when explicitly asked).</li>
-                <li class="list-decimal">User selection is shown with a green outline. To undo a selection, click again on the same answer.</li>
-                <li class="list-decimal">You will not gain any point if you do not give exact answer(s).</li>
+                <li class="list-decimal">{{ 'play.guide.one' | translate }}</li>
+                <li class="list-decimal">{{ 'play.guide.two' | translate }}</li>
+                <li class="list-decimal">{{ 'play.guide.three' | translate }}</li>
             </ul>
         </div>
 

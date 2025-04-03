@@ -4,10 +4,11 @@ import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { RegisterForm } from '../../types/register-form';
 import { NgClass } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule, RouterModule, NgClass],
+  imports: [ReactiveFormsModule, RouterModule, NgClass, TranslatePipe],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
