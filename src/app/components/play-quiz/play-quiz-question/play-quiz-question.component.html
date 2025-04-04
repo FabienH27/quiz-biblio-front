@@ -10,16 +10,16 @@
             <div class="md:ml-8 text-left">
                 <h2 class="md:text-2xl">{{question().text}}</h2>
                 @if (hasMultipleCorrectAnswers) {
-                    <p class="text-amber-200 italic"> {{ 'play.multiple-answers' | translate }}</p>
+                    <p class="text-amber-200 italic"> {{ 'play.multiple-answers' | transloco }}</p>
                 }
 
                 @if (isValidationStep()) {
                     @if (isCorrect) {
-                    <p class="text-teal-500 ">😎 {{ 'play.correct' | translate }}</p>
+                    <p class="text-teal-500 ">😎 {{ 'play.correct' | transloco }}</p>
                 }@else {
-                    <p class="text-red-500">🥹 {{ 'play.incorrect' | translate }}</p>
+                    <p class="text-red-500">🥹 {{ 'play.incorrect' | transloco }}</p>
                 }
-                <p> {{ 'play.answer-ratio' | translate:{selectionCount, correctSelectionCount} }}</p>
+                <p> {{ 'play.answer-ratio' | transloco:{selectionCount, correctSelectionCount} }}</p>
                 }
             </div>
         </div>
@@ -44,7 +44,7 @@
 
         @if (isValidationStep()) {
         <div class="mx-5">
-            <p class="text-xl text-teal-500">Answer : </p>
+            <p class="text-xl text-teal-500">{{ 'play.answer' | transloco }} : </p>
             <p>{{question().details}}</p>
         </div>
         }

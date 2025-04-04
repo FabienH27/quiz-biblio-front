@@ -11,10 +11,11 @@ import { QuizService } from '../../services/quiz.service';
 import { QuizInfo } from '../../types/quiz-info';
 import { Roles } from '../../types/roles';
 import { User } from '../../types/user';
+import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
     selector: 'app-admin',
-    imports: [NgIconComponent, RouterLink, RouterLinkActive, AsyncPipe, QuizListItemComponent, ModalComponent],
+    imports: [NgIconComponent, RouterLink, RouterLinkActive, AsyncPipe, QuizListItemComponent, ModalComponent, TranslocoPipe],
     providers: [provideIcons({ heroPlus, heroQuestionMarkCircleSolid, heroQueueList, heroExclamationTriangle })],
     templateUrl: './admin.component.html',
     styleUrl: './admin.component.css'

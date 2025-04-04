@@ -2,18 +2,18 @@
 	<section class="mx-auto lg:flex my-16 lg:items-center py-24">
 		<article class="mx-auto mt-8 text-center lg:text-left">
 			<h1 class="font-title text-3xl font-bold lg:w-2/3">
-				{{'home.title.challenge' | translate}}
-				<span class="text-teal-500">{{'home.title.literary' | translate}}, {{'home.title.cinematographic' |
-					translate}} </span> {{'home.title.and' | translate}}
-				<span class="text-teal-500">{{'home.title.musical' | translate}} </span> {{'home.title.culture' |
-				translate}} !
+				{{'home.title.challenge' | transloco}}
+				<span class="text-teal-500">{{'home.title.literary' | transloco}}, {{'home.title.cinematographic' |
+					transloco}} </span> {{'home.title.and' | transloco}}
+				<span class="text-teal-500">{{'home.title.musical' | transloco}} </span> {{'home.title.culture' |
+				transloco}} !
 			</h1>
 			<p class="font-display font-normal text-sm my-8 lg:w-fit">
-				{{'home.description' | translate}}
+				{{'home.description' | transloco}}
 			</p>
 			<a href="#quiz-list"
 				class="font-title text-slate-800 bg-teal-500 px-8 py-3 rounded-md hover:bg-white hover:text-teal-500">
-				{{'home.start' | translate}}</a>
+				{{'home.start' | transloco}}</a>
 		</article>
 		<aside class="my-20 mx-auto lg:ml-40 max-w-72">
 			<img src="images/illustration.png" alt="app demo" />
@@ -24,7 +24,7 @@
 <section class="bg-slate-700 pt-8 pb-52 mx-auto">
 	<div class="container mx-auto">
 		<h1 class="text-xl text-center" id="quiz-list">
-			{{'home.list.title' | translate }}
+			{{'home.list.title' | transloco }}
 		</h1>
 		<div class="md:flex gap-8 mt-8 justify-center w-1/2 mx-auto">
 			@for (quiz of quizzes$ | async; track $index) {

@@ -4,11 +4,11 @@ import { Observable } from 'rxjs';
 import { QuizInfo } from '../../types/quiz-info';
 import { AsyncPipe } from '@angular/common';
 import { QuizListItemComponent } from "../../components/quiz-list-item/quiz-list-item.component";
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
     selector: 'app-home',
-    imports: [AsyncPipe, QuizListItemComponent, TranslatePipe],
+    imports: [AsyncPipe, QuizListItemComponent, TranslocoPipe],
     providers: [],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',

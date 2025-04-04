@@ -4,15 +4,15 @@
     <input type="checkbox" class="hidden" [checked]="isCorrect()" (change)="onCorrectChange($event)" />
     <ng-icon [name]="isCorrect() ? 'heroCheckBadgeSolid' : 'heroCheckBadge'" size="1.5em" strokeWidth=".12em"
       class="mr-1" />
-    <p>Valid @if (!isCorrect) {?}</p>
+    <p> {{ 'form.valid' | transloco}} @if (!isCorrect) {?}</p>
   </label>
   <div>
     <input formControlName="text" type="text" [ngClass]="{'outline-red-400 outline-2': isProposalInvalid}"
-      [placeholder]="'Proposal ' + (proposalIndex() + 1)"
+      [placeholder]="('form.proposal' | transloco) + (proposalIndex() + 1)"
       class="bg-slate-600 text-xl p-2 block focus:outline-teal-700 focus:outline-2 outline-offset-2" />
     @if ((proposal?.dirty || proposal?.touched) && proposal?.hasError('required')) {
     <div class="text-red-400 text-sm my-2">
-      <p>Please fill in field.</p>
+      <p>{{ 'form.proposal-required' | transloco}}</p>
     </div>
     }
   </div>

@@ -6,11 +6,11 @@ import { QuizFormComponent } from "../../../components/quiz-form/quiz-form.compo
 import { AlertService } from '../../../services/alert.service';
 import { QuizService } from '../../../services/quiz.service';
 import { Quiz } from '../../../types/quiz';
-
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 
 @Component({
     selector: 'app-quiz-edition',
-    imports: [QuizFormComponent, AsyncPipe, RouterLink],
+    imports: [QuizFormComponent, AsyncPipe, RouterLink, TranslocoPipe],
     templateUrl: './quiz-edition.component.html',
     styleUrl: './quiz-edition.component.css'
 })
@@ -18,8 +18,16 @@ export class QuizEditionComponent {
 
   quizService = inject(QuizService);
   alertService = inject(AlertService);
+  translocoService = inject(TranslocoService);
 
   quiz$ = signal<Observable<Quiz>>(EMPTY);
+
+  editPlaceholder: string;
+
+  constructor() {
+    this.editPlaceholder = this.translocoService.translate('form.edit-quiz');
+  }
+  
 
   // TODO: Skipped for migration because:
   //  Accessor inputs cannot be migrated as they are too complex.

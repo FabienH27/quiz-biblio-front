@@ -6,10 +6,11 @@ import { heroPlusCircle, heroTrash } from '@ng-icons/heroicons/outline';
 import { QuizFormService } from '../../../services/quiz-form.service';
 import { ImageSelectionComponent } from '../../form/image-selection/image-selection.component';
 import { ProposalFormComponent } from './proposal-form/proposal-form.component';
+import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
     selector: 'app-create-question',
-    imports: [ProposalFormComponent, ImageSelectionComponent, NgIcon, ReactiveFormsModule, NgClass],
+    imports: [ProposalFormComponent, ImageSelectionComponent, NgIcon, ReactiveFormsModule, NgClass, TranslocoPipe],
     providers: [provideIcons({ heroPlusCircle, heroTrash })],
     templateUrl: 'question-form.component.html',
     styleUrl: './question-form.component.css'

@@ -9,10 +9,11 @@ import { Quiz } from '../../types/quiz';
 import { ImageSelectionComponent } from '../form/image-selection/image-selection.component';
 import { ThemeDropdownComponent } from '../form/theme-dropdown/theme-dropdown.component';
 import { QuestionFormComponent } from './question-form/question-form.component';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 
 @Component({
     selector: 'app-quiz-form',
-    imports: [QuestionFormComponent, ImageSelectionComponent, ReactiveFormsModule, NgIcon, ThemeDropdownComponent, NgClass],
+    imports: [QuestionFormComponent, ImageSelectionComponent, ReactiveFormsModule, NgIcon, ThemeDropdownComponent, NgClass, TranslocoPipe],
     providers: [provideIcons({ heroPlusCircle, heroBeakerSolid })],
     templateUrl: './quiz-form.component.html',
     styleUrl: './quiz-form.component.css'
@@ -20,11 +21,12 @@ import { QuestionFormComponent } from './question-form/question-form.component';
 export class QuizFormComponent implements OnInit {
 
   quizFormService = inject(QuizFormService);
+  translocoService = inject(TranslocoService);
 
   form!: FormGroup;
 
   quiz = input<Quiz | null>();
-  submitPlaceholder = input<string>("Create quiz");
+  submitPlaceholder = input<string>(this.translocoService.translate('form.create-quiz'));
   maxQuestionCount = input<number>(10);
 
   formSubmit = output<Quiz>();

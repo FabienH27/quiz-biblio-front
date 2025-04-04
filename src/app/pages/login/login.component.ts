@@ -10,11 +10,11 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AlertService } from '../../services/alert.service';
 import { AuthService } from '../../services/auth.service';
 import { LoginForm } from '../../types/login-form';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, RouterModule, TranslatePipe],
+  imports: [ReactiveFormsModule, RouterModule, TranslocoPipe],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })

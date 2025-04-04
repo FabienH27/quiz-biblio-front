@@ -1,5 +1,5 @@
 <div class="lg:max-w-6xl mx-auto">
-	<p class="text-3xl font-bold text-center mt-4">Scoreboard</p>
+	<p class="text-3xl font-bold text-center mt-4">{{'scoreboard.title' | transloco}}</p>
 
     @if (($userScores | async); as userScore) {
         <app-score-table [scores]="userScore"></app-score-table>

@@ -37,12 +37,51 @@
             "invalid": "Invalid password"
         }
     },
-    "menu": {
-        "scoreboard": "Scoreboard",
-        "admin-panel": "Admin panel"
+    "admin": {
+        "title": "Admin Panel",
+        "description": "Create and edit your quizzes",
+        "new-quiz": "New quiz",
+        "import": "Import",
+        "my-quizzes": "My quizzes",
+        "no-quizzes": "No quizzes found",
+        "delete-title": "Delete quiz",
+        "confirmation": "You are going to delete the quiz:",
+        "delete-yes": "Yes, delete",
+        "delete-no": "No, keep it"
     },
+    "edit": {
+        "title": "Edit quiz",
+        "no-quiz": "Quiz not found"
+    },
+    "form": {
+        "add-image": "Add an image",
+        "details": "Details",
+        "valid": "Valid",
+        "add-proposal": "Add a proposal",
+        "add-question": "Add a question",
+        "add-theme": "Add",
+        "type-new-theme": "Enter a theme name",
+        "max-theme-count": "Please select up to 3 themes",
+        "replace-image": "Replace image",
+        "load-image-fail": "Unable to load image",
+        "delete": "Delete",
+        "title-required": "Please add a title",
+        "details-required": "Please add answer details",
+        "correct-answer-required": "Please identify the correct answer",
+        "create-new-quiz": "Create new quiz",
+        "create-quiz": "Create quiz",
+        "edit-quiz": "Edit quiz",
+        "select-themes": "Select one or multiple themes",
+        "explain-answer": "Explain why this is the correct answer",
+        "proposal": "Proposal ",
+        "question": "Question",
+        "quiz-title": "Quiz title"
+    },
+    "menu": {
+        "scoreboard": "Scoreboard"
+    },
+    "themes": "Themes",
     "play": {
-        "themes": "Theme",
         "start": "Start quiz!",
         "guide": {
             "one": "For each question, select one or multiple answers (when explicitly asked).",
@@ -55,6 +94,18 @@
         "multiple-answers": "Multiple answers expected.",
         "Correct": "Correct!",
         "Incorrect": "Incorrect",
-        "answer-ratio": "{{selectionCount}} answer(s) given for {{correctSelectionCount}} correct answer(s)"
-    }
+        "answer-ratio": "{{selectionCount}} answer(s) given for {{correctSelectionCount}} correct answer(s)",
+        "quiz-completion": "You have completed the quiz",
+        "total-score": "With a score of",
+        "given-answer": "You answered:",
+        "question": "Question"
+    },
+    "scoreboard": {
+        "title": "Scoreboard",
+        "rank": "Rank",
+        "player": "Player Name",
+        "points": "Points",
+        "nodata": "No user scores found"
+    },
+    "back-to-home": "Back to home page"
 }

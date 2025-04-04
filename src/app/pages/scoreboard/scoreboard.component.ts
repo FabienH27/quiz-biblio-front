@@ -4,12 +4,13 @@ import { UserScore } from '../../types/user-score';
 import { Observable } from 'rxjs';
 import { UserScoreService } from '../../services/user-score.service';
 import { AsyncPipe } from '@angular/common';
+import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
-    selector: 'app-scoreboard',
-    imports: [ScoreTableComponent, AsyncPipe],
-    templateUrl: './scoreboard.component.html',
-    styleUrl: './scoreboard.component.css'
+  selector: 'app-scoreboard',
+  imports: [ScoreTableComponent, AsyncPipe, TranslocoPipe],
+  templateUrl: './scoreboard.component.html',
+  styleUrl: './scoreboard.component.css'
 })
 export class ScoreboardComponent implements OnInit {
 

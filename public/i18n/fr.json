@@ -7,14 +7,13 @@
             "cinematographic": "cinématographique",
             "and": "et",
             "musical": "musicale",
-            "culture": ""
+            "culture": " "
         },
         "start": "Commencer un quiz",
         "list": {
             "title": "Jouez aux quiz de votre choix !"
         }
     },
-    
     "auth": {
         "login": "Se connecter",
         "register": "S'inscrire",
@@ -38,12 +37,49 @@
             "invalid": "Le mot de passe est invalide"
         }
     },
-    "menu": {
-        "scoreboard": "Tableau des scores",
-        "admin-panel": "Panneau d'administration"
+    "admin": {
+        "title": "Panneau d'administration",
+        "description": "Créez et éditez vos quiz",
+        "new-quiz": "Nouveau quiz",
+        "import": "Importer",
+        "my-quizzes": "Mes quiz",
+        "no-quizzes": "Aucun quiz trouvé",
+        "delete-title": "Supprimer le quiz",
+        "confirmation": "Vous allez supprimer le quiz :",
+        "delete-yes": "Oui, supprimer",
+        "delete-no": "Non, conserver"
     },
+    "form": {
+        "title": "Editer quiz",
+        "no-quiz": "Quiz non trouvé",
+        "add-image": "Ajouter une image",
+        "details": "Détails",
+        "valid": "Valide",
+        "add-proposal": "Ajouter une proposition",
+        "add-question": "Ajouter une question",
+        "add-theme": "Ajouter",
+        "type-new-theme": "Saisir un nom de thème",
+        "max-theme-count": "Veuillez sélectionnez au plus 3 thèmes",
+        "replace-image": "Remplacer l'image",
+        "load-image-fail": "Impossible de charger l'image",
+        "delete": "Supprimer",
+        "title-required": "Veuillez ajouter un titre",
+        "details-required": "Veuillez ajouter un détail de réponse",
+        "correct-answer-required": "Veuillez identifier la réponse correcte",
+        "create-new-quiz": "Créer un nouveau quiz",
+        "create-quiz": "Créer le quiz",
+        "edit-quiz": "Editer le quiz",
+        "select-themes": "Sélectionnez un ou plusieurs thèmes",
+        "explain-answer": "Expliquez pourquoi cette réponse est la bonne",
+        "proposal": "Proposition ",
+        "question": "Question",
+        "quiz-title": "Titre du quiz"
+    },
+    "menu": {
+        "scoreboard": "Tableau des scores"
+    },
+    "themes": "Thèmes",
     "play": {
-        "themes": "Thème",
         "start": "Commencer le quiz !",
         "guide": {
             "one": "Pour chaque question, sélectionnez une ou plusieurs réponses (lorsque cela est explicitement demandé).",
@@ -51,6 +87,23 @@
             "three": "Vous ne gagnerez aucun point si vous ne donnez pas la ou les réponse(s) exacte(s)."
         },
         "validate": "Valider",
-        "next": "Suivant"
-    }
+        "next": "Suivant",
+        "answer": "Réponse",
+        "multiple-answers": "Plusieurs réponses attendues",
+        "correct": "Correct!",
+        "incorrect": "Incorrect",
+        "answer-ratio": "{{selectionCount}} réponse(s) données sur {{correctSelectionCount}} réponse(s) correctes",
+        "quiz-completion": "Vous avez fini le quiz",
+        "total-score": "Avec un score de",
+        "given-answer": "Vous avez répondu:",
+        "question": "Question"
+    },
+    "scoreboard": {
+        "title": "Tableau des scores",
+        "rank": "Rang",
+        "player": "Nom du joueur",
+        "points": "Points",
+        "nodata": "Aucun score trouvé"
+    },
+    "back-to-home": "Retour à la page d'accueil"
 }

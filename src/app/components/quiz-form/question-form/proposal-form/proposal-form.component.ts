@@ -5,10 +5,11 @@ import { ControlContainer, FormArray, FormGroup, ReactiveFormsModule } from '@an
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroCheckBadge, heroTrash } from '@ng-icons/heroicons/outline';
 import { heroCheckBadgeSolid } from '@ng-icons/heroicons/solid';
+import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
     selector: 'app-create-proposal',
-    imports: [NgIcon, ReactiveFormsModule, NgClass],
+    imports: [NgIcon, ReactiveFormsModule, NgClass, TranslocoPipe],
     providers: [provideIcons({ heroTrash, heroCheckBadge, heroCheckBadgeSolid })],
     templateUrl: './proposal-form.component.html',
     styleUrl: './proposal-form.component.css'
