@@ -8,10 +8,12 @@ import { AuthService } from '../../services/auth.service';
 import { RbacService } from '../../services/rbac.service';
 import { Roles } from '../../types/roles';
 import { User } from '../../types/user';
+import { TranslocoPipe } from '@jsverse/transloco';
+import { LanguageSelectorComponent } from "../language-selector/language-selector.component";
 
 @Component({
     selector: 'app-menu',
-    imports: [RouterLink, RouterLinkActive, AsyncPipe, NgIconComponent],
+    imports: [RouterLink, RouterLinkActive, AsyncPipe, NgIconComponent, TranslocoPipe, LanguageSelectorComponent],
     providers: [provideIcons({ heroXMark, heroBars3BottomRight })],
     templateUrl: './menu.component.html',
     styleUrl: './menu.component.css'

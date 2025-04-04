@@ -1,0 +1,7 @@
+<select name="language" class="w-12 focus:outline-none" [ngModel]="selectedLanguage" (ngModelChange)="changeLanguage($event)" >
+    @for (language of languages; track $index) {
+    <option class="bg-slate-700" [value]="language">
+        <p>{{ language }}</p>
+    </option>
+    }
+</select>

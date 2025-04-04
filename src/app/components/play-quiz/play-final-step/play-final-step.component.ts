@@ -5,10 +5,11 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroCheckCircle, heroXMark } from '@ng-icons/heroicons/outline';
 import { NgClass } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
     selector: 'app-play-final-step',
-    imports: [NgIconComponent, NgClass, RouterLink],
+    imports: [NgIconComponent, NgClass, RouterLink, TranslocoPipe],
     providers: [provideIcons({ heroCheckCircle, heroXMark })],
     templateUrl: './play-final-step.component.html',
     styleUrl: './play-final-step.component.css'

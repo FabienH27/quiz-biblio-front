@@ -15,7 +15,7 @@
       <textarea
         id="title"
         formControlName="title"
-        placeholder="Quiz title"
+        [placeholder]="'form.quiz-title' | transloco"
         class="p-4 w-full bg-slate-700 text-lg focus:outline-teal-700 focus:outline-2 outline-offset-2 placeholder-slate-500"
         [ngClass]="{'outline-red-400 outline-2': isTitleInvalid}"
         maxlength="110"
@@ -24,7 +24,7 @@
         <div class="text-red-400 text-left">
           @if (title?.hasError('required')) {
             <div>
-              <p>Please add a title.</p>
+              <p> {{ 'form.title-required' | transloco }} </p>
             </div>
           }
         </div>
@@ -48,7 +48,7 @@
       (click)="addQuestion()"
       >
       <ng-icon name="heroPlusCircle"></ng-icon>
-      Add question
+      {{ 'form.add-question' | transloco }}
     </button>
   }
 

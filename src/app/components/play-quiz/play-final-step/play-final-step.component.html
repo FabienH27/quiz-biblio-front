@@ -1,10 +1,10 @@
-<h1 class="text-center text-2xl text-teal-200 mx-2">You have completed the quiz</h1>
-<p class="text-center my-2">With a score of {{userScore()}} / {{quiz().questions.length}}</p>
+<h1 class="text-center text-2xl text-teal-200 mx-2">{{ 'play.quiz-completion' | transloco }}</h1>
+<p class="text-center my-2">{{ 'play.total-score' | transloco }} {{userScore()}} / {{quiz().questions.length}}</p>
 
 @for (answer of answers(); track $index) {
 <div class="md:flex justify-center items-center mt-4">
     <div class="mr-4 mb-2 text-teal-500 text-center max-md:flex justify-evenly items-center">
-        <p>Question</p>
+        <p>{{ 'play.question' | transloco }}</p>
         <p class="text-center text-4xl">#{{getIndex($index)}} </p>
     </div>
     @let question = getQuestionByIndex($index);
@@ -15,7 +15,7 @@
         </div>
         <div class="flex items-center md:w-3/6">
             <div class="mx-auto items-center">
-                <p class="mr-2 text-center">You answered :</p>
+                <p class="mr-2 text-center">{{ 'play.given-answer' | transloco }}</p>
                 <span class="flex items-center justify-evenly flex-wrap-reverse" [ngClass]="isAnswerCorrect($index) ? 'text-teal-500' : 'text-red-500'">
                     <ul class="w-2/3">
                         @for (answer of getSelectionForQuestion($index); track $index) {
@@ -34,5 +34,4 @@
 }
 
 <a [routerLink]="['/']"
-    class="text-center bg-teal-500 text-teal-50 px-8 py-6 rounded-xl block w-fit mx-auto cursor-pointer mt-24 hover:bg-teal-300">Back
-    to homepage</a>
+    class="text-center bg-teal-500 text-teal-50 px-8 py-6 rounded-xl block w-fit mx-auto cursor-pointer mt-24 hover:bg-teal-300">{{ 'back-to-home' | transloco }}</a>

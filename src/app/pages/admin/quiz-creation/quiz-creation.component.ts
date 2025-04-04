@@ -6,10 +6,11 @@ import { QuizFormComponent } from "../../../components/quiz-form/quiz-form.compo
 import { Quiz } from '../../../types/quiz';
 import { AlertService } from '../../../services/alert.service';
 import { QuizService } from '../../../services/quiz.service';
+import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
     selector: 'app-quiz-creation',
-    imports: [QuizFormComponent],
+    imports: [QuizFormComponent,TranslocoPipe],
     providers: [provideIcons({ heroPlusCircle, heroBeakerSolid })],
     templateUrl: './quiz-creation.component.html',
     styleUrl: './quiz-creation.component.css'

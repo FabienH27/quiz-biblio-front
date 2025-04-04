@@ -6,10 +6,11 @@ import { heroPuzzlePiece } from '@ng-icons/heroicons/outline';
 import { map, merge, Observable, Subject, switchMap } from 'rxjs';
 import { QuizService } from '../../../services/quiz.service';
 import { MultiSelectComponent } from "../multiselect/multiselect.component";
+import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
     selector: 'app-theme-selection',
-    imports: [ReactiveFormsModule, MultiSelectComponent, AsyncPipe, NgIcon],
+    imports: [ReactiveFormsModule, MultiSelectComponent, AsyncPipe, NgIcon, TranslocoPipe],
     providers: [provideIcons({ heroPuzzlePiece })],
     templateUrl: './theme-dropdown.component.html',
     styleUrl: './theme-dropdown.component.css'

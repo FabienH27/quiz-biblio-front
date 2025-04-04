@@ -1,26 +1,26 @@
 <div class="lg:max-w-6xl mx-auto">
 	<div class="text-center mt-10">
 		<div>
-			<h1 class="text-2xl font-title font-extrabold">Admin Panel</h1>
-			<p class="font-normal mt-2 font-display">Create and edit quizzes</p>
+			<h1 class="text-2xl font-title font-extrabold">{{ 'admin.title' | transloco }}</h1>
+			<p class="font-normal mt-2 font-display">{{ 'admin.description' | transloco }}</p>
 		</div>
 		<div>
 			<a routerLink="create" routerLinkActive="active" class="cursor-pointer flex justify-center mx-auto w-fit mt-2 text-md bg-teal-600 px-4 py-2 rounded-full
 				hover:bg-white hover:text-teal-500 transition-colors duration-150">
 				<ng-icon name="heroPlus" size="1.5em" strokeWidth=".12em" class="mr-2"></ng-icon>
-				<p>New Quiz</p>
+				<p>{{ 'admin.new-quiz' | transloco }}</p>
 			</a>
 		</div>
 	</div>
 
 	<div class="text-center mt-10 flex justify-between items-center mx-4">
-		<h2 class="text-lg font-title font-bold border-b-4 section-title border-teal-500 inline-block">My quizzes</h2>
+		<h2 class="text-lg font-title font-bold border-b-4 section-title border-teal-500 inline-block">{{ 'admin.my-quizzes' | transloco }}</h2>
 		@if (allowImport) {
 		<div class="flex items-center">
 			<button
 				class="flex text-sm bg-slate-600 px-4 py-2 items-center rounded-full hover:bg-white hover:text-slate-600 transition-colors duration-150">
 				<ng-icon name="heroPlus" size="1.5em" strokeWidth=".12em" class="mr-2"></ng-icon>
-				<p>Import</p>
+				<p>{{ 'admin.import' | transloco }}</p>
 			</button>
 		</div>
 		}
@@ -32,31 +32,31 @@
 		<app-quiz-list-item [quiz]="quiz" [targetRoute]="['edit',quiz.id]" [displayAction]="isAdmin"
 			(delete)="openDeleteModal($event)" />
 		} @empty {
-		<p class="text-slate-500 text-center mt-8">No quiz found.</p>
+		<p class="text-slate-500 text-center mt-8">{{ 'admin.no-quizzes' | transloco }}.</p>
 		}
 	</div>
 </div>
 
-<app-modal [isOpen]="isDeleteModalOpen" (onModalClose)="closeDeletionModal()">
+<app-modal [isOpen]="isDeleteModalOpen" (modalClose)="closeDeletionModal()">
 	<div class="flex mx-auto flex-col justify-evenly text-center">
 		<div class="flex flex-col">
 			<span
 				class="bg-red-800/20 h-14 w-14 rounded-full text-red-500 flex items-center justify-center self-center">
 				<ng-icon name="heroExclamationTriangle" size="2em" />
 			</span>
-			<h1 class="text-3xl font-display font-bold">Delete quiz</h1>
-			<p class="text-sm font-display">You are going to delete the <span class="italic">{{ quizToDelete.title }}</span> quiz.</p>
+			<h1 class="text-3xl font-display font-bold">{{ 'admin.delete-title' | transloco }}</h1>
+			<p class="text-sm font-display"> {{ 'admin.confirmation' | transloco }} <span class="italic font-bold">{{quizToDelete.title}}</span> </p>
 		</div>
 
 		<div>
 			<div class="flex justify-evenly">
 				<button (click)="closeDeletionModal()" type="button"
 					class="cursor-pointer rounded-3xl bg-slate-800 hover:bg-slate-600 px-4 py-2 ">
-					No, Keep it
+					{{ 'admin.delete-no' | transloco }}
 				</button>
 				<button (click)="deleteQuiz()" type="button"
 					class="cursor-pointer rounded-3xl bg-red-500 hover:bg-red-400 px-4 py-2 ">
-					Yes, Delete
+					{{ 'admin.delete-yes' | transloco }}
 				</button>
 			</div>
 		</div>

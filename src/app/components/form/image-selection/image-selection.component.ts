@@ -5,10 +5,11 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroArrowUpTray, heroExclamationTriangle, heroPhoto, heroTrash } from '@ng-icons/heroicons/outline';
 import { filter, Observable, switchMap } from 'rxjs';
 import { ImageService } from '../../../services/image.service';
+import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
     selector: 'app-image-selection',
-    imports: [NgIcon, NgClass, AsyncPipe],
+    imports: [NgIcon, NgClass, AsyncPipe, TranslocoPipe],
     providers: [provideIcons({ heroPhoto, heroArrowUpTray, heroTrash, heroExclamationTriangle })],
     templateUrl: './image-selection.component.html',
     styleUrl: './image-selection.component.css'

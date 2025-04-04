@@ -1,9 +1,12 @@
 <table class="border-slate-500 border-x-2 p-2 border-y-2 w-2/3 mx-auto mt-8">
 	<thead>
 		<tr>
-			<th scope="col" class="border-slate-500 border-x-2 p-2 border-y-2">Rank</th>
-			<th scope="col" class="border-slate-500 border-x-2 p-2 border-y-2">Player Name</th>
-			<th scope="col" class="border-slate-500 border-x-2 p-2 border-y-2">Points</th>
+			<th scope="col" class="border-slate-500 border-x-2 p-2 border-y-2"> {{ 'scoreboard.rank' | transloco }}
+			</th>
+			<th scope="col" class="border-slate-500 border-x-2 p-2 border-y-2"> {{ 'scoreboard.player' | transloco }}
+			</th>
+			<th scope="col" class="border-slate-500 border-x-2 p-2 border-y-2">{{ 'scoreboard.points' | transloco }}
+			</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -15,9 +18,9 @@
 		</tr>
 		}
 		@empty {
-			<tr>
-				<td colspan="3" class="text-center text-slate-500 py-4">No user scores found.</td>
-			</tr>
+		<tr>
+			<td colspan="3" class="text-center text-slate-400 py-4"> {{ 'scoreboard.nodata' | transloco }}.</td>
+		</tr>
 		}
 	</tbody>
 </table>

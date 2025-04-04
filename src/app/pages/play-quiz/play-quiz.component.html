@@ -8,17 +8,17 @@
         <div class="md:ml-8 grow">
             <h1 class="text-3xl text-slate-300">{{ quiz.title }}</h1>
             <p class="text-lg text-slate-500 block">
-                Theme{{quiz.themes.length>1 ? 's': ''}} : {{ themes }}
+                {{ 'themes' | transloco }}{{quiz.themes.length>1 ? 's': ''}} : {{ themes }}
             </p>
         </div>
     </div>
 
-    <div class="mt-8" translate="no">
+    <div class="mt-8" transloco="no">
         @if (!isQuizInProgress && !finalStep) {
         <button (click)="startQuiz()" type="button"
             class="bg-teal-500 px-8 py-4 rounded-lg mx-auto block hover:bg-teal-400 cursor-pointer">
             <ng-icon name="heroPlaySolid" />
-            Start quiz !
+            {{ 'play.start' | transloco }}
         </button>
 
         <div class="mx-auto text-slate-400 my-5 w-3/4">
@@ -26,9 +26,9 @@
                 <ng-icon size="2em" name="heroInformationCircleSolid" />
             </span>
             <ul>
-                <li class="list-decimal">For each question, select one or multiple answers (when explicitly asked).</li>
-                <li class="list-decimal">User selection is shown with a green outline. To undo a selection, click again on the same answer.</li>
-                <li class="list-decimal">You will not gain any point if you do not give exact answer(s).</li>
+                <li class="list-decimal">{{ 'play.guide.one' | transloco }}</li>
+                <li class="list-decimal">{{ 'play.guide.two' | transloco }}</li>
+                <li class="list-decimal">{{ 'play.guide.three' | transloco }}</li>
             </ul>
         </div>
 
@@ -43,7 +43,7 @@
         <button (click)="handleClick()" type="button" [disabled]="!hasAnswered"
             class="bg-teal-500 px-8 cursor-pointer py-4 rounded-lg block !:disabled:hover:bg-teal-400 md:ml-auto mx-auto my-8 disabled:bg-teal-800 disabled:text-slate-800">
             <ng-icon [name]="checkStep ? 'heroForwardSolid' : 'heroCheckSolid' "/>
-            <p class="inline" [innerText]="checkStep ? 'Next' : 'Validate'"></p>
+            <p class="inline" [innerText]="checkStep ? ('play.next' | transloco) : ('play.validate' | transloco)"></p>
         </button>
         }
     </div>

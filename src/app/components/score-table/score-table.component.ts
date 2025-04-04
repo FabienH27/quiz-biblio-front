@@ -1,9 +1,10 @@
 import { Component, input } from '@angular/core';
 import { UserScore } from '../../types/user-score';
+import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
     selector: 'app-score-table',
-    imports: [],
+    imports: [TranslocoPipe],
     templateUrl: './score-table.component.html',
     styleUrl: './score-table.component.css'
 })

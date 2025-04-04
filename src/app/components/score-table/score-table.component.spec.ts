@@ -2,14 +2,15 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ScoreTableComponent } from './score-table.component';
 import { UserScore } from '../../types/user-score';
+import { getTranslocoModule } from '../../specs/transloco-testing.module';
 
-describe('TableComponent', () => {
+describe('ScoreTableComponent', () => {
   let component: ScoreTableComponent;
   let fixture: ComponentFixture<ScoreTableComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ScoreTableComponent]
+      imports: [ScoreTableComponent, getTranslocoModule()]
     })
     .compileComponents();
 
