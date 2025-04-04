@@ -6,7 +6,7 @@ export function getTranslocoModule(options: TranslocoTestingOptions = {}) {
     return TranslocoTestingModule.forRoot({
       langs: { en, fr },
       translocoConfig: {
-        availableLangs: ['en', 'es'],
+        availableLangs: ['en', 'fr'],
         defaultLang: 'en',
       },
       preloadLangs: true,
