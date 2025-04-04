@@ -6,16 +6,18 @@
 				<ng-icon [name]="isOpen ? 'heroXMark' : 'heroBars3BottomRight'" size="1.5em" />
 			</button>
 		</div>
-		<nav class="flex gap-2 mt-2 justify-center flex-col md:flex-row text-center" [class.hidden]="!isOpen">
+		<nav class="flex gap-2 mt-2 justify-center items-center flex-col md:flex-row text-center" [class.hidden]="!isOpen">
 			@if (userData$ | async; as user) {
 			<a class="mx-5 hover:text-teal-100" routerLink="/scoreboard"> {{ 'menu.scoreboard' | transloco }} </a>
 			@if (isAdmin(user)) {
 			<a class="text-teal-500 mx-5 hover:text-teal-100" routerLink="/admin"> {{ 'admin.title' | transloco }}</a>
 			}
+			<app-language-selector />
 			<p class="">{{ user.userName }}</p>
 			<a (click)="logout()" routerLink="logout"
 				class="text-slate-400 mx-5 self-center text-center px-5 font-semibold md:border-l-2 border-slate-400 hover:">{{ 'auth.logout' | transloco }}</a>
 			} @else {
+			<app-language-selector />
 			<a routerLink="login" routerLinkActive="active" ariaCurrentWhenActive="page"
 				class="text-teal-500 mx-5 self-center text-center px-5 py-2 font-semibold rounded-lg hover:">{{ 'auth.login' | transloco }}</a>
 			<a routerLink="register" routerLinkActive="active" ariaCurrentWhenActive="page"

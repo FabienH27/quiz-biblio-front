@@ -11,7 +11,8 @@
         },
         "start": "Commencer un quiz",
         "list": {
-            "title": "Jouez aux quiz de votre choix !"
+            "title": "Jouez aux quiz de votre choix !",
+            "nodata": "Aucun quiz trouvé"
         }
     },
     "auth": {

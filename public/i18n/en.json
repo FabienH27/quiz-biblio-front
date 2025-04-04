@@ -11,7 +11,8 @@
         },
         "start": "Start a quiz",
         "list": {
-            "title": "Play quizzes of your choice!"
+            "title": "Play quizzes of your choice!",
+            "nodata": "No quizzes found"
         }
     },
     "auth": {
