@@ -36,9 +36,16 @@ export class QuizListItemComponent implements OnInit {
   get quizData() {
     return this.quiz();
   }
-
   get themes(){
-    return this.quizData.themes.sort().join(", ").substring(0, 15) + "...";
+    const themes = this.quizData.themes.sort().join(", ");
+
+    return themes.length >= 15 ? themes.substring(0, 15) + "..." : themes;
+  }
+
+  get title(){
+    const title = this.quizData.title;
+
+    return title.length > 50 ? title.substring(0,50) + "..." : title;
   }
 
   playQuiz(event: Event){
