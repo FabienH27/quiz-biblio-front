@@ -53,6 +53,7 @@
         "no-quiz": "Quiz non trouvé",
         "proposal": "Proposition ",
         "question": "Question",
+        "question-required": "La question est requise",
         "quiz-title": "Titre du quiz",
         "replace-image": "Remplacer l'image",
         "select-themes": "Sélectionnez un ou plusieurs thèmes",

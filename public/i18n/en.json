@@ -56,6 +56,7 @@
         "max-theme-count": "Please select up to 3 themes",
         "proposal": "Proposal ",
         "question": "Question",
+        "question-required": "Question is required",
         "quiz-title": "Quiz title",
         "replace-image": "Replace image",
         "select-themes": "Select one or multiple themes",
