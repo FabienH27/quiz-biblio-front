@@ -1,5 +1,5 @@
 {
-    "admin": {
+    "creation-panel": {
         "confirmation": "Vous allez supprimer le quiz :",
         "delete-no": "Non, conserver",
         "delete-title": "Supprimer le quiz",
@@ -9,7 +9,7 @@
         "my-quizzes": "Mes quiz",
         "new-quiz": "Nouveau quiz",
         "no-quizzes": "Aucun quiz trouvé",
-        "title": "Panneau d'administration"
+        "title": "Création de quiz"
     },
     "auth": {
         "account-exist": "Vous possédez déjà un compte ?",
@@ -53,6 +53,7 @@
         "max-theme-count": "Veuillez sélectionnez au plus 3 thèmes",
         "no-quiz": "Quiz non trouvé",
         "proposal": "Proposition ",
+        "proposal-required": "La proposition est requise",
         "question": "Question",
         "question-required": "La question est requise",
         "quiz-title": "Titre du quiz",
@@ -109,5 +110,6 @@
         "rank": "Rang",
         "title": "Tableau des scores"
     },
-    "themes": "Thèmes"
+    "themes": "Thèmes",
+    "you": "vous"
 }
