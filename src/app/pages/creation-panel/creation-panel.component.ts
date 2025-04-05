@@ -17,10 +17,10 @@ import { TranslocoPipe } from '@jsverse/transloco';
     selector: 'app-admin',
     imports: [NgIconComponent, RouterLink, RouterLinkActive, AsyncPipe, QuizListItemComponent, ModalComponent, TranslocoPipe],
     providers: [provideIcons({ heroPlus, heroQuestionMarkCircleSolid, heroQueueList, heroExclamationTriangle })],
-    templateUrl: './admin.component.html',
-    styleUrl: './admin.component.css'
+    templateUrl: './creation-panel.component.html',
+    styleUrl: './creation-panel.component.css'
 })
-export class AdminComponent implements OnInit {
+export class CreationPanelComponent implements OnInit {
 
   private quizService = inject(QuizService);
   private route = inject(ActivatedRoute);

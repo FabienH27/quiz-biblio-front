@@ -1,8 +1,8 @@
-import { Component, inject, input, OnInit, output } from '@angular/core';
+import { Component, effect, inject, input, output } from '@angular/core';
 import { Question } from '../../../types/quiz';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { Answer } from '../../../types/answer';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ImageService } from '../../../services/image.service';
 import { TranslocoPipe } from '@jsverse/transloco';
 
@@ -12,7 +12,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
     templateUrl: './play-quiz-question.component.html',
     styleUrl: './play-quiz-question.component.css'
 })
-export class PlayQuizQuestionComponent implements OnInit {
+export class PlayQuizQuestionComponent {
 
   private imageService = inject(ImageService);
 
@@ -40,14 +40,14 @@ export class PlayQuizQuestionComponent implements OnInit {
 
   get hasMultipleCorrectAnswers(){
     return this.question().correctProposalIds.length > 1;
-  }  
+  }
 
-  ngOnInit(): void {
-    const imageId = this.question().imageId;
+  constructor() {
+    effect(() => {
+      const imageId = this.question().imageId;
 
-    if(imageId){
-      this.imageUrl$ = this.imageService.getImageUrl(imageId);
-    }
+      this.imageUrl$ = imageId ? this.imageService.getImageUrl(imageId) : of(null);
+    });
   }
 
   addToAnswer(proposalIndex: number) {
