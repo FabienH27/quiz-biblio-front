@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { catchError, filter, Observable, switchMap } from 'rxjs';
+import { filter, Observable, switchMap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ImageResponse } from '../types/image-response';
 import { UploadResult } from '../types/upload-result';
@@ -20,8 +20,7 @@ export class ImageService {
     const formData = new FormData();
     formData.append('file', file);
 
-    return this.httpClient.post<UploadResult>(`${this.baseUrl}/ImageStorage/upload`, formData, { withCredentials: true })
-      .pipe(catchError(err => { console.error(err); throw err }))
+    return this.httpClient.post<UploadResult>(`${this.baseUrl}/ImageStorage/upload`, formData, { withCredentials: true });
   }
 
   getImageUrl(imageId: string): Observable<string> {
@@ -35,7 +34,6 @@ export class ImageService {
           }
           return this.fireStorage.getImage(url);
         }),
-        catchError(err => { console.error(err); throw err })
       );
   }
 }

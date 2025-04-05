@@ -7,6 +7,7 @@ import { map, merge, Observable, Subject, switchMap } from 'rxjs';
 import { QuizService } from '../../../services/quiz.service';
 import { MultiSelectComponent } from "../multiselect/multiselect.component";
 import { TranslocoPipe } from '@jsverse/transloco';
+import { ThemeService } from '../../../services/theme.service';
 
 @Component({
     selector: 'app-theme-selection',
@@ -18,6 +19,8 @@ import { TranslocoPipe } from '@jsverse/transloco';
 export class ThemeDropdownComponent implements OnInit, OnDestroy {
 
   quizService = inject(QuizService);
+  themeService = inject(ThemeService);
+
   fb = inject(FormBuilder);
   controlContainer = inject(ControlContainer);
 
@@ -52,18 +55,16 @@ export class ThemeDropdownComponent implements OnInit, OnDestroy {
     this.themeSelection.setValue(this.themes);
 
     this.options$ = merge(
-      this.quizService.getThemes().pipe(
+      this.themeService.getThemes().pipe(
         map(arr => arr.sort())
       ),
       this.createTheme$.pipe(
         switchMap((themeName) => 
-          this.quizService.createTheme(themeName).pipe(
-            switchMap(() => this.quizService.getThemes())
+          this.themeService.createTheme(themeName).pipe(
+            switchMap(() => this.themeService.getThemes())
           ))
       )
     )
-
-
   }
 
   ngOnDestroy(): void {
