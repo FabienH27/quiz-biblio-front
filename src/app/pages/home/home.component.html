@@ -27,15 +27,21 @@
 			{{'home.list.title' | transloco }}
 		</h1>
 		<div class="md:flex gap-8 mt-8 justify-center w-1/2 mx-auto">
-			@for (quiz of quizzes$ | async; track $index) {
-			<app-quiz-list-item [quiz]="quiz" [targetRoute]="['/play',quiz.id]" color="dark">
-				<quiz-actions>actions</quiz-actions>
-			</app-quiz-list-item>
-			} @empty {
-			<article class="font-display p-2 mt-8 mx-auto flex justify-center flex-wrap">
-				<p class="">{{'home.list.nodata' | transloco }}</p>
-			</article>
-			}
+			<ng-container *ngIf="loading$ | async; else quizList">
+				<p>{{'loading' | transloco }}...</p>
+			</ng-container>
+
+			<ng-template #quizList>
+				@for (quiz of quizzes$ | async; track $index) {
+				<app-quiz-list-item [quiz]="quiz" [targetRoute]="['/play',quiz.id]" color="dark">
+					<quiz-actions>actions</quiz-actions>
+				</app-quiz-list-item>
+				} @empty {
+				<article class="font-display p-2 mt-8 mx-auto flex justify-center flex-wrap">
+					<p class="">{{'home.list.nodata' | transloco }}</p>
+				</article>
+				}
+			</ng-template>
 		</div>
 	</div>
 </section>

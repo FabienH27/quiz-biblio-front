@@ -1,110 +1,111 @@
 {
-    "home": {
-        "description": "Développez vos connaissances sur différents sujets et testez votre culture générale",
-        "title": {
-            "challenge": "Challengez votre culture",
-            "literary": "littéraire",
-            "cinematographic": "cinématographique",
-            "and": "et",
-            "musical": "musicale",
-            "culture": " "
-        },
-        "start": "Commencer un quiz",
-        "list": {
-            "title": "Jouez aux quiz de votre choix !",
-            "nodata": "Aucun quiz trouvé"
-        }
+    "admin": {
+        "confirmation": "Vous allez supprimer le quiz :",
+        "delete-no": "Non, conserver",
+        "delete-title": "Supprimer le quiz",
+        "delete-yes": "Oui, supprimer",
+        "description": "Créez et éditez vos quiz",
+        "import": "Importer",
+        "my-quizzes": "Mes quiz",
+        "new-quiz": "Nouveau quiz",
+        "no-quizzes": "Aucun quiz trouvé",
+        "title": "Panneau d'administration"
     },
     "auth": {
-        "login": "Se connecter",
-        "register": "S'inscrire",
-        "logout": "Se déconnecter",
-        "no-account": "Pas de compte ?",
         "account-exist": "Vous possédez déjà un compte ?",
-        "register-desc": "Créez un compte pour jouer aux quiz !",
-        "username": {
-            "text": "Nom d'utilisateur",
-            "required": "Le nom d'utilisateur est requis",
-            "minlength": "Le nom d'utilisateur doit contenir au moins 3 caractères",
-            "maxlength": "Le nom d'utilisateur doit contenir au plus 20 caractères"
-        },
         "email": {
             "invalid": "L'adresse email est invalide",
             "required": "L'adresse email est requise"
         },
-        "password" : {
-            "text": "Mot de passe",
+        "login": "Se connecter",
+        "logout": "Se déconnecter",
+        "no-account": "Pas de compte ?",
+        "password": {
+            "invalid": "Le mot de passe est invalide",
             "required": "Le mot de passe est requis",
-            "invalid": "Le mot de passe est invalide"
+            "text": "Mot de passe"
+        },
+        "register": "S'inscrire",
+        "register-desc": "Créez un compte pour jouer aux quiz !",
+        "username": {
+            "maxlength": "Le nom d'utilisateur doit contenir au plus 20 caractères",
+            "minlength": "Le nom d'utilisateur doit contenir au moins 3 caractères",
+            "required": "Le nom d'utilisateur est requis",
+            "text": "Nom d'utilisateur"
         }
     },
-    "admin": {
-        "title": "Panneau d'administration",
-        "description": "Créez et éditez vos quiz",
-        "new-quiz": "Nouveau quiz",
-        "import": "Importer",
-        "my-quizzes": "Mes quiz",
-        "no-quizzes": "Aucun quiz trouvé",
-        "delete-title": "Supprimer le quiz",
-        "confirmation": "Vous allez supprimer le quiz :",
-        "delete-yes": "Oui, supprimer",
-        "delete-no": "Non, conserver"
-    },
+    "back-to-home": "Retour à la page d'accueil",
     "form": {
-        "title": "Editer quiz",
-        "no-quiz": "Quiz non trouvé",
         "add-image": "Ajouter une image",
-        "details": "Détails",
-        "valid": "Valide",
         "add-proposal": "Ajouter une proposition",
         "add-question": "Ajouter une question",
         "add-theme": "Ajouter",
-        "type-new-theme": "Saisir un nom de thème",
-        "max-theme-count": "Veuillez sélectionnez au plus 3 thèmes",
-        "replace-image": "Remplacer l'image",
-        "load-image-fail": "Impossible de charger l'image",
-        "delete": "Supprimer",
-        "title-required": "Veuillez ajouter un titre",
-        "details-required": "Veuillez ajouter un détail de réponse",
         "correct-answer-required": "Veuillez identifier la réponse correcte",
         "create-new-quiz": "Créer un nouveau quiz",
         "create-quiz": "Créer le quiz",
+        "delete": "Supprimer",
+        "details": "Détails",
+        "details-required": "Veuillez ajouter un détail de réponse",
         "edit-quiz": "Editer le quiz",
-        "select-themes": "Sélectionnez un ou plusieurs thèmes",
         "explain-answer": "Expliquez pourquoi cette réponse est la bonne",
+        "load-image-fail": "Impossible de charger l'image",
+        "max-theme-count": "Veuillez sélectionnez au plus 3 thèmes",
+        "no-quiz": "Quiz non trouvé",
         "proposal": "Proposition ",
         "question": "Question",
-        "quiz-title": "Titre du quiz"
+        "quiz-title": "Titre du quiz",
+        "replace-image": "Remplacer l'image",
+        "select-themes": "Sélectionnez un ou plusieurs thèmes",
+        "title": "Editer quiz",
+        "title-required": "Veuillez ajouter un titre",
+        "type-new-theme": "Saisir un nom de thème",
+        "valid": "Valide"
     },
+    "home": {
+        "description": "Développez vos connaissances sur différents sujets et testez votre culture générale",
+        "list": {
+            "nodata": "Aucun quiz trouvé",
+            "title": "Jouez aux quiz de votre choix !"
+        },
+        "start": "Commencer un quiz",
+        "title": {
+            "and": "et",
+            "challenge": "Challengez votre culture",
+            "cinematographic": "cinématographique",
+            "culture": " ",
+            "literary": "littéraire",
+            "musical": "musicale"
+        }
+    },
+    "loading": "Chargement...",
     "menu": {
         "scoreboard": "Tableau des scores"
     },
-    "themes": "Thèmes",
     "play": {
-        "start": "Commencer le quiz !",
+        "answer": "Réponse",
+        "answer-ratio": "{{selectionCount}} réponse(s) données sur {{correctSelectionCount}} réponse(s) correctes",
+        "correct": "Correct!",
+        "given-answer": "Vous avez répondu:",
         "guide": {
             "one": "Pour chaque question, sélectionnez une ou plusieurs réponses (lorsque cela est explicitement demandé).",
-            "two": "La sélection de l'utilisateur est indiquée par un contour vert. Pour annuler une sélection, cliquez à nouveau sur la réponse sélectionnée.",
-            "three": "Vous ne gagnerez aucun point si vous ne donnez pas la ou les réponse(s) exacte(s)."
+            "three": "Vous ne gagnerez aucun point si vous ne donnez pas la ou les réponse(s) exacte(s).",
+            "two": "La sélection de l'utilisateur est indiquée par un contour vert. Pour annuler une sélection, cliquez à nouveau sur la réponse sélectionnée."
         },
-        "validate": "Valider",
-        "next": "Suivant",
-        "answer": "Réponse",
-        "multiple-answers": "Plusieurs réponses attendues",
-        "correct": "Correct!",
         "incorrect": "Incorrect",
-        "answer-ratio": "{{selectionCount}} réponse(s) données sur {{correctSelectionCount}} réponse(s) correctes",
+        "multiple-answers": "Plusieurs réponses attendues",
+        "next": "Suivant",
+        "question": "Question",
         "quiz-completion": "Vous avez fini le quiz",
+        "start": "Commencer le quiz !",
         "total-score": "Avec un score de",
-        "given-answer": "Vous avez répondu:",
-        "question": "Question"
+        "validate": "Valider"
     },
     "scoreboard": {
-        "title": "Tableau des scores",
-        "rank": "Rang",
+        "nodata": "Aucun score trouvé",
         "player": "Nom du joueur",
         "points": "Points",
-        "nodata": "Aucun score trouvé"
+        "rank": "Rang",
+        "title": "Tableau des scores"
     },
-    "back-to-home": "Retour à la page d'accueil"
+    "themes": "Thèmes"
 }

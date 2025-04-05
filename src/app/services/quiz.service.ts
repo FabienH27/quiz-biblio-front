@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, Observable, tap } from 'rxjs';
+import { BehaviorSubject, catchError, finalize, Observable, of, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Quiz } from '../types/quiz';
 import { QuizInfo } from '../types/quiz-info';
@@ -17,11 +17,19 @@ export class QuizService {
   private alertService = inject(AlertService);
 
   private quizItemsSubject = new BehaviorSubject<QuizInfo[]>([]);
+  private loadingSubject = new BehaviorSubject<boolean>(false);
+
   quizzes$ = this.quizItemsSubject.asObservable();
+  loading$ = this.loadingSubject.asObservable();
 
   getQuizzes() {
+    this.loadingSubject.next(true);
+
     this.httpClient.get<QuizInfo[]>(`${this.baseUrl}/quizzes/`, { withCredentials: true })
-      .pipe(catchError(err => { console.error(err); throw err }))
+      .pipe(
+        catchError(err => { console.error(err); return of([]) }),
+        finalize(() => this.loadingSubject.next(false))
+      )
       .subscribe(data => this.quizItemsSubject.next(data));
   }
 
