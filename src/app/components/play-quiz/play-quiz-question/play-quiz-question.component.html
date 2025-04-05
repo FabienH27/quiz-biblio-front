@@ -3,7 +3,7 @@
         <div class="md:flex text-center mx-auto items-center">
             
             @if (imageUrl$ | async; as img) {
-            <img [src]="img" class="hidden md:block w-32 h-32 object-cover rounded-full" alt="image associated to the quiz" />
+            <img [src]="img" class="hidden md:block w-32 h-32 object-cover rounded-full" alt="image associated to the question" />
             }@else {
             <img src="svg/gradient.svg" class="hidden md:block w-32 h-32 rounded-full" alt="placeholder image if the image is not found" />
             }
