@@ -6,10 +6,11 @@ import { heroPlayCircle, heroQueueList, heroTrash } from '@ng-icons/heroicons/ou
 import { Observable } from 'rxjs';
 import { ImageService } from '../../services/image.service';
 import { QuizInfo } from '../../types/quiz-info';
+import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
     selector: 'app-quiz-list-item',
-    imports: [NgIconComponent, I18nPluralPipe, RouterLink, NgClass, AsyncPipe],
+    imports: [NgIconComponent, I18nPluralPipe, RouterLink, NgClass, AsyncPipe, TranslocoPipe],
     providers: [provideIcons({ heroQueueList, heroTrash, heroPlayCircle })],
     templateUrl: './quiz-list-item.component.html',
     styleUrl: './quiz-list-item.component.css'
@@ -37,7 +38,7 @@ export class QuizListItemComponent implements OnInit {
   }
 
   get themes(){
-    return this.quizData.themes.sort().join(", ").substring(0, 20) + "...";
+    return this.quizData.themes.sort().join(", ").substring(0, 15) + "...";
   }
 
   playQuiz(event: Event){
