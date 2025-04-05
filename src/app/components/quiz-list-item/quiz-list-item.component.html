@@ -1,6 +1,6 @@
 <a class="rounded-lg relative cursor-pointer group hover:bg-slate-600 transition-colors inline-block md:w-64 overflow-hidden not-sm:max-w-2/3 w-full h-full"
     [ngClass]="color() === 'dark' ? 'bg-slate-800' : 'bg-slate-700'" [routerLink]="targetRoute()">
-    <img [src]="(quiz().imageId ? (imageUrl$ | async) : 'svg/gradient.svg')" alt="quiz image"
+    <img [src]="this.quiz().imageId ? (imageUrl$ | async) : 'svg/gradient.svg'" alt="quiz image"
         class="hidden md:block w-full h-28 object-cover" />
 
     <svg viewBox="0 0 900 600"
@@ -15,9 +15,9 @@
             <span class="flex text-left">
                 <ng-icon name="heroQueueList" size="1.2em" class="mr-1"></ng-icon>
                 <p>
-                    {{ quizData.questionCount }}
+                    {{ this.quiz().questionCount }}
                     {{
-                    quizData.questionCount
+                    this.quiz().questionCount
                     | i18nPlural : { "=1": "Question", other: "Questions" }
                     }}
                 </p>
@@ -39,7 +39,7 @@
         }
     </div>
     <div class="mx-2 my-2 sm:text-left">
-        <p class="mb-4 mt-2 text-sm" > {{ 'by' | transloco }} <span class="text-teal-200">{{quizData.creatorName}}</span> </p>
+        <p class="mb-4 mt-2 text-sm" > {{ 'by' | transloco }} <span class="text-teal-200">{{this.quiz().creatorName}}</span> </p>
         <p class="font-title font-semibold" style="font-size: calc(1vw);">{{ title }}</p>
     </div>
 </a>
