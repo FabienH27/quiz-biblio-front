@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, of } from 'rxjs';
+import { BehaviorSubject, of, throwError } from 'rxjs';
 import { catchError, first, map, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { AlertService } from '../services/alert.service';
@@ -33,7 +33,7 @@ export class AuthService {
 
   getUserInfo() {
     const url = `${this.baseUrl}/auth/user-info`;
-    return this.httpClient.get<User>(url, { withCredentials: true })
+    return this.httpClient.get<User>(url, { withCredentials: true, headers: { 'skip-alert': 'true' } })
       .pipe(
         first(),
         tap(user => {
@@ -58,9 +58,18 @@ export class AuthService {
   }
 
   isAuthenticated() {
-    return this.httpClient.get<{ authenticated: true }>(`${this.baseUrl}/auth/status`, { withCredentials: true }).pipe(
+    return this.httpClient.get<{ authenticated: true }>(`${this.baseUrl}/auth/status`, {
+      withCredentials: true, headers: {
+        'skip-alert': 'true'
+      }
+    }).pipe(
       map(response => response.authenticated),
-      catchError(() => of(false))
+      catchError((err: HttpErrorResponse) => {
+        if (err.status == HttpStatusCode.Unauthorized) {
+          return of(false);
+        }
+        return throwError(() => err);
+      }),
     );
   }
 
