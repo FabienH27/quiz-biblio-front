@@ -26,7 +26,7 @@
 		<h1 class="text-xl text-center" id="quiz-list">
 			{{'home.list.title' | transloco }}
 		</h1>
-		<div class="md:flex gap-8 mt-8 justify-center w-1/2 mx-auto">
+		<div class="md:flex gap-8 mt-8 justify-center mx-auto text-center flex-wrap ">
 			<ng-container *ngIf="loading$ | async; else quizList">
 				<p>{{'loading' | transloco }}...</p>
 			</ng-container>
