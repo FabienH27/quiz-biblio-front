@@ -103,6 +103,9 @@
         "quiz-completion": "You have completed the quiz",
         "start": "Start quiz!",
         "total-score": "With a score of",
+        "username": "Username",
+        "username-confirmation": "You are going to play as {{username}}",
+        "username-info": "Choose your username or use the suggested one to begin the quiz",
         "validate": "Validate"
     },
     "scoreboard": {

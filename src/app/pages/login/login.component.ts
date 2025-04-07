@@ -19,10 +19,10 @@ import { TranslocoPipe } from '@jsverse/transloco';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  authService = inject(AuthService);
+  private authService = inject(AuthService);
   router = inject(Router);
   route = inject(ActivatedRoute);
-  alertService = inject(AlertService);
+  private alertService = inject(AlertService);
 
   protected loginForm = new FormGroup<LoginForm>({
     email: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.email] }),

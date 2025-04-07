@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, computed, effect, HostListener, inject, Signal, signal, viewChild } from '@angular/core';
+import { Component, computed, effect, HostListener, inject, OnInit, Signal, signal, viewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroCheckSolid, heroForwardSolid, heroInformationCircleSolid, heroPlaySolid } from '@ng-icons/heroicons/solid';
@@ -12,19 +12,23 @@ import { Answer } from '../../types/answer';
 import { Quiz } from '../../types/quiz';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TranslocoPipe } from '@jsverse/transloco';
+import { PlayService } from '../../services/play.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
-    selector: 'app-play-quiz',
-    imports: [NgIconComponent, PlayQuizQuestionComponent, PlayFinalStepComponent, AsyncPipe, TranslocoPipe],
-    providers: [provideIcons({ heroPlaySolid, heroForwardSolid, heroCheckSolid, heroInformationCircleSolid })],
-    templateUrl: './play-quiz.component.html',
-    styleUrl: './play-quiz.component.css'
+  selector: 'app-play-quiz',
+  imports: [NgIconComponent, PlayQuizQuestionComponent, PlayFinalStepComponent, AsyncPipe, TranslocoPipe],
+  providers: [provideIcons({ heroPlaySolid, heroForwardSolid, heroCheckSolid, heroInformationCircleSolid })],
+  templateUrl: './play-quiz.component.html',
+  styleUrl: './play-quiz.component.css'
 })
-export class PlayQuizComponent {
+export class PlayQuizComponent implements OnInit {
 
   private activatedRoute = inject(ActivatedRoute);
   private scoreService = inject(UserScoreService);
   private imageService = inject(ImageService);
+  private playService = inject(PlayService);
+  private authService = inject(AuthService);
 
   readonly questionComponent = viewChild.required<PlayQuizQuestionComponent>('question');
 
@@ -33,14 +37,16 @@ export class PlayQuizComponent {
 
   isQuizInProgress = false;
   checkStep = false;
-  finalStep = false;
+  finalStep = true;
+
+  userName!: string;
 
   readonly currentStep = signal(0);
 
   answers = signal<Map<string, Answer>>(new Map<string, Answer>());
 
   imageUrl = computed(() => this.quiz ? this.loadImage() : null);
-  
+
   get currentQuestion() {
     return this.quiz.questions.at(this.currentStep())!;
   }
@@ -54,22 +60,30 @@ export class PlayQuizComponent {
     return answerArray.filter((obj) => obj.isCorrect).length;
   }
 
-  get themes(){
+  get themes() {
     return this.quiz.themes.sort().join(', ');
   }
 
-  constructor(){
-    this.quizSignal = toSignal(this.activatedRoute.data.pipe(map((data) => data['quiz'])), {initialValue: null});
+  get loggedInUser() {
+    return this.authService.user$;
+  }
+
+  constructor() {
+    this.quizSignal = toSignal(this.activatedRoute.data.pipe(map((data) => data['quiz'])), { initialValue: null });
 
     effect(() => {
       const data = this.quizSignal();
-      if(!data) return;
+      if (!data) return;
       this.quiz = data;
     });
   }
 
+  ngOnInit(): void {
+    this.userName = this.playService.getRandomUserName();
+  }
+
   loadImage() {
-    if(!this.quiz.imageId){
+    if (!this.quiz.imageId) {
       return of('');
     }
 
@@ -84,9 +98,14 @@ export class PlayQuizComponent {
         this.checkStep = false;
         this.questionComponent().resetChoice();
       } else {
+        //last step
         this.finalStep = true;
         this.isQuizInProgress = false;
-        this.scoreService.saveUserScore(this.userScore).subscribe();
+        this.playService.userScore = this.userScore;
+
+        console.log(this.playService.getUserName());
+        
+        // this.scoreService.saveUserScore(this.userScore).subscribe();
       }
     }
   }
@@ -105,8 +124,8 @@ export class PlayQuizComponent {
     this.answers.set(updatedAnswers);
   }
 
-  handleClick(){
-    if(this.checkStep === true){
+  handleClick() {
+    if (this.checkStep === true) {
       this.nextQuestion();
     } else {
       this.validateQuiz();
@@ -114,8 +133,8 @@ export class PlayQuizComponent {
   }
 
   @HostListener('window:beforeunload', ['$event'])
-  unloadNotification($event: BeforeUnloadEvent): void{
-    if(this.isQuizInProgress){
+  unloadNotification($event: BeforeUnloadEvent): void {
+    if (this.isQuizInProgress) {
       $event.preventDefault();
     }
   }

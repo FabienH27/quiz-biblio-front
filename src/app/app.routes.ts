@@ -17,8 +17,7 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     {
         path: 'play/:id', component: PlayQuizComponent,
-        resolve: { quiz: quizResolver, user: userResolver },
-        canActivate: [authGuard],
+        resolve: { quiz: quizResolver },
         canDeactivate: [leaveQuizGuard]
     },
     { path: 'scoreboard', component: ScoreboardComponent, canActivate: [authGuard], resolve: { user: userResolver } },
