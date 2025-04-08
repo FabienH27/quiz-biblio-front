@@ -92,7 +92,7 @@
         "guide": {
             "one": "Pour chaque question, sélectionnez une ou plusieurs réponses (lorsque cela est explicitement demandé).",
             "three": "Vous ne gagnerez aucun point si vous ne donnez pas la ou les réponse(s) exacte(s).",
-            "two": "La sélection de l'utilisateur est indiquée par un contour vert. Pour annuler une sélection, cliquez à nouveau sur la réponse sélectionnée."
+            "two": "La sélection de l'utilisateur est indiquée par un contour bleu. Pour annuler une sélection, cliquez à nouveau sur la réponse sélectionnée."
         },
         "incorrect": "Incorrect",
         "multiple-answers": "Plusieurs réponses attendues",

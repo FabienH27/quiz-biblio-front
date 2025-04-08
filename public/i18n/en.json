@@ -94,7 +94,7 @@
         "guide": {
             "one": "For each question, select one or multiple answers (when explicitly asked).",
             "three": "You will not gain any point if you do not give exact answer(s).",
-            "two": "User selection is shown with a green outline. To undo a selection, click again on the same answer."
+            "two": "User selection is shown with a blue outline. To undo a selection, click again on the same answer."
         },
         "Incorrect": "Incorrect",
         "multiple-answers": "Multiple answers expected.",

@@ -20,8 +20,8 @@ import { TranslocoPipe } from '@jsverse/transloco';
 })
 export class LoginComponent {
   private authService = inject(AuthService);
-  router = inject(Router);
-  route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
   private alertService = inject(AlertService);
 
   protected loginForm = new FormGroup<LoginForm>({
@@ -43,7 +43,7 @@ export class LoginComponent {
     if (this.loginForm.valid && fieldsValid) {
       this.authService.login(this.loginForm.getRawValue()).subscribe({
         next: () => {
-          const redirectUrl = this.route.snapshot.queryParams['redirectUrl'] || '/';
+          const redirectUrl = this.route.snapshot.queryParamMap.get('redirectUrl') || '/';
           this.router.navigate([redirectUrl]);
           this.alertService.showAlert("Successfully logged in!");
         },

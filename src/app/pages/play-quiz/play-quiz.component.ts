@@ -80,6 +80,15 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    const draft = this.playService.userDraft;
+
+    if(draft){
+      console.log(draft);
+      this.finalStep = true;
+      this.isQuizInProgress = false;
+      this.answers.set(draft);
+    }
+
     this.playService.getRandomUserName();
 
     this.userName = this.playService.getUserName();
@@ -105,6 +114,7 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
         this.checkStep = false;
         this.questionComponent().resetChoice();
       } else {
+
         //last step
         this.finalStep = true;
         this.isQuizInProgress = false;

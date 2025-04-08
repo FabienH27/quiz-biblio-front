@@ -1,10 +1,10 @@
-import { Component, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { Answer } from '../../../types/answer';
 import { Quiz } from '../../../types/quiz';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroCheckCircle, heroXMark } from '@ng-icons/heroicons/outline';
 import { NgClass } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
@@ -16,9 +16,13 @@ import { TranslocoPipe } from '@jsverse/transloco';
 })
 export class PlayFinalStepComponent {
 
+  router = inject(Router);
+
   answers = input.required<Map<string, Answer>>();
   quiz = input.required<Quiz>();
   userScore = input<number>(0);
+
+  currentRoute = this.router.url;
 
   getIndex(index: number){
     return (index+1).toString().padStart(2,"0");

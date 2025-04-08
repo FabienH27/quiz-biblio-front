@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { uniqueNamesGenerator, adjectives, animals, Config } from 'unique-names-generator';
 import { environment } from '../../environments/environment';
 import { Observable, of, tap } from 'rxjs';
+import { Answer } from '../types/answer';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,16 @@ export class PlayService {
 
   public get userScore() : number {
     return this._userScore;
+  }
+
+  private _userDraft : Map<string, Answer> | null = null;
+
+  public get userDraft(){
+    return this._userDraft;
+  }
+
+  private set userDraft(draft: Map<string, Answer> | null){
+    this._userDraft = draft;
   }
 
   saveUserToStorage(userName: string){
@@ -94,5 +105,21 @@ export class PlayService {
       .pipe(
         tap(() => this.setSessionStarted())
       );
+  }
+
+  /**
+   * Saves given data to localStorage before submission
+   * @param quizId id of the played quiz
+   * @param answers answers given by the user
+   */
+  markAnswersAsDraft(quizId: string, answers: {questionId: string; answer: Answer}[]){
+    localStorage.setItem('quizDraft', JSON.stringify({
+      quizId,
+      answers
+    }));
+  }
+
+  savePlayerScore(userScore: number){
+    this.httpClient.post(`${this.baseUrl}/quizplay/merge-score`, {userScore});
   }
 }
