@@ -1,9 +1,9 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, computed, effect, HostListener, inject, OnInit, Signal, signal, viewChild } from '@angular/core';
+import { Component, computed, effect, HostListener, inject, OnDestroy, OnInit, Signal, signal, viewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroCheckSolid, heroForwardSolid, heroInformationCircleSolid, heroPlaySolid } from '@ng-icons/heroicons/solid';
-import { map, of } from 'rxjs';
+import { map, of, take } from 'rxjs';
 import { PlayFinalStepComponent } from "../../components/play-quiz/play-final-step/play-final-step.component";
 import { PlayQuizQuestionComponent } from '../../components/play-quiz/play-quiz-question/play-quiz-question.component';
 import { ImageService } from '../../services/image.service';
@@ -14,15 +14,16 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { PlayService } from '../../services/play.service';
 import { AuthService } from '../../services/auth.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-play-quiz',
-  imports: [NgIconComponent, PlayQuizQuestionComponent, PlayFinalStepComponent, AsyncPipe, TranslocoPipe],
+  imports: [NgIconComponent, PlayQuizQuestionComponent, PlayFinalStepComponent, AsyncPipe, TranslocoPipe, FormsModule],
   providers: [provideIcons({ heroPlaySolid, heroForwardSolid, heroCheckSolid, heroInformationCircleSolid })],
   templateUrl: './play-quiz.component.html',
   styleUrl: './play-quiz.component.css'
 })
-export class PlayQuizComponent implements OnInit {
+export class PlayQuizComponent implements OnInit, OnDestroy {
 
   private activatedRoute = inject(ActivatedRoute);
   private scoreService = inject(UserScoreService);
@@ -37,9 +38,9 @@ export class PlayQuizComponent implements OnInit {
 
   isQuizInProgress = false;
   checkStep = false;
-  finalStep = true;
+  finalStep = false;
 
-  userName!: string;
+  userName: string | null = null;
 
   readonly currentStep = signal(0);
 
@@ -79,7 +80,13 @@ export class PlayQuizComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userName = this.playService.getRandomUserName();
+    this.playService.getRandomUserName();
+
+    this.userName = this.playService.getUserName();
+  }
+
+  ngOnDestroy(): void {
+    this.playService.clearSession();
   }
 
   loadImage() {
@@ -103,8 +110,6 @@ export class PlayQuizComponent implements OnInit {
         this.isQuizInProgress = false;
         this.playService.userScore = this.userScore;
 
-        console.log(this.playService.getUserName());
-        
         // this.scoreService.saveUserScore(this.userScore).subscribe();
       }
     }
@@ -115,13 +120,21 @@ export class PlayQuizComponent implements OnInit {
   }
 
   startQuiz() {
-    this.isQuizInProgress = true;
+    this.playService.initGuestSession().pipe(take(1)).subscribe(() => {
+      this.isQuizInProgress = true;
+    });
   }
 
   onAnswerChange(answer: Answer) {
     const updatedAnswers = new Map(this.answers());
     updatedAnswers.set(this.currentStep().toString(), answer);
     this.answers.set(updatedAnswers);
+  }
+
+  userNameChanged(event: Event){
+    const input = event.currentTarget as HTMLInputElement;
+    this.userName = input.value;
+    this.playService.saveUserToStorage(this.userName);
   }
 
   handleClick() {
