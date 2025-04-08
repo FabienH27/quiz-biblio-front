@@ -21,8 +21,7 @@ export class UserScoreService {
   }
 
   saveUserScore(userScore: number) {
-    //no body : score is computed on the server side
-    return this.httpClient.post(`${this.baseUrl}/scores`, { userScore }, { withCredentials: true });
+    return this.httpClient.post(`${this.baseUrl}/quizplay/save-score`, { userScore }, { withCredentials: true });
   }
 
 }

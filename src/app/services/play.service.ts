@@ -47,7 +47,6 @@ export class PlayService {
   }
 
   getUserFromStorage(){
-
     //prevents empty user name
     if(localStorage.getItem(this.storageKey) === null){
       localStorage.setItem(this.storageKey, this.getRandomUserName());
@@ -75,6 +74,8 @@ export class PlayService {
   clearSession(){
     localStorage.removeItem(this.sessionKey);
     localStorage.removeItem(this.storageKey);
+
+    this.httpClient.delete(`${this.baseUrl}/guest/end-session`, {withCredentials: true}).subscribe();
   }
 
   initGuestSession(): Observable<void>{
@@ -89,7 +90,7 @@ export class PlayService {
     }
 
     //find a way to prevent guest session spamming from users
-    return this.httpClient.post<void>(`${this.baseUrl}/guest/init-session?username=${encodeURIComponent(userName)}`, {})
+    return this.httpClient.post<void>(`${this.baseUrl}/guest/init-session?username=${encodeURIComponent(userName)}`, {}, {withCredentials: true})
       .pipe(
         tap(() => this.setSessionStarted())
       );

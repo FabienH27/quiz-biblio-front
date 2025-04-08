@@ -110,7 +110,7 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
         this.isQuizInProgress = false;
         this.playService.userScore = this.userScore;
 
-        // this.scoreService.saveUserScore(this.userScore).subscribe();
+        this.scoreService.saveUserScore(this.userScore).subscribe();
       }
     }
   }
