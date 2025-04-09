@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { uniqueNamesGenerator, adjectives, animals, Config } from 'unique-names-generator';
 import { environment } from '../../environments/environment';
-import { Observable, of, tap } from 'rxjs';
+import { map, Observable, of, tap } from 'rxjs';
 import { Answer } from '../types/answer';
 
 @Injectable({
@@ -15,41 +15,23 @@ export class PlayService {
   private readonly storageKey = 'guestUsername';
   private readonly sessionKey = 'guestSessionStarted';
 
-  baseUrl = environment.apiUrl;
+  private baseUrl = environment.apiUrl;
+
+  private goingToLogin = false;
 
   randomNameConfig: Config = {
-    dictionaries: [adjectives, animals, ],
+    dictionaries: [adjectives, animals,],
     separator: '-',
     length: 2,
   };
 
-  private _userScore = 0;
-
-  public set userScore(v : number) {
-    this._userScore = v;
-  }
-
-  public get userScore() : number {
-    return this._userScore;
-  }
-
-  private _userDraft : Map<string, Answer> | null = null;
-
-  public get userDraft(){
-    return this._userDraft;
-  }
-
-  private set userDraft(draft: Map<string, Answer> | null){
-    this._userDraft = draft;
-  }
-
-  saveUserToStorage(userName: string){
+  saveUserToStorage(userName: string) {
     localStorage.setItem(this.storageKey, userName);
   }
 
-  getUserName(){
-    let userName = localStorage.getItem(this.storageKey) 
-    if(userName === null){
+  getUserName() {
+    let userName = localStorage.getItem(this.storageKey)
+    if (userName === null) {
       userName = this.getRandomUserName();
       this.saveUserToStorage(userName);
     }
@@ -57,18 +39,18 @@ export class PlayService {
     return localStorage.getItem(this.storageKey);
   }
 
-  getUserFromStorage(){
+  getUserFromStorage() {
     //prevents empty user name
-    if(localStorage.getItem(this.storageKey) === null){
+    if (localStorage.getItem(this.storageKey) === null) {
       localStorage.setItem(this.storageKey, this.getRandomUserName());
     }
 
     return localStorage.getItem(this.storageKey);
   }
 
-  getRandomUserName(){
+  getRandomUserName() {
     const randomName: string = uniqueNamesGenerator(this.randomNameConfig);
-    
+
     this.saveUserToStorage(randomName);
 
     return randomName;
@@ -82,44 +64,78 @@ export class PlayService {
     localStorage.setItem(this.sessionKey, 'true');
   }
 
-  clearSession(){
+  clearSession() {
     localStorage.removeItem(this.sessionKey);
     localStorage.removeItem(this.storageKey);
 
-    this.httpClient.delete(`${this.baseUrl}/guest/end-session`, {withCredentials: true}).subscribe();
+    this.httpClient.delete(`${this.baseUrl}/guest/end-session`, { withCredentials: true }).subscribe();
   }
 
-  initGuestSession(): Observable<void>{
-    if(this.hasSessionStarted()){
+  initGuestSession(): Observable<void> {
+    if (this.hasSessionStarted()) {
       return of();
     }
 
     let userName = this.getUserName();
-    if(!userName){
+    if (!userName) {
       userName = this.getRandomUserName();
       this.saveUserToStorage(userName);
     }
 
     //find a way to prevent guest session spamming from users
-    return this.httpClient.post<void>(`${this.baseUrl}/guest/init-session?username=${encodeURIComponent(userName)}`, {}, {withCredentials: true})
+    return this.httpClient.post<void>(`${this.baseUrl}/guest/init-session?username=${encodeURIComponent(userName)}`, {}, { withCredentials: true })
       .pipe(
         tap(() => this.setSessionStarted())
       );
   }
 
-  /**
-   * Saves given data to localStorage before submission
-   * @param quizId id of the played quiz
-   * @param answers answers given by the user
-   */
-  markAnswersAsDraft(quizId: string, answers: {questionId: string; answer: Answer}[]){
-    localStorage.setItem('quizDraft', JSON.stringify({
-      quizId,
-      answers
+  // ---------------------------------------
+
+  submitAnswers(quizId: string, answers: Map<number, Answer>) {
+    const answersArray = Array.from(answers.entries()).map(([questionId, answer]) => ({
+      questionId,
+      answers: answer.value,
+      isCorrect: answer.isCorrect
     }));
+
+    const payload = {
+      quizId,
+      answers: answersArray,
+    };
+
+    return this.httpClient.post<void>(`${this.baseUrl}/quizplay/submit-answers`, payload, { withCredentials: true });
   }
 
-  savePlayerScore(userScore: number){
-    this.httpClient.post(`${this.baseUrl}/quizplay/merge-score`, {userScore});
+  markAsGoingToLogin() {
+    this.goingToLogin = true;
   }
+
+  isGoingToLogin(): boolean {
+    return this.goingToLogin;
+  }
+
+  markLoginAsSuccessful(){
+    this.goingToLogin = false;
+  }
+
+  mergeGuestToUser(): Observable<Map<number, Answer>> {
+    return this.httpClient.post<Record<number, Answer>>(`${this.baseUrl}/quizplay/merge-guest`, {}, { withCredentials: true })
+      .pipe(
+        map((data) => this.arrayToAnswerMap(data))
+      );
+  }
+
+  arrayToAnswerMap(answersArray: Record<number, Answer>): Map<number, Answer> {
+    const map = new Map<number, Answer>();
+
+    Object.entries(answersArray).forEach(item => {
+      const answer: Answer = {
+        value: item[1].value,
+        isCorrect: item[1].isCorrect
+      };
+      map.set(parseInt(item[0]), answer);
+    })
+    return map;
+  }
+
 }

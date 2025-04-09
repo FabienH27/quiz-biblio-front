@@ -3,11 +3,10 @@ import { Component, computed, effect, HostListener, inject, OnDestroy, OnInit, S
 import { ActivatedRoute } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroCheckSolid, heroForwardSolid, heroInformationCircleSolid, heroPlaySolid } from '@ng-icons/heroicons/solid';
-import { map, of, take } from 'rxjs';
+import { iif, map, of, switchMap, take } from 'rxjs';
 import { PlayFinalStepComponent } from "../../components/play-quiz/play-final-step/play-final-step.component";
 import { PlayQuizQuestionComponent } from '../../components/play-quiz/play-quiz-question/play-quiz-question.component';
 import { ImageService } from '../../services/image.service';
-import { UserScoreService } from '../../services/user-score.service';
 import { Answer } from '../../types/answer';
 import { Quiz } from '../../types/quiz';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -26,7 +25,6 @@ import { FormsModule } from '@angular/forms';
 export class PlayQuizComponent implements OnInit, OnDestroy {
 
   private activatedRoute = inject(ActivatedRoute);
-  private scoreService = inject(UserScoreService);
   private imageService = inject(ImageService);
   private playService = inject(PlayService);
   private authService = inject(AuthService);
@@ -44,7 +42,7 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
 
   readonly currentStep = signal(0);
 
-  answers = signal<Map<string, Answer>>(new Map<string, Answer>());
+  answers = signal<Map<number, Answer>>(new Map<number, Answer>());
 
   imageUrl = computed(() => this.quiz ? this.loadImage() : null);
 
@@ -53,7 +51,7 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
   }
 
   get hasAnswered() {
-    return this.answers().has(this.currentStep().toString());
+    return this.answers().has(this.currentStep());
   }
 
   get userScore() {
@@ -80,13 +78,14 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const draft = this.playService.userDraft;
-
-    if(draft){
-      console.log(draft);
+    if(this.playService.isGoingToLogin()){
       this.finalStep = true;
       this.isQuizInProgress = false;
-      this.answers.set(draft);
+      this.playService.mergeGuestToUser().subscribe(data => {
+        this.answers.set(data);
+        this.playService.markLoginAsSuccessful();
+        this.playService.clearSession();
+      });
     }
 
     this.playService.getRandomUserName();
@@ -95,7 +94,9 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.playService.clearSession();
+    if(!this.playService.isGoingToLogin()){
+      this.playService.clearSession();
+    }
   }
 
   loadImage() {
@@ -114,13 +115,14 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
         this.checkStep = false;
         this.questionComponent().resetChoice();
       } else {
-
         //last step
+
         this.finalStep = true;
         this.isQuizInProgress = false;
-        this.playService.userScore = this.userScore;
 
-        this.scoreService.saveUserScore(this.userScore).subscribe();
+        if(this.quiz.id){
+          this.playService.submitAnswers(this.quiz.id, this.answers()).subscribe();
+        }
       }
     }
   }
@@ -130,14 +132,26 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
   }
 
   startQuiz() {
-    this.playService.initGuestSession().pipe(take(1)).subscribe(() => {
+    this.authService.isAuthenticated().pipe(
+      take(1),
+      switchMap(auth => 
+        iif(
+          () => !auth,
+          this.playService.initGuestSession().pipe(
+            map(() => true)
+          ),
+          of(false)
+        )
+      )
+    ).subscribe(() => {
       this.isQuizInProgress = true;
-    });
+    })
+
   }
 
   onAnswerChange(answer: Answer) {
     const updatedAnswers = new Map(this.answers());
-    updatedAnswers.set(this.currentStep().toString(), answer);
+    updatedAnswers.set(this.currentStep(), answer);
     this.answers.set(updatedAnswers);
   }
 
