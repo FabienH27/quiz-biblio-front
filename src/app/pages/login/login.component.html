@@ -1,6 +1,14 @@
 <section class="flex flex-col items-center lg:mt-48 mt-12">
-  <section class="bg-slate-700 mx-auto py-5 px-4 lg:px-14 max-w-64 lg:max-w-sm">
-    <h1 class=" pb-5 text-3xl text-center">{{'auth.login' | transloco}}</h1>
+  <h1 class="mb-4 text-3xl text-center">{{'auth.login' | transloco}}</h1>
+
+  @if (displayMessage) {
+    <div class="flex text-center justify-between items-center bg-blue-900 px-4 py-2">
+      <ng-icon name="heroInformationCircle" />
+      <p class="text-sm">{{'auth.redirection' | transloco}}.</p>
+    </div>
+  }
+
+  <section class="bg-slate-700 mx-auto py-5 px-4 mt-4 lg:px-14 max-w-64 lg:max-w-sm">
     <form class="form-group" [formGroup]="loginForm" (submit)="onSubmit()">
       <label class="font-bold" for="email">Email <span class="text-red-500">*</span></label>
       <input class="placeholder-slate-600 bg-slate-800 outline-none my-3" name="email" type="email" id="email"

@@ -10,7 +10,7 @@
                 [queryParams]="{redirectUrl: currentRoute}"
                 class="text-center bg-slate-500 text-teal-50 px-4 py-2 mt-4 rounded-xl mx-auto cursor-pointer hover:bg-slate-300 hover:text-black">{{
                 'auth.login' | transloco }}</a>
-            <a [routerLink]="['/register']"
+            <a (click)="authenticate()" [routerLink]="['/register']" [state]="{ 'fromQuiz': true }" [queryParams]="{redirectUrl: currentRoute}"
                 class="text-center bg-slate-700 text-teal-50 px-4 py-2 mt-4 rounded-xl mx-auto cursor-pointer hover:bg-slate-600">{{
                 'auth.register' | transloco }}</a>
         </div>

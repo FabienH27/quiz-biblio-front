@@ -136,17 +136,14 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
       take(1),
       switchMap(auth => 
         iif(
-          () => !auth,
-          this.playService.initGuestSession().pipe(
-            map(() => true)
-          ),
+          () => !auth, 
+          this.playService.initGuestSession(),
           of(false)
         )
       )
     ).subscribe(() => {
       this.isQuizInProgress = true;
     })
-
   }
 
   onAnswerChange(answer: Answer) {

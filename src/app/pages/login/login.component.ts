@@ -11,10 +11,13 @@ import { AlertService } from '../../services/alert.service';
 import { AuthService } from '../../services/auth.service';
 import { LoginForm } from '../../types/login-form';
 import { TranslocoPipe } from '@jsverse/transloco';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { heroInformationCircle } from '@ng-icons/heroicons/outline';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, RouterModule, TranslocoPipe],
+  imports: [ReactiveFormsModule, RouterModule, TranslocoPipe, NgIcon],
+  providers: [provideIcons({heroInformationCircle})],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -35,6 +38,12 @@ export class LoginComponent {
 
   get password() {
     return this.loginForm.get('password');
+  }
+
+  displayMessage = false;
+
+  constructor(){
+    this.displayMessage = this.router.getCurrentNavigation()?.extras.state?.['fromQuiz'] ?? false;
   }
 
   onSubmit() {

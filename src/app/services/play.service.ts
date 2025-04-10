@@ -17,7 +17,7 @@ export class PlayService {
 
   private baseUrl = environment.apiUrl;
 
-  private goingToLogin = false;
+  private goingToAuth = false;
 
   randomNameConfig: Config = {
     dictionaries: [adjectives, animals,],
@@ -106,16 +106,16 @@ export class PlayService {
     return this.httpClient.post<void>(`${this.baseUrl}/quizplay/submit-answers`, payload, { withCredentials: true });
   }
 
-  markAsGoingToLogin() {
-    this.goingToLogin = true;
+  markAsGoingToAuth() {
+    this.goingToAuth = true;
   }
 
   isGoingToLogin(): boolean {
-    return this.goingToLogin;
+    return this.goingToAuth;
   }
 
   markLoginAsSuccessful(){
-    this.goingToLogin = false;
+    this.goingToAuth = false;
   }
 
   mergeGuestToUser(): Observable<Map<number, Answer>> {

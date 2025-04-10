@@ -24,7 +24,7 @@ export class AuthService {
   user$ = this.userSubject.asObservable();
 
   register(credentials: RegisterData) {
-    return this.httpClient.post(`${this.baseUrl}/auth/register`, credentials);
+    return this.httpClient.post(`${this.baseUrl}/auth/register`, credentials, { withCredentials: true });
   }
 
   login(credentials: LoginData) {

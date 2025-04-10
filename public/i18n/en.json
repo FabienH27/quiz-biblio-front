@@ -1,16 +1,4 @@
 {
-    "creation-panel": {
-        "confirmation": "You are going to delete the quiz:",
-        "delete-no": "No, keep it",
-        "delete-title": "Delete quiz",
-        "delete-yes": "Yes, delete",
-        "description": "Create and edit your quizzes",
-        "import": "Import",
-        "my-quizzes": "My quizzes",
-        "new-quiz": "New quiz",
-        "no-quizzes": "No quizzes found",
-        "title": "Quiz creation"
-    },
     "auth": {
         "account-exist": "Already have an account?",
         "email": {
@@ -25,6 +13,7 @@
             "required": "Password is required",
             "text": "Password"
         },
+        "redirection": "You are going to be redirected to the played quiz page",
         "register": "Register",
         "register-desc": "Create an account to play quizzes!",
         "username": {
@@ -36,6 +25,18 @@
     },
     "back-to-home": "Back to home page",
     "by": "by:",
+    "creation-panel": {
+        "confirmation": "You are going to delete the quiz:",
+        "delete-no": "No, keep it",
+        "delete-title": "Delete quiz",
+        "delete-yes": "Yes, delete",
+        "description": "Create and edit your quizzes",
+        "import": "Import",
+        "my-quizzes": "My quizzes",
+        "new-quiz": "New quiz",
+        "no-quizzes": "No quizzes found",
+        "title": "Quiz creation"
+    },
     "edit": {
         "no-quiz": "Quiz not found",
         "title": "Edit quiz"
@@ -89,14 +90,14 @@
     "play": {
         "answer": "Answer",
         "answer-ratio": "{{selectionCount}} answer(s) given for {{correctSelectionCount}} correct answer(s)",
-        "Correct": "Correct!",
+        "correct": "Correct!",
         "given-answer": "You answered:",
         "guide": {
             "one": "For each question, select one or multiple answers (when explicitly asked).",
             "three": "You will not gain any point if you do not give exact answer(s).",
             "two": "User selection is shown with a blue outline. To undo a selection, click again on the same answer."
         },
-        "Incorrect": "Incorrect",
+        "incorrect": "Incorrect",
         "multiple-answers": "Multiple answers expected.",
         "next": "Next",
         "question": "Question",
@@ -106,7 +107,8 @@
         "username": "Username",
         "username-confirmation": "You are going to play as {{username}}",
         "username-info": "Choose your username or use the suggested one to begin the quiz",
-        "validate": "Validate"
+        "validate": "Validate",
+        "ongoing-quiz": "You have an ongoing quiz. Do you really want to leave?"
     },
     "scoreboard": {
         "nodata": "No user scores found",
