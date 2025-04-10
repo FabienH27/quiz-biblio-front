@@ -1,30 +1,33 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, computed, effect, HostListener, inject, Signal, signal, viewChild } from '@angular/core';
+import { Component, computed, effect, HostListener, inject, OnDestroy, OnInit, Signal, signal, viewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroCheckSolid, heroForwardSolid, heroInformationCircleSolid, heroPlaySolid } from '@ng-icons/heroicons/solid';
-import { map, of } from 'rxjs';
+import { iif, map, of, switchMap, take } from 'rxjs';
 import { PlayFinalStepComponent } from "../../components/play-quiz/play-final-step/play-final-step.component";
 import { PlayQuizQuestionComponent } from '../../components/play-quiz/play-quiz-question/play-quiz-question.component';
 import { ImageService } from '../../services/image.service';
-import { UserScoreService } from '../../services/user-score.service';
 import { Answer } from '../../types/answer';
 import { Quiz } from '../../types/quiz';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TranslocoPipe } from '@jsverse/transloco';
+import { PlayService } from '../../services/play.service';
+import { AuthService } from '../../services/auth.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'app-play-quiz',
-    imports: [NgIconComponent, PlayQuizQuestionComponent, PlayFinalStepComponent, AsyncPipe, TranslocoPipe],
-    providers: [provideIcons({ heroPlaySolid, heroForwardSolid, heroCheckSolid, heroInformationCircleSolid })],
-    templateUrl: './play-quiz.component.html',
-    styleUrl: './play-quiz.component.css'
+  selector: 'app-play-quiz',
+  imports: [NgIconComponent, PlayQuizQuestionComponent, PlayFinalStepComponent, AsyncPipe, TranslocoPipe, FormsModule],
+  providers: [provideIcons({ heroPlaySolid, heroForwardSolid, heroCheckSolid, heroInformationCircleSolid })],
+  templateUrl: './play-quiz.component.html',
+  styleUrl: './play-quiz.component.css'
 })
-export class PlayQuizComponent {
+export class PlayQuizComponent implements OnInit, OnDestroy {
 
   private activatedRoute = inject(ActivatedRoute);
-  private scoreService = inject(UserScoreService);
   private imageService = inject(ImageService);
+  private playService = inject(PlayService);
+  private authService = inject(AuthService);
 
   readonly questionComponent = viewChild.required<PlayQuizQuestionComponent>('question');
 
@@ -35,18 +38,20 @@ export class PlayQuizComponent {
   checkStep = false;
   finalStep = false;
 
+  userName: string | null = null;
+
   readonly currentStep = signal(0);
 
-  answers = signal<Map<string, Answer>>(new Map<string, Answer>());
+  answers = signal<Map<number, Answer>>(new Map<number, Answer>());
 
   imageUrl = computed(() => this.quiz ? this.loadImage() : null);
-  
+
   get currentQuestion() {
     return this.quiz.questions.at(this.currentStep())!;
   }
 
   get hasAnswered() {
-    return this.answers().has(this.currentStep().toString());
+    return this.answers().has(this.currentStep());
   }
 
   get userScore() {
@@ -54,22 +59,48 @@ export class PlayQuizComponent {
     return answerArray.filter((obj) => obj.isCorrect).length;
   }
 
-  get themes(){
+  get themes() {
     return this.quiz.themes.sort().join(', ');
   }
 
-  constructor(){
-    this.quizSignal = toSignal(this.activatedRoute.data.pipe(map((data) => data['quiz'])), {initialValue: null});
+  get loggedInUser() {
+    return this.authService.user$;
+  }
+
+  constructor() {
+    this.quizSignal = toSignal(this.activatedRoute.data.pipe(map((data) => data['quiz'])), { initialValue: null });
 
     effect(() => {
       const data = this.quizSignal();
-      if(!data) return;
+      if (!data) return;
       this.quiz = data;
     });
   }
 
+  ngOnInit(): void {
+    if(this.playService.isGoingToLogin()){
+      this.finalStep = true;
+      this.isQuizInProgress = false;
+      this.playService.mergeGuestToUser().subscribe(data => {
+        this.answers.set(data);
+        this.playService.markLoginAsSuccessful();
+        this.playService.clearSession();
+      });
+    }
+
+    this.playService.getRandomUserName();
+
+    this.userName = this.playService.getUserName();
+  }
+
+  ngOnDestroy(): void {
+    if(!this.playService.isGoingToLogin()){
+      this.playService.clearSession();
+    }
+  }
+
   loadImage() {
-    if(!this.quiz.imageId){
+    if (!this.quiz.imageId) {
       return of('');
     }
 
@@ -84,9 +115,14 @@ export class PlayQuizComponent {
         this.checkStep = false;
         this.questionComponent().resetChoice();
       } else {
+        //last step
+
         this.finalStep = true;
         this.isQuizInProgress = false;
-        this.scoreService.saveUserScore(this.userScore).subscribe();
+
+        if(this.quiz.id){
+          this.playService.submitAnswers(this.quiz.id, this.answers()).subscribe();
+        }
       }
     }
   }
@@ -96,17 +132,34 @@ export class PlayQuizComponent {
   }
 
   startQuiz() {
-    this.isQuizInProgress = true;
+    this.authService.isAuthenticated().pipe(
+      take(1),
+      switchMap(auth => 
+        iif(
+          () => !auth, 
+          this.playService.initGuestSession(),
+          of(false)
+        )
+      )
+    ).subscribe(() => {
+      this.isQuizInProgress = true;
+    })
   }
 
   onAnswerChange(answer: Answer) {
     const updatedAnswers = new Map(this.answers());
-    updatedAnswers.set(this.currentStep().toString(), answer);
+    updatedAnswers.set(this.currentStep(), answer);
     this.answers.set(updatedAnswers);
   }
 
-  handleClick(){
-    if(this.checkStep === true){
+  userNameChanged(event: Event){
+    const input = event.currentTarget as HTMLInputElement;
+    this.userName = input.value;
+    this.playService.saveUserToStorage(this.userName);
+  }
+
+  handleClick() {
+    if (this.checkStep === true) {
       this.nextQuestion();
     } else {
       this.validateQuiz();
@@ -114,8 +167,8 @@ export class PlayQuizComponent {
   }
 
   @HostListener('window:beforeunload', ['$event'])
-  unloadNotification($event: BeforeUnloadEvent): void{
-    if(this.isQuizInProgress){
+  unloadNotification($event: BeforeUnloadEvent): void {
+    if (this.isQuizInProgress) {
       $event.preventDefault();
     }
   }

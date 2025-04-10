@@ -13,10 +13,25 @@
         </div>
     </div>
 
-    <div class="mt-8" transloco="no">
+    <div class="mt-4" transloco="no">
         @if (!isQuizInProgress && !finalStep) {
+
+            @let user = (loggedInUser | async);
+
+            @if (user !== null) {
+                <p class="text-center mb-4">{{ 'play.username-confirmation' | transloco }} <span class="text-teal-500">{{user.userName}}</span></p>
+            }@else {
+                <div class="w-1/3 mx-auto block text-center mb-8">
+                    <p class="mb-4">{{ 'play.username-info' | transloco }}.</p>
+                    <label for="username" class="mt-2">
+                        <p class="text-left mb-2"> {{ 'play.username' | transloco }}: </p>
+                        <input id="username" type="text" [placeholder]="userName" (change)="userNameChanged($event)" class="bg-slate-700 px-2 py-4 w-full focus:outline-teal-700 focus:outline-2 outline-offset-2">
+                    </label>
+                </div>
+            }
+
         <button (click)="startQuiz()" type="button"
-            class="bg-teal-500 px-8 py-4 rounded-lg mx-auto block hover:bg-teal-400 cursor-pointer">
+            class="bg-teal-500 px-8 py-4 mx-auto block hover:bg-teal-400 cursor-pointer">
             <ng-icon name="heroPlaySolid" />
             {{ 'play.start' | transloco }}
         </button>

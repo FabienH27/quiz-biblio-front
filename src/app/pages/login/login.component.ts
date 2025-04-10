@@ -11,18 +11,21 @@ import { AlertService } from '../../services/alert.service';
 import { AuthService } from '../../services/auth.service';
 import { LoginForm } from '../../types/login-form';
 import { TranslocoPipe } from '@jsverse/transloco';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { heroInformationCircle } from '@ng-icons/heroicons/outline';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, RouterModule, TranslocoPipe],
+  imports: [ReactiveFormsModule, RouterModule, TranslocoPipe, NgIcon],
+  providers: [provideIcons({heroInformationCircle})],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  authService = inject(AuthService);
-  router = inject(Router);
-  route = inject(ActivatedRoute);
-  alertService = inject(AlertService);
+  private authService = inject(AuthService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private alertService = inject(AlertService);
 
   protected loginForm = new FormGroup<LoginForm>({
     email: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.email] }),
@@ -37,13 +40,19 @@ export class LoginComponent {
     return this.loginForm.get('password');
   }
 
+  displayMessage = false;
+
+  constructor(){
+    this.displayMessage = this.router.getCurrentNavigation()?.extras.state?.['fromQuiz'] ?? false;
+  }
+
   onSubmit() {
     const fieldsValid = !!this.email?.value && !!this.password?.value;
 
     if (this.loginForm.valid && fieldsValid) {
       this.authService.login(this.loginForm.getRawValue()).subscribe({
         next: () => {
-          const redirectUrl = this.route.snapshot.queryParams['redirectUrl'] || '/';
+          const redirectUrl = this.route.snapshot.queryParamMap.get('redirectUrl') || '/';
           this.router.navigate([redirectUrl]);
           this.alertService.showAlert("Successfully logged in!");
         },

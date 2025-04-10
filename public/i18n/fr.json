@@ -1,16 +1,4 @@
 {
-    "creation-panel": {
-        "confirmation": "Vous allez supprimer le quiz :",
-        "delete-no": "Non, conserver",
-        "delete-title": "Supprimer le quiz",
-        "delete-yes": "Oui, supprimer",
-        "description": "Créez et éditez vos quiz",
-        "import": "Importer",
-        "my-quizzes": "Mes quiz",
-        "new-quiz": "Nouveau quiz",
-        "no-quizzes": "Aucun quiz trouvé",
-        "title": "Création de quiz"
-    },
     "auth": {
         "account-exist": "Vous possédez déjà un compte ?",
         "email": {
@@ -25,6 +13,7 @@
             "required": "Le mot de passe est requis",
             "text": "Mot de passe"
         },
+        "redirection": "Vous allez être redirigé vers la page du quiz joué",
         "register": "S'inscrire",
         "register-desc": "Créez un compte pour jouer aux quiz !",
         "username": {
@@ -36,6 +25,18 @@
     },
     "back-to-home": "Retour à la page d'accueil",
     "by": "Par :",
+    "creation-panel": {
+        "confirmation": "Vous allez supprimer le quiz :",
+        "delete-no": "Non, conserver",
+        "delete-title": "Supprimer le quiz",
+        "delete-yes": "Oui, supprimer",
+        "description": "Créez et éditez vos quiz",
+        "import": "Importer",
+        "my-quizzes": "Mes quiz",
+        "new-quiz": "Nouveau quiz",
+        "no-quizzes": "Aucun quiz trouvé",
+        "title": "Création de quiz"
+    },
     "form": {
         "add-image": "Ajouter une image",
         "add-proposal": "Ajouter une proposition",
@@ -92,7 +93,7 @@
         "guide": {
             "one": "Pour chaque question, sélectionnez une ou plusieurs réponses (lorsque cela est explicitement demandé).",
             "three": "Vous ne gagnerez aucun point si vous ne donnez pas la ou les réponse(s) exacte(s).",
-            "two": "La sélection de l'utilisateur est indiquée par un contour vert. Pour annuler une sélection, cliquez à nouveau sur la réponse sélectionnée."
+            "two": "La sélection de l'utilisateur est indiquée par un contour bleu. Pour annuler une sélection, cliquez à nouveau sur la réponse sélectionnée."
         },
         "incorrect": "Incorrect",
         "multiple-answers": "Plusieurs réponses attendues",
@@ -101,7 +102,11 @@
         "quiz-completion": "Vous avez fini le quiz",
         "start": "Commencer le quiz !",
         "total-score": "Avec un score de",
-        "validate": "Valider"
+        "username": "Nom d'utilisateur",
+        "username-confirmation": "Vous allez jouer en tant que {{username}}",
+        "username-info": "Choisissez un nom ou utilisez le nom suggéré pour commencer le quiz",
+        "validate": "Valider",
+        "ongoing-quiz": "Vous avez un quiz en cours. VOulez-vous vraiment quitter ?"
     },
     "scoreboard": {
         "nodata": "Aucun score trouvé",
