@@ -106,7 +106,7 @@
         "username-confirmation": "Vous allez jouer en tant que {{username}}",
         "username-info": "Choisissez un nom ou utilisez le nom suggéré pour commencer le quiz",
         "validate": "Valider",
-        "ongoing-quiz": "Vous avez un quiz en cours. VOulez-vous vraiment quitter ?"
+        "ongoing-quiz": "Vous avez un quiz en cours. Voulez-vous vraiment quitter ?"
     },
     "scoreboard": {
         "nodata": "Aucun score trouvé",
