@@ -21,7 +21,7 @@
             @if (user !== null) {
                 <p class="text-center mb-4">{{ 'play.username-confirmation' | transloco }} <span class="text-teal-500">{{user.userName}}</span></p>
             }@else {
-                <div class="w-1/3 mx-auto block text-center mb-8">
+                <div class="lg:w-1/3 w-3/4 mx-auto block text-center mb-8">
                     <p class="mb-4">{{ 'play.username-info' | transloco }}.</p>
                     <label for="username" class="mt-2">
                         <p class="text-left mb-2"> {{ 'play.username' | transloco }}: </p>
