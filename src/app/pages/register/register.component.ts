@@ -58,6 +58,11 @@ export class RegisterComponent {
 
   constructor(){
     this.displayMessage = this.router.getCurrentNavigation()?.extras.state?.['fromQuiz'] ?? false;
+
+    const guestUsername = localStorage.getItem('guestUsername');
+    if(guestUsername){
+      this.username?.setValue(guestUsername);
+    }
   }
 
   onSubmit() {
