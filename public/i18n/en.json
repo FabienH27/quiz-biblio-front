@@ -89,7 +89,7 @@
     },
     "play": {
         "answer": "Answer",
-        "answer-ratio": "{{selectionCount}} answer(s) given for {{correctSelectionCount}} correct answer(s)",
+        "answer-ratio": "{{userCorrectSelectionCount}} correct answer(s) given for a total of {{correctSelectionCount}} correct answers.",
         "correct": "Correct!",
         "given-answer": "You answered:",
         "guide": {
@@ -100,15 +100,16 @@
         "incorrect": "Incorrect",
         "multiple-answers": "Multiple answers expected.",
         "next": "Next",
+        "ongoing-quiz": "You have an ongoing quiz. Do you really want to leave?",
         "question": "Question",
         "quiz-completion": "You have completed the quiz",
         "start": "Start quiz!",
+        "too-many-answers": "Too many answers given.",
         "total-score": "With a score of",
         "username": "Username",
         "username-confirmation": "You are going to play as {{username}}",
         "username-info": "Choose your username or use the suggested one to begin the quiz",
-        "validate": "Validate",
-        "ongoing-quiz": "You have an ongoing quiz. Do you really want to leave?"
+        "validate": "Validate"
     },
     "scoreboard": {
         "nodata": "No user scores found",

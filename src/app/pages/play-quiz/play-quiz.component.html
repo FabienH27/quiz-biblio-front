@@ -1,11 +1,11 @@
-<div class="max-w-(--breakpoint-lg) mx-auto mt-12">
-    <div class="md:flex text-center md:text-left justify-center mx-auto items-center md:ml-16">
+<div class="max-w-(--breakpoint-lg) mx-auto md:mt-12 mt-4 relative">
+    <div class="md:flex text-center md:text-left md:mb-2 justify-center mx-auto items-center md:ml-16">
         @if (imageUrl() | async; as img) {
-        <img [src]="img" class="hidden md:block max-w-64 max-h-64" alt="quiz image" />
+        <img [src]="img" class="block mx-auto max-w-64 max-h-64" alt="quiz image" />
         }@else {
         <img src="svg/gradient.svg" class="hidden md:block w-32 h-32 rounded-full" alt="placeholder image" />
         }
-        <div class="md:ml-8 grow">
+        <div class="md:ml-8 md:mt-2 grow">
             <h1 class="text-3xl text-slate-300">{{ quiz.title }}</h1>
             <p class="text-lg text-slate-500 block">
                 {{ 'theme' | transloco }}{{quiz.themes.length>1 ? 's': ''}} : {{ themes }}
@@ -56,9 +56,10 @@
             [isValidationStep]="checkStep" [attr.key]="currentStep()"></app-play-quiz-question>
 
         <button (click)="handleClick()" type="button" [disabled]="!hasAnswered"
-            class="bg-teal-500 px-8 cursor-pointer py-4 rounded-lg block !:disabled:hover:bg-teal-400 md:ml-auto mx-auto my-8 disabled:bg-teal-800 disabled:text-slate-800">
+            class="bg-teal-600 px-6 cursor-pointer notsm:py-2 py-4 rounded-lg block !:disabled:hover:bg-teal-400 md:ml-auto mx-auto mt-8 mb-2 disabled:bg-teal-800 disabled:text-slate-800
+                not-sm:fixed not-sm:bottom-0 not-sm:left-0 not-sm:right-0 not-sm:w-fit">
             <ng-icon [name]="checkStep ? 'heroForwardSolid' : 'heroCheckSolid' "/>
-            <p class="inline" [innerText]="checkStep ? ('play.next' | transloco) : ('play.validate' | transloco)"></p>
+            <p class="inline ml-2" [innerText]="checkStep ? ('play.next' | transloco) : ('play.validate' | transloco)"></p>
         </button>
         }
     </div>

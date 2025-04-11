@@ -1,4 +1,4 @@
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { Component, HostListener, inject, input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
@@ -13,7 +13,7 @@ import { LanguageSelectorComponent } from "../language-selector/language-selecto
 
 @Component({
     selector: 'app-menu',
-    imports: [RouterLink, RouterLinkActive, AsyncPipe, NgIconComponent, TranslocoPipe, LanguageSelectorComponent],
+    imports: [RouterLink, RouterLinkActive, AsyncPipe, NgIconComponent, TranslocoPipe, LanguageSelectorComponent, NgClass],
     providers: [provideIcons({ heroXMark, heroBars3BottomRight })],
     templateUrl: './menu.component.html',
     styleUrl: './menu.component.css'

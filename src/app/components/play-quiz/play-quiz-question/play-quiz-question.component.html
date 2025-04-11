@@ -1,44 +1,55 @@
 <div class="mx-auto">
-    <div class="bg-slate-700 p-5 rounded-md">
+    <div class="bg-slate-700 p-5 rounded-md not-sm:pb-20">
         <div class="md:flex text-center mx-auto items-center">
-            
+
             @if (imageUrl$ | async; as img) {
-            <img [src]="img" class="hidden md:block w-32 h-32 object-cover rounded-full" alt="image associated to the question" />
+            <img [src]="img" class="hidden md:block w-32 h-32 object-cover rounded-full"
+                alt="image associated to the question" />
             }@else {
-            <img src="svg/gradient.svg" class="hidden md:block w-32 h-32 rounded-full" alt="placeholder image if the image is not found" />
+            <img src="svg/gradient.svg" class="hidden md:block w-32 h-32 rounded-full"
+                alt="placeholder image if the image is not found" />
             }
             <div class="md:ml-8 text-left">
-                <h2 class="md:text-2xl">{{question().text}}</h2>
+                <h2 #questionElement class="md:text-2xl">{{question().text}}</h2>
                 @if (hasMultipleCorrectAnswers) {
-                    <p class="text-amber-200 italic"> {{ 'play.multiple-answers' | transloco }}</p>
+                <p class="text-amber-200 italic not-sm:mx-auto bg-yellow-100/10 px-2 py-1 rounded w-fit"> {{ 'play.multiple-answers' |
+                    transloco }}</p>
                 }
 
                 @if (isValidationStep()) {
-                    @if (isCorrect) {
-                    <p class="text-teal-500 ">😎 {{ 'play.correct' | transloco }}</p>
+                @if (isCorrect) {
+                <p class="text-teal-500 ">😎 {{ 'play.correct' | transloco }}</p>
                 }@else {
-                    <p class="text-red-500">🥹 {{ 'play.incorrect' | transloco }}</p>
+                <p class="text-red-500">🥹 {{ 'play.incorrect' | transloco }}</p>
                 }
-                <p> {{ 'play.answer-ratio' | transloco:{selectionCount, correctSelectionCount} }}</p>
+                @if (hasMultipleCorrectAnswers) {
+                    <p> {{ 'play.answer-ratio' | transloco:{userCorrectSelectionCount, correctSelectionCount} }}
+                        @if (userSelectionCount> userCorrectSelectionCount) {
+                            <p>{{ 'play.too-many-answers' | transloco }}</p>
+                        }
+                    </p>
+                }
                 }
             </div>
         </div>
 
         <div class="md:flex md:justify-evenly md:flex-wrap my-8">
             @for (proposal of question().proposals; track $index) {
-                <div class="md:w-1/2">
-                    <label class="block w-3/4 mx-auto ">
-                        <input type="checkbox" class="peer hidden" [id]="'proposal-'+$index" [checked]="isChecked($index)"
-                            [disabled]="isValidationStep()">
-                        <button type="button" class="px-12 py-4 text-center text-sm my-4 w-3/4 block mx-auto rounded-md transition-colors cursor-pointer
-                            peer-hover:bg-slate-400 outline-offset-2
-                            outline-blue-300
-                            peer-checked:outline-blue-300 peer-checked:outline-2"
-                            [ngClass]="getProposalClass($index)" (click)="addToAnswer($index)">
-                            {{proposal.text}}
-                        </button>
-                    </label>
-                </div>
+            <div class="md:w-1/2">
+                <label class="block w-3/4 mx-auto relative">
+                    <input [type]="hasMultipleCorrectAnswers ? 'checkbox' : 'radio'" class="peer hidden" name="answer"
+                        [id]="'proposal-' + $index" [checked]="isChecked($index)" [disabled]="isValidationStep()"
+                        (click)="addToAnswer($index)" />
+                    <div class="px-12 py-4 text-center text-sm my-4 mx-auto transition-colors w-full h-fit 
+                        outline-offset-2 outline-blue-300 peer-checked:outline-blue-300 peer-checked:outline-2"
+                        [ngClass]="[getProposalClass($index).join(' '), hasMultipleCorrectAnswers ? 'rounded-xs' : 'rounded-full', isValidationStep() ? '' : 'peer-hover:bg-slate-400 cursor-pointer']">
+                        <p class="text-sm">{{ proposal.text }}</p>
+                    </div>
+                    <span class="absolute top-1/2 -translate-y-1 right-4 w-2 h-2 rounded-full invisible peer-checked:visible"
+                        [ngClass]="getSpanClass($index)"
+                    ></span>
+                </label>
+            </div>
             }
         </div>
 

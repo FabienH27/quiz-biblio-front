@@ -1,19 +1,19 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, computed, effect, HostListener, inject, OnDestroy, OnInit, Signal, signal, viewChild } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { TranslocoPipe } from '@jsverse/transloco';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroCheckSolid, heroForwardSolid, heroInformationCircleSolid, heroPlaySolid } from '@ng-icons/heroicons/solid';
 import { iif, map, of, switchMap, take } from 'rxjs';
 import { PlayFinalStepComponent } from "../../components/play-quiz/play-final-step/play-final-step.component";
 import { PlayQuizQuestionComponent } from '../../components/play-quiz/play-quiz-question/play-quiz-question.component';
+import { AuthService } from '../../services/auth.service';
 import { ImageService } from '../../services/image.service';
+import { PlayService } from '../../services/play.service';
 import { Answer } from '../../types/answer';
 import { Quiz } from '../../types/quiz';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { TranslocoPipe } from '@jsverse/transloco';
-import { PlayService } from '../../services/play.service';
-import { AuthService } from '../../services/auth.service';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-play-quiz',
@@ -51,7 +51,9 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
   }
 
   get hasAnswered() {
-    return this.answers().has(this.currentStep());
+    const allValuesNonEmpty = [...this.answers().values()].every(obj => obj.value.length > 0);
+
+    return this.answers().has(this.currentStep()) && allValuesNonEmpty;
   }
 
   get userScore() {
@@ -77,7 +79,9 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {  
+    window.scrollTo(0,0);
+
     if(this.playService.isGoingToLogin()){
       this.finalStep = true;
       this.isQuizInProgress = false;
@@ -108,6 +112,8 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
   }
 
   nextQuestion() {
+    this.scrollToQuestion();
+    
     if (this.hasAnswered) {
       //More questions to proceed
       if ((this.currentStep() + 1) < this.quiz.questions.length) {
@@ -116,7 +122,6 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
         this.questionComponent().resetChoice();
       } else {
         //last step
-
         this.finalStep = true;
         this.isQuizInProgress = false;
 
@@ -124,6 +129,13 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
           this.playService.submitAnswers(this.quiz.id, this.answers()).subscribe();
         }
       }
+    }
+  }
+
+  private scrollToQuestion() {
+    if(this.questionComponent()){
+      const element = this.questionComponent().questionElementRef.nativeElement;
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
 
@@ -147,9 +159,11 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
   }
 
   onAnswerChange(answer: Answer) {
-    const updatedAnswers = new Map(this.answers());
+    const updatedAnswers = new Map();
     updatedAnswers.set(this.currentStep(), answer);
     this.answers.set(updatedAnswers);
+
+    console.log(this.answers());
   }
 
   userNameChanged(event: Event){
@@ -169,6 +183,7 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: BeforeUnloadEvent): void {
     if (this.isQuizInProgress) {
+      this.playService.clearSession();
       $event.preventDefault();
     }
   }

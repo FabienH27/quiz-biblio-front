@@ -87,7 +87,7 @@
     },
     "play": {
         "answer": "Réponse",
-        "answer-ratio": "{{selectionCount}} réponse(s) données sur {{correctSelectionCount}} réponse(s) correctes",
+        "answer-ratio": "{{userCorrectSelectionCount}} réponse(s) correctes données sur un total de {{correctSelectionCount}} réponses correctes.",
         "correct": "Correct!",
         "given-answer": "Vous avez répondu:",
         "guide": {
@@ -98,15 +98,16 @@
         "incorrect": "Incorrect",
         "multiple-answers": "Plusieurs réponses attendues",
         "next": "Suivant",
+        "ongoing-quiz": "Vous avez un quiz en cours. Voulez-vous vraiment quitter ?",
         "question": "Question",
         "quiz-completion": "Vous avez fini le quiz",
         "start": "Commencer le quiz !",
+        "too-many-answers": "Trop de réponses données.",
         "total-score": "Avec un score de",
         "username": "Nom d'utilisateur",
         "username-confirmation": "Vous allez jouer en tant que {{username}}",
         "username-info": "Choisissez un nom ou utilisez le nom suggéré pour commencer le quiz",
-        "validate": "Valider",
-        "ongoing-quiz": "Vous avez un quiz en cours. Voulez-vous vraiment quitter ?"
+        "validate": "Valider"
     },
     "scoreboard": {
         "nodata": "Aucun score trouvé",
