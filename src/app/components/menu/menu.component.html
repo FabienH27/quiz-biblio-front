@@ -6,7 +6,7 @@
 				<ng-icon [name]="isOpen ? 'heroXMark' : 'heroBars3BottomRight'" size="1.5em" />
 			</button>
 		</div>
-		<nav class="flex gap-2 mt-2 justify-center items-center flex-col md:flex-row text-center" [class.hidden]="!isOpen">
+		<nav class="flex gap-2 mt-2 justify-center items-center flex-col md:flex-row text-center" [ngClass]="{'not-md:hidden': !isOpen}">
 			@if (userData$ | async; as user) {
 			<a class="mx-5 hover:text-teal-100" routerLink="/scoreboard"> {{ 'menu.scoreboard' | transloco }} </a>
 			<a class="text-teal-500 mx-5 hover:text-teal-100" routerLink="/creation-panel"> {{ 'creation-panel.title' | transloco }}</a>

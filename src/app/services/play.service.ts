@@ -60,7 +60,7 @@ export class PlayService {
     return localStorage.getItem(this.sessionKey) === 'true';
   }
 
-  setSessionStarted(): void {
+  private setSessionStarted(): void {
     localStorage.setItem(this.sessionKey, 'true');
   }
 

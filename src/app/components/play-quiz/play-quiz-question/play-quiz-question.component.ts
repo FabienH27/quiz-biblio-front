@@ -1,4 +1,4 @@
-import { Component, effect, inject, input, output } from '@angular/core';
+import { Component, effect, ElementRef, inject, input, output, ViewChild } from '@angular/core';
 import { Question } from '../../../types/quiz';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { Answer } from '../../../types/answer';
@@ -25,7 +25,15 @@ export class PlayQuizQuestionComponent {
 
   imageUrl$!: Observable<string | null>;
 
-  get selectionCount(){
+  @ViewChild('questionElement') questionElementRef!: ElementRef;
+
+  get userCorrectSelectionCount(){
+    const matchingSelection = this.question().correctProposalIds.filter(value => this.selectedProposals.includes(value));
+
+    return matchingSelection.length;
+  }
+
+  get userSelectionCount(){
     return this.selectedProposals.length;
   }
 
@@ -34,7 +42,7 @@ export class PlayQuizQuestionComponent {
   }
 
   get isCorrect(){
-    return this.selectionCount === this.question().correctProposalIds.length &&
+    return this.userSelectionCount === this.question().correctProposalIds.length &&
     this.question().correctProposalIds.every(value => this.selectedProposals.includes(value));
   }
 
@@ -55,11 +63,15 @@ export class PlayQuizQuestionComponent {
       return;
     }
 
-    if (this.selectedProposals.includes(proposalIndex)) {
-      const index = this.selectedProposals.indexOf(proposalIndex);
-      this.selectedProposals.splice(index, 1);
-    } else {
-      this.selectedProposals.push(proposalIndex);
+    if(this.hasMultipleCorrectAnswers){
+      if (this.selectedProposals.includes(proposalIndex)) {
+        const index = this.selectedProposals.indexOf(proposalIndex);
+        this.selectedProposals.splice(index, 1);
+      } else {
+        this.selectedProposals.push(proposalIndex);
+      }
+    }else{
+      this.selectedProposals = [proposalIndex];
     }
 
     const answer: Answer = { isCorrect: this.isCorrect, value: this.selectedProposals };
@@ -82,7 +94,7 @@ export class PlayQuizQuestionComponent {
     if (!this.isValidationStep()) {
       return baseClass;
     }
-    
+
     const correctAnswers = this.question().correctProposalIds;
     const userSelected = this.selectedProposals.includes(index);
     const isCorrect = correctAnswers.includes(index);
@@ -96,6 +108,28 @@ export class PlayQuizQuestionComponent {
     }
 
     return baseClass;
+  }
+
+  getSpanClass(index: number){
+    const baseClass = ['bg-blue-300'];
+
+    if (!this.isValidationStep()) {
+      return baseClass;
+    }
+    
+    const correctAnswers = this.question().correctProposalIds;
+    const userSelected = this.selectedProposals.includes(index);
+    const isCorrect = correctAnswers.includes(index);
+
+    if (isCorrect) {
+      return ['bg-teal-200'];
+    }
+
+    if (userSelected && !isCorrect) {
+      return ['bg-red-400'];
+    }
+
+    return baseClass
   }
 
   resetChoice(){
