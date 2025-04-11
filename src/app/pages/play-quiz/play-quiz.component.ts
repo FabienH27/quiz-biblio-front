@@ -159,11 +159,9 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
   }
 
   onAnswerChange(answer: Answer) {
-    const updatedAnswers = new Map();
+    const updatedAnswers = new Map(this.answers());
     updatedAnswers.set(this.currentStep(), answer);
     this.answers.set(updatedAnswers);
-
-    console.log(this.answers());
   }
 
   userNameChanged(event: Event){
