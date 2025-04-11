@@ -23,11 +23,7 @@
                 <p class="text-red-500">🥹 {{ 'play.incorrect' | transloco }}</p>
                 }
                 @if (hasMultipleCorrectAnswers) {
-                    <p> {{ 'play.answer-ratio' | transloco:{userCorrectSelectionCount, correctSelectionCount} }}
-                        @if (userSelectionCount> userCorrectSelectionCount) {
-                            <p>{{ 'play.too-many-answers' | transloco }}</p>
-                        }
-                    </p>
+                    <p> {{ 'play.answer-ratio' | transloco:{userCorrectSelectionCount, correctSelectionCount} }}</p>
                 }
                 }
             </div>
