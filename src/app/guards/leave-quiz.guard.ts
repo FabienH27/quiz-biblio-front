@@ -6,7 +6,7 @@ import { TranslocoService } from '@jsverse/transloco';
 export const leaveQuizGuard: CanDeactivateFn<PlayQuizComponent> = (component) => {
   const translocoService = inject(TranslocoService); 
 
-  if(component.isQuizInProgress){
+  if(component.playStep() == 'play'){
     return window.confirm(translocoService.translate('play.ongoing-quiz'));
   }
   return true;
