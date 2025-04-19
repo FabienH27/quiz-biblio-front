@@ -55,7 +55,7 @@ export class PlayFinalStepComponent implements OnInit{
   }
 
   authenticate(){
-    this.playService.markAsGoingToAuth();
+    this.playService.endAuthRedirect();
   }
 
 }

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { uniqueNamesGenerator, adjectives, animals, Config } from 'unique-names-generator';
 import { environment } from '../../environments/environment';
 import { map, Observable, of, tap } from 'rxjs';
@@ -17,46 +17,34 @@ export class PlayService {
 
   private baseUrl = environment.apiUrl;
 
-  private goingToAuth = false;
+  readonly goingToAuth = signal(false);
 
-  randomNameConfig: Config = {
+  readonly randomNameConfig: Config = {
     dictionaries: [adjectives, animals,],
     separator: '-',
     length: 2,
   };
 
+  readonly playStep = signal<'start' | 'play' | 'check' | 'final'>('start');
+
+  readonly answers = signal<Map<number, Answer>>(new Map<number, Answer>());
+
   saveUserToStorage(userName: string) {
     localStorage.setItem(this.storageKey, userName);
   }
 
-  getUserName() {
-    let userName = localStorage.getItem(this.storageKey)
-    if (userName === null) {
-      userName = this.getRandomUserName();
+  getOrCreateUserName(): string {
+    let userName = localStorage.getItem(this.storageKey);
+
+    if(!userName){
+      userName = uniqueNamesGenerator(this.randomNameConfig);
       this.saveUserToStorage(userName);
     }
-
-    return localStorage.getItem(this.storageKey);
+    
+    return userName;
   }
 
-  getUserFromStorage() {
-    //prevents empty user name
-    if (localStorage.getItem(this.storageKey) === null) {
-      localStorage.setItem(this.storageKey, this.getRandomUserName());
-    }
-
-    return localStorage.getItem(this.storageKey);
-  }
-
-  getRandomUserName() {
-    const randomName: string = uniqueNamesGenerator(this.randomNameConfig);
-
-    this.saveUserToStorage(randomName);
-
-    return randomName;
-  }
-
-  hasSessionStarted(): boolean {
+  isGuestSessionStarted(): boolean {
     return localStorage.getItem(this.sessionKey) === 'true';
   }
 
@@ -64,23 +52,21 @@ export class PlayService {
     localStorage.setItem(this.sessionKey, 'true');
   }
 
-  clearSession() {
+  clearGuestSession() {
     localStorage.removeItem(this.sessionKey);
     localStorage.removeItem(this.storageKey);
+    this.playStep.set('start');
+    this.answers.set(new Map());
 
     this.httpClient.delete(`${this.baseUrl}/guest/end-session`, { withCredentials: true }).subscribe();
   }
 
   initGuestSession(): Observable<void> {
-    if (this.hasSessionStarted()) {
+    if (this.isGuestSessionStarted()) {
       return of();
     }
 
-    let userName = this.getUserName();
-    if (!userName) {
-      userName = this.getRandomUserName();
-      this.saveUserToStorage(userName);
-    }
+    const userName = this.getOrCreateUserName();
 
     //find a way to prevent guest session spamming from users
     return this.httpClient.post<void>(`${this.baseUrl}/guest/init-session?username=${encodeURIComponent(userName)}`, {}, { withCredentials: true })
@@ -88,8 +74,6 @@ export class PlayService {
         tap(() => this.setSessionStarted())
       );
   }
-
-  // ---------------------------------------
 
   submitAnswers(quizId: string, answers: Map<number, Answer>) {
     const answersArray = Array.from(answers.entries()).map(([questionId, answer]) => ({
@@ -106,16 +90,12 @@ export class PlayService {
     return this.httpClient.post<void>(`${this.baseUrl}/quizplay/submit-answers`, payload, { withCredentials: true });
   }
 
-  markAsGoingToAuth() {
-    this.goingToAuth = true;
+  startAuthRedirect() {
+    this.goingToAuth.set(true);
   }
 
-  isGoingToLogin(): boolean {
-    return this.goingToAuth;
-  }
-
-  markLoginAsSuccessful(){
-    this.goingToAuth = false;
+  endAuthRedirect(){
+    this.goingToAuth.set(false);
   }
 
   mergeGuestToUser(): Observable<Map<number, Answer>> {
@@ -125,17 +105,10 @@ export class PlayService {
       );
   }
 
-  arrayToAnswerMap(answersArray: Record<number, Answer>): Map<number, Answer> {
-    const map = new Map<number, Answer>();
-
-    Object.entries(answersArray).forEach(item => {
-      const answer: Answer = {
-        value: item[1].value,
-        isCorrect: item[1].isCorrect
-      };
-      map.set(parseInt(item[0]), answer);
-    })
-    return map;
+  arrayToAnswerMap(data: Record<number, Answer>): Map<number, Answer> {
+    return new Map(
+      Object.entries(data).map(([key, value]) => [parseInt(key), value])
+    );
   }
 
 }

@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, computed, effect, HostListener, inject, OnDestroy, OnInit, Signal, signal, viewChild } from '@angular/core';
+import { Component, computed, HostListener, inject, OnDestroy, OnInit, signal, viewChild } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -31,23 +31,29 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
 
   readonly questionComponent = viewChild.required<PlayQuizQuestionComponent>('question');
 
-  quiz!: Quiz;
-  quizSignal: Signal<Quiz>;
+  readonly quizRaw = toSignal(
+    this.activatedRoute.data.pipe(map(data => data['quiz'] as Quiz | null)),
+    { initialValue: null }
+  );
+  
+  readonly quiz = computed<Quiz>(() => {
+    const value = this.quizRaw();
+    if (!value) throw new Error('Quiz is not loaded yet');
+    return value;
+  });
 
-  isQuizInProgress = false;
-  checkStep = false;
-  finalStep = false;
+  playStep = this.playService.playStep;
 
   userName: string | null = null;
 
   readonly currentStep = signal(0);
 
-  answers = signal<Map<number, Answer>>(new Map<number, Answer>());
+  answers = this.playService.answers;
 
-  imageUrl = computed(() => this.quiz ? this.loadImage() : null);
+  imageUrl = computed(() => this.quiz() ? this.loadImage() : null);
 
   get currentQuestion() {
-    return this.quiz.questions.at(this.currentStep())!;
+    return this.quiz().questions.at(this.currentStep())!;
   }
 
   get hasAnswered() {
@@ -62,53 +68,41 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
   }
 
   get themes() {
-    return this.quiz.themes.sort().join(', ');
+    return this.quiz().themes.sort().join(', ');
   }
 
   get loggedInUser() {
     return this.authService.user$;
   }
 
-  constructor() {
-    this.quizSignal = toSignal(this.activatedRoute.data.pipe(map((data) => data['quiz'])), { initialValue: null });
-
-    effect(() => {
-      const data = this.quizSignal();
-      if (!data) return;
-      this.quiz = data;
-    });
-  }
-
   ngOnInit(): void {  
     window.scrollTo(0,0);
 
-    if(this.playService.isGoingToLogin()){
-      this.finalStep = true;
-      this.isQuizInProgress = false;
+    if(this.playService.goingToAuth()){
+      this.playStep.set('final');
       this.playService.mergeGuestToUser().subscribe(data => {
         this.answers.set(data);
-        this.playService.markLoginAsSuccessful();
-        this.playService.clearSession();
+        this.playService.endAuthRedirect();
+        // this.playService.clearGuestSession();
       });
     }
 
-    this.playService.getRandomUserName();
-
-    this.userName = this.playService.getUserName();
+    this.userName = this.playService.getOrCreateUserName();
   }
 
   ngOnDestroy(): void {
-    if(!this.playService.isGoingToLogin()){
-      this.playService.clearSession();
+    if(!this.playService.goingToAuth()){
+      this.playService.clearGuestSession();
     }
   }
 
   loadImage() {
-    if (!this.quiz.imageId) {
+    const imageId = this.quiz().imageId;
+    if (!imageId) {
       return of('');
     }
 
-    return this.imageService.getImageUrl(this.quiz.imageId);
+    return this.imageService.getImageUrl(imageId);
   }
 
   nextQuestion() {
@@ -116,17 +110,18 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
     
     if (this.hasAnswered) {
       //More questions to proceed
-      if ((this.currentStep() + 1) < this.quiz.questions.length) {
+      if ((this.currentStep() + 1) < this.quiz().questions.length) {
         this.currentStep.update(value => value + 1);
-        this.checkStep = false;
+        this.playStep.set('play');
         this.questionComponent().resetChoice();
       } else {
         //last step
-        this.finalStep = true;
-        this.isQuizInProgress = false;
+        this.playStep.set('final');
 
-        if(this.quiz.id){
-          this.playService.submitAnswers(this.quiz.id, this.answers()).subscribe();
+        const quizId = this.quiz().id;
+
+        if(quizId){
+          this.playService.submitAnswers(quizId, this.answers()).subscribe();
         }
       }
     }
@@ -140,7 +135,7 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
   }
 
   validateQuiz() {
-    this.checkStep = true;
+    this.playStep.set('check');
   }
 
   startQuiz() {
@@ -154,7 +149,7 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
         )
       )
     ).subscribe(() => {
-      this.isQuizInProgress = true;
+      this.playStep.set('play');
     })
   }
 
@@ -171,7 +166,7 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
   }
 
   handleClick() {
-    if (this.checkStep === true) {
+    if (this.playStep() === 'check') {
       this.nextQuestion();
     } else {
       this.validateQuiz();
@@ -180,8 +175,8 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
 
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: BeforeUnloadEvent): void {
-    if (this.isQuizInProgress) {
-      this.playService.clearSession();
+    if (this.playStep() === 'play') {
+      // this.playService.clearGuestSession();
       $event.preventDefault();
     }
   }

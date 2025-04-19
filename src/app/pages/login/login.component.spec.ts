@@ -12,8 +12,8 @@ describe('LoginComponent', () => {
     await TestBed.configureTestingModule({
       imports: [LoginComponent],
       providers: [
-        provideHttpClientTesting(),
-        appConfig.providers
+        appConfig.providers,
+        provideHttpClientTesting()
       ]
     })
     .compileComponents();

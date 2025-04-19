@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -13,6 +13,7 @@ import { LoginForm } from '../../types/login-form';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroInformationCircle } from '@ng-icons/heroicons/outline';
+import { PlayService } from '../../services/play.service';
 
 @Component({
   selector: 'app-login',
@@ -21,11 +22,12 @@ import { heroInformationCircle } from '@ng-icons/heroicons/outline';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy {
   private authService = inject(AuthService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private alertService = inject(AlertService);
+  private playService = inject(PlayService);
 
   protected loginForm = new FormGroup<LoginForm>({
     email: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.email] }),
@@ -44,6 +46,14 @@ export class LoginComponent {
 
   constructor(){
     this.displayMessage = this.router.getCurrentNavigation()?.extras.state?.['fromQuiz'] ?? false;
+  }
+
+  ngOnDestroy(): void {
+    if(this.playService.isGuestSessionStarted()){
+      // this.playService.clearGuestSession();
+      this.playService.playStep.set('start');
+      this.playService.endAuthRedirect();
+    }
   }
 
   onSubmit() {
