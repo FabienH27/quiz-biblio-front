@@ -2,12 +2,13 @@ import { HttpClient, HttpErrorResponse, HttpStatusCode } from '@angular/common/h
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, of, throwError } from 'rxjs';
-import { catchError, first, map, tap } from 'rxjs/operators';
+import { catchError, first, map, switchMap, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { AlertService } from '../services/alert.service';
 import { User } from '../types/user';
 import { RegisterData } from '../types/register-form';
 import { LoginData } from '../types/login-form';
+import { RbacService } from './rbac.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,7 @@ export class AuthService {
   baseUrl = environment.apiUrl;
 
   private alertService = inject(AlertService);
+  private rbacService = inject(RbacService);
   router = inject(Router);
 
   private userSubject = new BehaviorSubject<User | null>(null);
@@ -28,7 +30,10 @@ export class AuthService {
   }
 
   login(credentials: LoginData) {
-    return this.httpClient.post(`${this.baseUrl}/auth/login`, credentials, { withCredentials: true });
+    return this.httpClient.post(`${this.baseUrl}/auth/login`, credentials, { withCredentials: true })
+      .pipe(
+        switchMap(() => this.getUserInfo())
+      );
   }
 
   getUserInfo() {
@@ -38,6 +43,7 @@ export class AuthService {
         first(),
         tap(user => {
           this.userSubject.next(user);
+          this.rbacService.setAuthenticatedUser(user);
         }),
         catchError(() => {
           this.userSubject.next(null);

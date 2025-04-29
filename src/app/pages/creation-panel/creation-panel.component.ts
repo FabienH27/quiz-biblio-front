@@ -1,6 +1,8 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, inject, OnInit, Signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { TranslocoPipe } from '@jsverse/transloco';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroExclamationTriangle, heroPlus, heroQueueList } from '@ng-icons/heroicons/outline';
 import { heroQuestionMarkCircleSolid } from '@ng-icons/heroicons/solid';
@@ -8,10 +10,9 @@ import { Observable } from 'rxjs';
 import { ModalComponent } from "../../components/modal/modal.component";
 import { QuizListItemComponent } from "../../components/quiz-list-item/quiz-list-item.component";
 import { QuizService } from '../../services/quiz.service';
+import { RbacService } from '../../services/rbac.service';
 import { QuizInfo } from '../../types/quiz-info';
 import { Roles } from '../../types/roles';
-import { User } from '../../types/user';
-import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
     selector: 'app-admin',
@@ -23,9 +24,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
 export class CreationPanelComponent implements OnInit {
 
   private quizService = inject(QuizService);
-  private route = inject(ActivatedRoute);
-
-  user: User = this.route.snapshot.data['user'];
+  private rbacService = inject(RbacService);
 
   quizList!: Observable<QuizInfo[]>;
 
@@ -35,8 +34,10 @@ export class CreationPanelComponent implements OnInit {
 
   quizToDelete: QuizInfo = {} as QuizInfo;
 
+  userRole: Signal<string | null | undefined> = toSignal(this.rbacService.userRole$);
+
   get isAdmin(){
-    return this.user.role === Roles.ADMINISTRATOR;
+    return this.userRole() === Roles.ADMINISTRATOR;
   }
 
   ngOnInit(): void {
