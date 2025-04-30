@@ -1,8 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PlayQuizQuestionComponent } from './play-quiz-question.component';
-import { appConfig } from '../../../app.config';
 import { Question } from '../../../types/quiz';
+import { ImageService } from '../../../services/image.service';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { getStorage, provideStorage } from '@angular/fire/storage';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 
 describe('PlayQuizQuestionComponent', () => {
   let component: PlayQuizQuestionComponent;
@@ -12,7 +16,11 @@ describe('PlayQuizQuestionComponent', () => {
     await TestBed.configureTestingModule({
       imports: [PlayQuizQuestionComponent],
       providers: [
-        appConfig.providers
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        ImageService,
+        provideFirebaseApp(() => initializeApp({ storageBucket: 'TESTING_BUCKET' })),
+        provideStorage(() => getStorage()),
       ]
     })
     .compileComponents();

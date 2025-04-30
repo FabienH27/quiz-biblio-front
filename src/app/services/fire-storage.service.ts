@@ -14,9 +14,7 @@ export class FireStorageService {
     return runInInjectionContext(this.injector, () => {
       const imageRef = ref(this.storage, fileName);
 
-      return from(getDownloadURL(imageRef).then((url) => {
-        return url;
-      }));
+      return from(getDownloadURL(imageRef));
     });
-  }
+  };
 }
