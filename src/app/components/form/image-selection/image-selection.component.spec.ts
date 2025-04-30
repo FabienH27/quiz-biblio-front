@@ -2,7 +2,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ImageSelectionComponent } from './image-selection.component';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { appConfig } from '../../../app.config';
+import { provideHttpClient } from '@angular/common/http';
+import { getStorage, provideStorage } from '@angular/fire/storage';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideTransloco } from '@jsverse/transloco';
+import { TranslocoHttpLoader } from '../../../transloco-loader';
 
 describe('ImageSelectionComponent', () => {
   let component: ImageSelectionComponent;
@@ -12,8 +16,20 @@ describe('ImageSelectionComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ImageSelectionComponent],
       providers: [
-        appConfig.providers,
-        provideHttpClientTesting()
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        provideFirebaseApp(() => initializeApp({ storageBucket: 'TESTING_BUCKET' })),
+        provideStorage(() => getStorage()),
+        provideTransloco({
+          config: { 
+            availableLangs: ['en', 'fr'],
+            defaultLang: 'fr',
+            fallbackLang: 'en',
+            reRenderOnLangChange: true,
+            prodMode: false
+          },
+          loader: TranslocoHttpLoader
+      }),
       ]
     })
     .compileComponents();

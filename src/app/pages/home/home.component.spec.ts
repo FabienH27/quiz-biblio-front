@@ -1,7 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
-import { appConfig } from '../../app.config';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { ActivatedRoute } from '@angular/router';
+import { provideTransloco } from '@jsverse/transloco';
+import { of } from 'rxjs';
+import { TranslocoHttpLoader } from '../../transloco-loader';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -11,7 +16,24 @@ describe('HomeComponent', () => {
     await TestBed.configureTestingModule({
       imports: [HomeComponent],
       providers: [
-        appConfig.providers
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        provideTransloco({
+          config: {
+            availableLangs: ['en', 'fr'],
+            defaultLang: 'fr',
+            fallbackLang: 'en',
+            reRenderOnLangChange: true,
+            prodMode: false,
+          },
+          loader: TranslocoHttpLoader
+        }),
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            data: of({})
+          }
+        }
       ]
     })
     .compileComponents();

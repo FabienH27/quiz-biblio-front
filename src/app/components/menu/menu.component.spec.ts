@@ -1,7 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MenuComponent } from './menu.component';
-import { appConfig } from '../../app.config';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
+import { provideTransloco } from '@jsverse/transloco';
+import { TranslocoHttpLoader } from '../../transloco-loader';
 
 describe('MenuComponent', () => {
   let component: MenuComponent;
@@ -11,7 +16,22 @@ describe('MenuComponent', () => {
     await TestBed.configureTestingModule({
       imports: [MenuComponent],
       providers: [
-        appConfig.providers
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        {
+          provide: ActivatedRoute,
+          useValue: { params: of({})}
+        },
+        provideTransloco({
+          config: { 
+            availableLangs: ['en', 'fr'],
+            defaultLang: 'fr',
+            fallbackLang: 'en',
+            reRenderOnLangChange: true,
+            prodMode: false,
+          },
+          loader: TranslocoHttpLoader
+      }),
       ]
     })
     .compileComponents();
