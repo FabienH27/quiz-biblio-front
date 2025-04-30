@@ -1,6 +1,6 @@
 import { AsyncPipe, NgClass } from '@angular/common';
 import { Component, HostListener, inject, input, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroBars3BottomRight, heroXMark } from '@ng-icons/heroicons/outline';
 import { Observable, Subscription } from 'rxjs';
@@ -21,7 +21,6 @@ import { LanguageSelectorComponent } from "../language-selector/language-selecto
 export class MenuComponent implements OnInit, OnDestroy {
 
   router = inject(Router);
-  route = inject(ActivatedRoute);
 
   readonly authService = inject(AuthService);
   readonly rbacService = inject(RbacService);

@@ -1,8 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RegisterComponent } from './register.component';
-import { appConfig } from '../../app.config';
+import { provideTransloco } from '@jsverse/transloco';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
+import { TranslocoHttpLoader } from '../../transloco-loader';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -12,8 +16,24 @@ describe('RegisterComponent', () => {
     await TestBed.configureTestingModule({
       imports: [RegisterComponent],
       providers: [
-        appConfig.providers,
-        provideHttpClientTesting()
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        provideTransloco({
+          config: {
+            availableLangs: ['en', 'fr'],
+            defaultLang: 'fr',
+            fallbackLang: 'en',
+            reRenderOnLangChange: true,
+            prodMode: false,
+          },
+          loader: TranslocoHttpLoader
+        }),
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            data: of({})
+          }
+        }
       ]
     })
     .compileComponents();

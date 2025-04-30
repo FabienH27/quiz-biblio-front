@@ -2,7 +2,9 @@ import { TestBed } from '@angular/core/testing';
 
 import { ImageService } from './image.service';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { appConfig } from '../app.config';
+import { provideHttpClient } from '@angular/common/http';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideStorage, getStorage } from '@angular/fire/storage';
 
 describe('ImageService', () => {
   let service: ImageService;
@@ -11,8 +13,10 @@ describe('ImageService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        appConfig.providers,
-        provideHttpClientTesting()
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        provideFirebaseApp(() => initializeApp({ storageBucket: 'TESTING_BUCKET' })),
+        provideStorage(() => getStorage()),
       ]
     });
     service = TestBed.inject(ImageService);

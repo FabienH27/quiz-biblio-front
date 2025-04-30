@@ -1,7 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { QuizFormComponent } from './quiz-form.component';
-import { appConfig } from '../../app.config';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideTransloco } from '@jsverse/transloco';
+import { TranslocoHttpLoader } from '../../transloco-loader';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideStorage, getStorage } from '@angular/fire/storage';
 
 describe('QuizFormComponent', () => {
   let component: QuizFormComponent;
@@ -11,7 +16,20 @@ describe('QuizFormComponent', () => {
     await TestBed.configureTestingModule({
       imports: [QuizFormComponent],
       providers: [
-        appConfig.providers
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        provideFirebaseApp(() => initializeApp({ storageBucket: 'TESTING_BUCKET' })),
+        provideStorage(() => getStorage()),
+        provideTransloco({
+          config: { 
+            availableLangs: ['en', 'fr'],
+            defaultLang: 'fr',
+            fallbackLang: 'en',
+            reRenderOnLangChange: true,
+            prodMode: false,
+          },
+          loader: TranslocoHttpLoader
+      }),
       ]
     })
     .compileComponents();
