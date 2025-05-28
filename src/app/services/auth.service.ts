@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpStatusCode } from '@angular/common/h
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { of, ReplaySubject, throwError } from 'rxjs';
-import { catchError, first, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { AlertService } from '../services/alert.service';
 import { User } from '../types/user';
@@ -48,7 +48,7 @@ export class AuthService {
     const url = `${this.baseUrl}/auth/user-info`;
     return this.httpClient.get<User>(url, { withCredentials: true, headers: { 'skip-alert': 'true' } })
       .pipe(
-        first(),
+        filter(user => !!user),
         tap(user => {
           localStorage.setItem('user', JSON.stringify(user));
           this.userSubject.next(user);

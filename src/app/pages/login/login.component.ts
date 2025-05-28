@@ -51,7 +51,7 @@ export class LoginComponent implements OnDestroy {
   ngOnDestroy(): void {
     if(this.playService.isGuestSessionStarted()){
       this.playService.clearGuestSession();
-      this.playService.playStep.set('start');
+      this.playService.setStatus('start');
       this.playService.endAuthRedirect();
     }
   }
