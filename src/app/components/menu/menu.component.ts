@@ -76,7 +76,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
 
   isAdmin(user: User){
-    return user.role === Roles.ADMINISTRATOR
+    return user.role === Roles.ADMINISTRATOR;
   }
 
 }

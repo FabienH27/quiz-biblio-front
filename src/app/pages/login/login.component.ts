@@ -1,4 +1,4 @@
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Component, inject, OnDestroy } from '@angular/core';
 import {
   FormControl,
@@ -50,7 +50,7 @@ export class LoginComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     if(this.playService.isGuestSessionStarted()){
-      // this.playService.clearGuestSession();
+      this.playService.clearGuestSession();
       this.playService.playStep.set('start');
       this.playService.endAuthRedirect();
     }
@@ -67,8 +67,11 @@ export class LoginComponent implements OnDestroy {
           this.alertService.showAlert("Successfully logged in!");
         },
         error: (error: HttpErrorResponse) => {
-          this.alertService.showAlert("An error occured while logging in.", 'error');
-          console.error(error);
+          if(error.status === HttpStatusCode.Unauthorized){
+            this.alertService.showAlert("Invalid email or password.", 'error');
+          }else{
+            this.alertService.showAlert("An error occured while logging in.", 'error');
+          }
         }
       });
     }

@@ -25,6 +25,19 @@ export class AuthService {
   private userSubject = new BehaviorSubject<User | null>(null);
   user$ = this.userSubject.asObservable();
 
+  constructor(){
+    const storedUser = localStorage.getItem('user');
+    if(storedUser){
+      try{
+        const user = JSON.parse(storedUser);
+        this.userSubject.next(user);
+      }catch(err){
+        console.error('Error parsing user from localStorage:', err);
+        localStorage.removeItem('user');
+      }
+    }
+  }
+
   register(credentials: RegisterData) {
     return this.httpClient.post(`${this.baseUrl}/auth/register`, credentials, { withCredentials: true });
   }
@@ -42,6 +55,7 @@ export class AuthService {
       .pipe(
         first(),
         tap(user => {
+          localStorage.setItem('user', JSON.stringify(user));
           this.userSubject.next(user);
           this.rbacService.setAuthenticatedUser(user);
         }),
@@ -56,6 +70,7 @@ export class AuthService {
     this.httpClient.post(`${this.baseUrl}/auth/logout`, {}, { withCredentials: true }).subscribe({
       next: () => {
         this.userSubject.next(null);
+        localStorage.removeItem('user');
         this.alertService.showAlert("Successfully logged out!", 'warning');
         this.router.navigate(['']);
       },
