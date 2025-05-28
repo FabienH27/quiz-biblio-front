@@ -1,8 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PlayFinalStepComponent } from './play-final-step.component';
-import { appConfig } from '../../../app.config';
 import { Answer } from '../../../types/answer';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideTransloco } from '@jsverse/transloco';
+import { TranslocoHttpLoader } from '../../../transloco-loader';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
 describe('PlayFinalStepComponent', () => {
   let component: PlayFinalStepComponent;
@@ -12,10 +17,27 @@ describe('PlayFinalStepComponent', () => {
     await TestBed.configureTestingModule({
       imports: [PlayFinalStepComponent],
       providers: [
-        appConfig.providers,
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        provideTransloco({
+          config: {
+            availableLangs: ['en', 'fr'],
+            defaultLang: 'fr',
+            fallbackLang: 'en',
+            reRenderOnLangChange: true,
+            prodMode: false,
+          },
+          loader: TranslocoHttpLoader
+        }),
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            data: of({})
+          }
+        }
       ]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(PlayFinalStepComponent);
     component = fixture.componentInstance;
@@ -30,7 +52,7 @@ describe('PlayFinalStepComponent', () => {
     };
 
     const answers = new Map<string, Answer>();
-    answers.set('test', {isCorrect: true, value: [1]});
+    answers.set('test', { isCorrect: true, value: [1] });
 
     fixture.componentRef.setInput('quiz', quiz);
     fixture.componentRef.setInput('answers', answers);
