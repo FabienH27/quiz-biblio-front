@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, of, throwError } from 'rxjs';
+import { of, ReplaySubject, throwError } from 'rxjs';
 import { catchError, first, map, switchMap, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { AlertService } from '../services/alert.service';
@@ -22,20 +22,11 @@ export class AuthService {
   private rbacService = inject(RbacService);
   router = inject(Router);
 
-  private userSubject = new BehaviorSubject<User | null>(null);
+  private userSubject = new ReplaySubject<User | null>(1);
   user$ = this.userSubject.asObservable();
 
   constructor(){
-    const storedUser = localStorage.getItem('user');
-    if(storedUser){
-      try{
-        const user = JSON.parse(storedUser);
-        this.userSubject.next(user);
-      }catch(err){
-        console.error('Error parsing user from localStorage:', err);
-        localStorage.removeItem('user');
-      }
-    }
+    this.loadUserInfo();
   }
 
   register(credentials: RegisterData) {
@@ -49,6 +40,10 @@ export class AuthService {
       );
   }
 
+  private loadUserInfo(){
+    this.getUserInfo().subscribe();
+  }
+
   getUserInfo() {
     const url = `${this.baseUrl}/auth/user-info`;
     return this.httpClient.get<User>(url, { withCredentials: true, headers: { 'skip-alert': 'true' } })
@@ -60,6 +55,7 @@ export class AuthService {
           this.rbacService.setAuthenticatedUser(user);
         }),
         catchError(() => {
+          localStorage.removeItem('user');
           this.userSubject.next(null);
           return of(null);
         })
