@@ -114,8 +114,4 @@ export class PlayService {
     this.playState.set(status);
   }
 
-  getPlayState() {
-    return this.playState;
-  }
-
 }

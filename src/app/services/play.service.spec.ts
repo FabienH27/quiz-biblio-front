@@ -45,7 +45,7 @@ describe('PlayService', () => {
   it('should correctly update play status', () => {
     service.setStatus('check');
 
-    expect(service.getPlayState()).toEqual('check');
+    expect(service.playState()).toEqual('check');
   });
 
   it('should correctly clear session', () => {
@@ -57,7 +57,7 @@ describe('PlayService', () => {
 
     expect(localStorage.getItem('guestUsername')).toBeNull();
     expect(localStorage.getItem('guestSessionStarted')).toBeNull();
-    expect(service.getPlayState()).toBe('start');
+    expect(service.playState()).toBe('start');
     expect(service.answers()).toEqual(new Map());
 
     httpMock.expectOne(`${environment.apiUrl}/guest/end-session`);

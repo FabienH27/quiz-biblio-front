@@ -29,7 +29,7 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
   playService = inject(PlayService);
   private authService = inject(AuthService);
 
-  protected readonly playStatus = this.playService.getPlayState();
+  protected readonly playStatus = this.playService.playState;
 
   readonly questionComponent = viewChild.required<PlayQuizQuestionComponent>('question');
 
