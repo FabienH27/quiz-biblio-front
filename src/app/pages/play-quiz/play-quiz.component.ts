@@ -26,7 +26,7 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
 
   private activatedRoute = inject(ActivatedRoute);
   private imageService = inject(ImageService);
-  private playService = inject(PlayService);
+  playService = inject(PlayService);
   private authService = inject(AuthService);
 
   protected readonly playStatus = this.playService.getPlayState();
@@ -83,7 +83,7 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
       this.playService.mergeGuestToUser().subscribe(data => {
         this.answers.set(data);
         this.playService.endAuthRedirect();
-        // this.playService.clearGuestSession();
+        this.playService.clearGuestSession();
       });
     }
 
@@ -166,7 +166,7 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
   }
 
   handleClick() {
-    if (this.playService.getPlayState() === 'check') {
+    if (this.playStatus() === 'check') {
       this.nextQuestion();
     } else {
       this.validateQuiz();
@@ -175,8 +175,8 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
 
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: BeforeUnloadEvent): void {
-    if (this.playService.getPlayState() === 'play') {
-      // this.playService.clearGuestSession();
+    if (this.playStatus() === 'play') {
+      this.playService.clearGuestSession();
       $event.preventDefault();
     }
   }

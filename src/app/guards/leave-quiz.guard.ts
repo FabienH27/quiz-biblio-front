@@ -8,7 +8,7 @@ export const leaveQuizGuard: CanDeactivateFn<PlayQuizComponent> = () => {
   const translocoService = inject(TranslocoService); 
   const playService = inject(PlayService);
 
-  if(playService.getPlayState() == 'play'){
+  if(playService.playState() == 'play'){
     return window.confirm(translocoService.translate('play.ongoing-quiz'));
   }
   return true;

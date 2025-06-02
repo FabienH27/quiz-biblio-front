@@ -25,7 +25,7 @@ export class PlayService {
     length: 2,
   };
 
-  private readonly playStep = signal<'start' | 'play' | 'check' | 'final'>('start');
+  playState = signal<'start' | 'play' | 'check' | 'final'>('start');
 
   readonly answers = signal<Map<number, Answer>>(new Map<number, Answer>());
 
@@ -55,7 +55,7 @@ export class PlayService {
   clearGuestSession() {
     localStorage.removeItem(this.sessionKey);
     localStorage.removeItem(this.storageKey);
-    this.playStep.set('start');
+    this.playState.set('start');
     this.answers.set(new Map());
 
     this.httpClient.delete(`${this.baseUrl}/guest/end-session`, { withCredentials: true }).subscribe();
@@ -111,11 +111,11 @@ export class PlayService {
   }
   
   setStatus(status: 'start' | 'play' | 'check' | 'final') {
-    this.playStep.set(status);
+    this.playState.set(status);
   }
 
   getPlayState() {
-    return this.playStep();
+    return this.playState;
   }
 
 }
