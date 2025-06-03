@@ -26,8 +26,10 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
 
   private activatedRoute = inject(ActivatedRoute);
   private imageService = inject(ImageService);
-  private playService = inject(PlayService);
+  playService = inject(PlayService);
   private authService = inject(AuthService);
+
+  protected readonly playStatus = this.playService.playState;
 
   readonly questionComponent = viewChild.required<PlayQuizQuestionComponent>('question');
 
@@ -41,8 +43,6 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
     if (!value) throw new Error('Quiz is not loaded yet');
     return value;
   });
-
-  playStep = this.playService.playStep;
 
   userName: string | null = null;
 
@@ -79,11 +79,11 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
     window.scrollTo(0,0);
 
     if(this.playService.goingToAuth()){
-      this.playStep.set('final');
+      this.playService.setStatus('final');
       this.playService.mergeGuestToUser().subscribe(data => {
         this.answers.set(data);
         this.playService.endAuthRedirect();
-        // this.playService.clearGuestSession();
+        this.playService.clearGuestSession();
       });
     }
 
@@ -112,11 +112,11 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
       //More questions to proceed
       if ((this.currentStep() + 1) < this.quiz().questions.length) {
         this.currentStep.update(value => value + 1);
-        this.playStep.set('play');
+        this.playService.setStatus('play');
         this.questionComponent().resetChoice();
       } else {
         //last step
-        this.playStep.set('final');
+        this.playService.setStatus('final');
 
         const quizId = this.quiz().id;
 
@@ -135,7 +135,7 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
   }
 
   validateQuiz() {
-    this.playStep.set('check');
+    this.playService.setStatus('check');
   }
 
   startQuiz() {
@@ -149,7 +149,7 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
         )
       )
     ).subscribe(() => {
-      this.playStep.set('play');
+      this.playService.setStatus('play');
     })
   }
 
@@ -166,7 +166,7 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
   }
 
   handleClick() {
-    if (this.playStep() === 'check') {
+    if (this.playStatus() === 'check') {
       this.nextQuestion();
     } else {
       this.validateQuiz();
@@ -175,8 +175,8 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
 
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: BeforeUnloadEvent): void {
-    if (this.playStep() === 'play') {
-      // this.playService.clearGuestSession();
+    if (this.playStatus() === 'play') {
+      this.playService.clearGuestSession();
       $event.preventDefault();
     }
   }

@@ -14,7 +14,7 @@
     </div>
 
     <div class="mt-4" transloco="no">
-        @if (playStep() === 'start') {
+        @if (playStatus() === 'start') {
 
             @let user = (loggedInUser | async);
 
@@ -47,19 +47,19 @@
             </ul>
         </div>
 
-        }@else if (playStep() === 'final'){
+        }@else if (playStatus() === 'final'){
         <app-play-final-step [answers]="answers()" [quiz]="quiz()" [userScore]="userScore"></app-play-final-step>
         }
         @else {
 
         <app-play-quiz-question #question [question]="currentQuestion" (answerChange)="onAnswerChange($event)"
-            [isValidationStep]="playStep() === 'check'" [attr.key]="currentStep()"></app-play-quiz-question>
+            [isValidationStep]="playStatus() === 'check'" [attr.key]="currentStep()"></app-play-quiz-question>
 
         <button (click)="handleClick()" type="button" [disabled]="!hasAnswered"
             class="bg-teal-600 px-6 cursor-pointer notsm:py-2 py-4 rounded-lg block !:disabled:hover:bg-teal-400 md:ml-auto mx-auto mt-8 mb-2 disabled:bg-teal-800 disabled:text-slate-800
                 not-sm:fixed not-sm:bottom-0 not-sm:left-0 not-sm:right-0 not-sm:w-fit">
-            <ng-icon [name]="playStep() === 'check' ? 'heroForwardSolid' : 'heroCheckSolid' "/>
-            <p class="inline ml-2" [innerText]="playStep() === 'check' ? ('play.next' | transloco) : ('play.validate' | transloco)"></p>
+            <ng-icon [name]="playStatus() === 'check' ? 'heroForwardSolid' : 'heroCheckSolid' "/>
+            <p class="inline ml-2" [innerText]="playStatus() === 'check' ? ('play.next' | transloco) : ('play.validate' | transloco)"></p>
         </button>
         }
     </div>

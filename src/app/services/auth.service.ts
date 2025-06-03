@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpStatusCode } from '@angular/common/h
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { of, ReplaySubject, throwError } from 'rxjs';
-import { catchError, first, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { AlertService } from '../services/alert.service';
 import { User } from '../types/user';
@@ -25,10 +25,6 @@ export class AuthService {
   private userSubject = new ReplaySubject<User | null>(1);
   user$ = this.userSubject.asObservable();
 
-  constructor(){
-    this.loadUserInfo();
-  }
-
   register(credentials: RegisterData) {
     return this.httpClient.post(`${this.baseUrl}/auth/register`, credentials, { withCredentials: true });
   }
@@ -40,15 +36,11 @@ export class AuthService {
       );
   }
 
-  private loadUserInfo(){
-    this.getUserInfo().subscribe();
-  }
-
   getUserInfo() {
     const url = `${this.baseUrl}/auth/user-info`;
     return this.httpClient.get<User>(url, { withCredentials: true, headers: { 'skip-alert': 'true' } })
       .pipe(
-        first(),
+        filter(user => !!user),
         tap(user => {
           localStorage.setItem('user', JSON.stringify(user));
           this.userSubject.next(user);

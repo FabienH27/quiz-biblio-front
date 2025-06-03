@@ -20,12 +20,12 @@ export class PlayService {
   readonly goingToAuth = signal(false);
 
   readonly randomNameConfig: Config = {
-    dictionaries: [adjectives, animals,],
+    dictionaries: [adjectives, animals],
     separator: '-',
     length: 2,
   };
 
-  readonly playStep = signal<'start' | 'play' | 'check' | 'final'>('start');
+  playState = signal<'start' | 'play' | 'check' | 'final'>('start');
 
   readonly answers = signal<Map<number, Answer>>(new Map<number, Answer>());
 
@@ -48,14 +48,14 @@ export class PlayService {
     return localStorage.getItem(this.sessionKey) === 'true';
   }
 
-  private setSessionStarted(): void {
+  setSessionStarted(): void {
     localStorage.setItem(this.sessionKey, 'true');
   }
 
   clearGuestSession() {
     localStorage.removeItem(this.sessionKey);
     localStorage.removeItem(this.storageKey);
-    this.playStep.set('start');
+    this.playState.set('start');
     this.answers.set(new Map());
 
     this.httpClient.delete(`${this.baseUrl}/guest/end-session`, { withCredentials: true }).subscribe();
@@ -68,7 +68,6 @@ export class PlayService {
 
     const userName = this.getOrCreateUserName();
 
-    //find a way to prevent guest session spamming from users
     return this.httpClient.post<void>(`${this.baseUrl}/guest/init-session?username=${encodeURIComponent(userName)}`, {}, { withCredentials: true })
       .pipe(
         tap(() => this.setSessionStarted())
@@ -109,6 +108,10 @@ export class PlayService {
     return new Map(
       Object.entries(data).map(([key, value]) => [parseInt(key), value])
     );
+  }
+  
+  setStatus(status: 'start' | 'play' | 'check' | 'final') {
+    this.playState.set(status);
   }
 
 }
