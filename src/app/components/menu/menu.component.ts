@@ -34,6 +34,8 @@ export class MenuComponent implements OnInit, OnDestroy {
   private navigationSubscription: Subscription | undefined;
 
   ngOnInit(): void {
+    this.authService.getUserInfo().subscribe();
+
     this.navigationSubscription = this.router.events.subscribe(event => {
       if(event instanceof NavigationEnd){
         this.closeMenu();

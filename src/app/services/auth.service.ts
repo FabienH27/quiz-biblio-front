@@ -25,10 +25,6 @@ export class AuthService {
   private userSubject = new ReplaySubject<User | null>(1);
   user$ = this.userSubject.asObservable();
 
-  constructor(){
-    this.loadUserInfo();
-  }
-
   register(credentials: RegisterData) {
     return this.httpClient.post(`${this.baseUrl}/auth/register`, credentials, { withCredentials: true });
   }
@@ -38,10 +34,6 @@ export class AuthService {
       .pipe(
         switchMap(() => this.getUserInfo())
       );
-  }
-
-  private loadUserInfo(){
-    this.getUserInfo().subscribe();
   }
 
   getUserInfo() {
