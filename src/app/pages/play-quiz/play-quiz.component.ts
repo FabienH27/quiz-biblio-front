@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, computed, HostListener, inject, OnDestroy, OnInit, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, HostListener, inject, OnDestroy, OnInit, signal, viewChild } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -14,13 +14,15 @@ import { ImageService } from '../../services/image.service';
 import { PlayService } from '../../services/play.service';
 import { Answer } from '../../types/answer';
 import { Quiz } from '../../types/quiz';
+import { UserScorePanelComponent } from "../../components/user-score-panel/user-score-panel.component";
 
 @Component({
   selector: 'app-play-quiz',
-  imports: [NgIconComponent, PlayQuizQuestionComponent, PlayFinalStepComponent, AsyncPipe, TranslocoPipe, FormsModule],
+  imports: [NgIconComponent, PlayQuizQuestionComponent, PlayFinalStepComponent, AsyncPipe, TranslocoPipe, FormsModule, UserScorePanelComponent],
   providers: [provideIcons({ heroPlaySolid, heroForwardSolid, heroCheckSolid, heroInformationCircleSolid })],
   templateUrl: './play-quiz.component.html',
-  styleUrl: './play-quiz.component.css'
+  styleUrl: './play-quiz.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PlayQuizComponent implements OnInit, OnDestroy {
 
@@ -49,6 +51,8 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
   readonly currentStep = signal(0);
 
   answers = this.playService.answers;
+
+  guestScore = this.playService.userScoreInfo;
 
   imageUrl = computed(() => this.quiz() ? this.loadImage() : null);
 
@@ -79,12 +83,7 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
     window.scrollTo(0,0);
 
     if(this.playService.goingToAuth()){
-      this.playService.setStatus('final');
-      this.playService.mergeGuestToUser().subscribe(data => {
-        this.answers.set(data);
-        this.playService.endAuthRedirect();
-        this.playService.clearGuestSession();
-      });
+      this.playService.mergeGuestToUser().subscribe();
     }
 
     this.userName = this.playService.getOrCreateUserName();

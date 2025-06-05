@@ -105,6 +105,7 @@
         "too-many-answers": "Trop de réponses données.",
         "total-score": "Avec un score de",
         "username": "Nom d'utilisateur",
+        "user-score": "Vous avez marqué {{scoredPoints}} points pour un total de {{totalPoints}} points !",
         "username-confirmation": "Vous allez jouer en tant que {{username}}",
         "username-info": "Choisissez un nom ou utilisez le nom suggéré pour commencer le quiz",
         "validate": "Valider"
