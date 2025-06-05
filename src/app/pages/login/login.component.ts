@@ -7,12 +7,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { AlertService } from '../../services/alert.service';
-import { AuthService } from '../../services/auth.service';
-import { LoginForm } from '../../types/login-form';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroInformationCircle } from '@ng-icons/heroicons/outline';
+import { AlertService } from '../../services/alert.service';
+import { AuthService } from '../../services/auth.service';
+import { LoginForm } from '../../types/login-form';
 
 @Component({
   selector: 'app-login',

@@ -92,6 +92,7 @@ export class PlayQuizComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if(!this.playService.goingToAuth()){
       this.playService.clearGuestSession();
+      this.playService.userScoreInfo.set(null);
     }
   }
 
