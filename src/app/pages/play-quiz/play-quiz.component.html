@@ -19,7 +19,12 @@
             @let user = (loggedInUser | async);
 
             @if (user !== null) {
-                <p class="text-center mb-4">{{ 'play.username-confirmation' | transloco }} <span class="text-teal-500">{{user.userName}}</span></p>
+                <div class="text-center">
+                    @if (guestScore(); as score) {
+                        <app-user-score-panel [score]="score" />
+                    }
+                    <p class="my-4">{{ 'play.username-confirmation' | transloco }} <span class="text-teal-500">{{user.userName}}</span></p>
+                </div>
             }@else {
                 <div class="lg:w-1/3 w-3/4 mx-auto block text-center mb-8">
                     <p class="mb-4">{{ 'play.username-info' | transloco }}.</p>

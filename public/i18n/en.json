@@ -106,6 +106,7 @@
         "start": "Start quiz!",
         "too-many-answers": "Too many answers given.",
         "total-score": "With a score of",
+        "user-score": "You scored {{scoredPoints}} points for a total of {{totalPoints}} points!",
         "username": "Username",
         "username-confirmation": "You are going to play as {{username}}",
         "username-info": "Choose your username or use the suggested one to begin the quiz",

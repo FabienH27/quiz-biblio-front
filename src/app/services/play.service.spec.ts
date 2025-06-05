@@ -53,7 +53,7 @@ describe('PlayService', () => {
 
     expect(localStorage.getItem('guestSessionStarted')).not.toBeNull();
 
-    service.clearGuestSession();
+    service.clearGuestSession().subscribe();
 
     expect(localStorage.getItem('guestUsername')).toBeNull();
     expect(localStorage.getItem('guestSessionStarted')).toBeNull();

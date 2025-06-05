@@ -1,6 +1,10 @@
 <h1 class="text-center text-2xl text-teal-200 mx-2">{{ 'play.quiz-completion' | transloco }}</h1>
 <p class="text-center my-2">{{ 'play.total-score' | transloco }} {{userScore()}} / {{quiz().questions.length}}</p>
 
+@if (guestScore(); as score) {
+   <app-user-score-panel [score]="score" />
+}
+
 @if ((isAuthenticated$ | async) === false) {
     <div class="text-center mx-auto w-1/2">
         <p>Voulez-vous sauvegarder votre score ?</p>

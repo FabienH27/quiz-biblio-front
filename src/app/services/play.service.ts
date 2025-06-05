@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { uniqueNamesGenerator, adjectives, animals, Config } from 'unique-names-generator';
+import { map, Observable, of, switchMap, tap } from 'rxjs';
+import { adjectives, animals, Config, uniqueNamesGenerator } from 'unique-names-generator';
 import { environment } from '../../environments/environment';
-import { map, Observable, of, tap } from 'rxjs';
 import { Answer } from '../types/answer';
+import { Score } from '../types/guest-score';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,7 @@ export class PlayService {
   private baseUrl = environment.apiUrl;
 
   readonly goingToAuth = signal(false);
+  readonly userScoreInfo = signal<Score | null>(null);
 
   readonly randomNameConfig: Config = {
     dictionaries: [adjectives, animals],
@@ -58,7 +60,7 @@ export class PlayService {
     this.playState.set('start');
     this.answers.set(new Map());
 
-    this.httpClient.delete(`${this.baseUrl}/guest/end-session`, { withCredentials: true }).subscribe();
+    return this.httpClient.delete(`${this.baseUrl}/guest/end-session`, { withCredentials: true });
   }
 
   initGuestSession(): Observable<void> {
@@ -83,10 +85,12 @@ export class PlayService {
 
     const payload = {
       quizId,
-      answers: answersArray,
+      answers: answersArray
     };
 
-    return this.httpClient.post<void>(`${this.baseUrl}/quizplay/submit-answers`, payload, { withCredentials: true });
+    return this.httpClient.post<Score>(`${this.baseUrl}/quizplay/submit-answers`, payload, { withCredentials: true }).pipe(
+      tap(score => this.userScoreInfo.set(score))
+    );
   }
 
   startAuthRedirect() {
@@ -97,10 +101,13 @@ export class PlayService {
     this.goingToAuth.set(false);
   }
 
-  mergeGuestToUser(): Observable<Map<number, Answer>> {
-    return this.httpClient.post<Record<number, Answer>>(`${this.baseUrl}/quizplay/merge-guest`, {}, { withCredentials: true })
+  mergeGuestToUser() {
+    return this.httpClient.post<Score>(`${this.baseUrl}/quizplay/merge-guest`, {}, { withCredentials: true })
       .pipe(
-        map((data) => this.arrayToAnswerMap(data))
+        tap(score => this.userScoreInfo.set(score)),
+        switchMap(() => this.clearGuestSession()),
+        tap(() => this.endAuthRedirect()),
+        map(() => void 0)
       );
   }
 

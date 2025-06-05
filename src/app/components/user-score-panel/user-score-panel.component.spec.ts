@@ -1,27 +1,24 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MenuComponent } from './menu.component';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideHttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
+import { UserScorePanelComponent } from './user-score-panel.component';
 import { provideTransloco } from '@jsverse/transloco';
 import { TranslocoHttpLoader } from '../../transloco-loader';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { Score } from '../../types/guest-score';
 
-describe('MenuComponent', () => {
-  let component: MenuComponent;
-  let fixture: ComponentFixture<MenuComponent>;
+describe('UserScorePanelComponent', () => {
+  let component: UserScorePanelComponent;
+  let fixture: ComponentFixture<UserScorePanelComponent>;
+
+  const score : Score = {currentScore: 0, scoredPoints: 1};
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MenuComponent],
+      imports: [UserScorePanelComponent],
       providers: [
         provideHttpClient(),
         provideHttpClientTesting(),
-        {
-          provide: ActivatedRoute,
-          useValue: { params: of({}) }
-        },
         provideTransloco({
           config: {
             availableLangs: ['en', 'fr'],
@@ -36,8 +33,10 @@ describe('MenuComponent', () => {
     })
       .compileComponents();
 
-    fixture = TestBed.createComponent(MenuComponent);
+    fixture = TestBed.createComponent(UserScorePanelComponent);
     component = fixture.componentInstance;
+    
+    fixture.componentRef.setInput('score', score);
     fixture.detectChanges();
   });
 
