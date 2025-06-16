@@ -1,0 +1,5 @@
+npm run test:ci
+
+npm i cross-env
+
+npm run test:e2e
