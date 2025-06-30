@@ -31,6 +31,8 @@ export class MenuComponent implements OnInit, OnDestroy {
 
   user = input<User>();
 
+  userRoles = Roles;
+
   private navigationSubscription: Subscription | undefined;
 
   ngOnInit(): void {

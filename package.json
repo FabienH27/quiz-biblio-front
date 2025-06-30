@@ -9,7 +9,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:ci": "ng test --no-watch --no-progress --browsers=ChromeHeadless",
-    "test:e2e": "cross-env API_BASE_URL=http://localhost:8081 npx playwright test",
+    "test:e2e": "cross-env API_BASE_URL=http://localhost:8081 npx playwright test --ui",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
     "prepare": "husky"

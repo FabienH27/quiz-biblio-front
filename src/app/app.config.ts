@@ -5,12 +5,12 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { environment } from '../environments/environment';
-import { routes } from './app.routes';
 import { authInterceptor } from './interceptor/auth.interceptor';
 import { TranslocoHttpLoader } from './transloco-loader';
 import { provideTransloco } from '@jsverse/transloco';
 import { provideTranslocoPersistLang } from '@jsverse/transloco-persist-lang';
 import { errorInterceptor } from './interceptor/error.interceptor';
+import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [

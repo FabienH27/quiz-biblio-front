@@ -1,4 +1,22 @@
 {
+    "admin": {
+        "title": "Admin panel",
+        "users": {
+            "title": "Users",
+            "subtitle": "Manage users",
+            "no-users": "No users found"
+        },
+        "themes": {
+            "title": "Themes",
+            "subtitle": "Manage themes",
+            "no-themes": "No themes found"
+        },
+        "statistics": {
+            "title": "Statistics",
+            "subtitle": "View statistics",
+            "no-statistics": "No statistics available"
+        }
+    },
     "auth": {
         "account-exist": "Already have an account?",
         "email": {

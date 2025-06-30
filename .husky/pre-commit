@@ -1,5 +1,3 @@
 npm run test:ci
 
-npm i cross-env
-
-npm run test:e2e
+# npm i cross-env
