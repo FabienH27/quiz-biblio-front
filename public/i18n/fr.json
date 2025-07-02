@@ -1,4 +1,22 @@
 {
+    "admin": {
+        "title": "Espace admin",
+        "users": {
+            "title": "Utilisateurs",
+            "subtitle": "Gérer les utilisateurs",
+            "no-users": "Aucun utilisateur trouvé"
+        },
+        "themes": {
+            "title": "Thèmes",
+            "subtitle": "Gérer les thèmes",
+            "no-themes": "Aucun thème trouvé"
+        },
+        "statistics": {
+            "title": "Statistiques",
+            "subtitle": "Voir les statistiques",
+            "no-statistics": "Aucune statistique disponible"
+        }
+    },
     "auth": {
         "account-exist": "Vous possédez déjà un compte ?",
         "email": {
@@ -104,8 +122,8 @@
         "start": "Commencer le quiz !",
         "too-many-answers": "Trop de réponses données.",
         "total-score": "Avec un score de",
-        "username": "Nom d'utilisateur",
         "user-score": "Vous avez marqué {{scoredPoints}} points pour un total de {{totalPoints}} points !",
+        "username": "Nom d'utilisateur",
         "username-confirmation": "Vous allez jouer en tant que {{username}}",
         "username-info": "Choisissez un nom ou utilisez le nom suggéré pour commencer le quiz",
         "validate": "Valider"

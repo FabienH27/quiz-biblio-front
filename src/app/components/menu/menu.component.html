@@ -10,6 +10,9 @@
 			@if (userData$ | async; as user) {
 			<a class="mx-5 hover:text-teal-100" routerLink="/scoreboard"> {{ 'menu.scoreboard' | transloco }} </a>
 			<a class="text-teal-500 mx-5 hover:text-teal-100" routerLink="/creation-panel"> {{ 'creation-panel.title' | transloco }}</a>
+			@if (user.role === userRoles.ADMINISTRATOR) {
+				<a class="text-indigo-400 mx-5 hover:text-indigo-200" routerLink="/admin"> {{ 'admin.title' | transloco }}</a>
+			}
 			<app-language-selector />
 			<p class="">{{ user.userName }}</p>
 			<a (click)="logout()" routerLink="logout"

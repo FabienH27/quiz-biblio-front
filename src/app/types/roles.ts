@@ -1,10 +1,10 @@
 export enum Roles {
   ADMINISTRATOR = 'ADMIN',
-  USER = 'USER',
+  MEMBER = 'USER',
 }
 
 export interface Role {
-  uid: Roles; // ADMINISTRATOR, STAFF, USER
+  uid: Roles; // ADMINISTRATOR, MEMBER
 }
 
 export interface RoleResponse{
