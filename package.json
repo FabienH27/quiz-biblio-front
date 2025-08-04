@@ -30,7 +30,7 @@
     "@ng-icons/core": "^32.0.0",
     "@ng-icons/heroicons": "^32.0.0",
     "@ngx-translate/core": "^16.0.4",
-    "@ngx-translate/http-loader": "^16.0.1",
+    "@ngx-translate/http-loader": "^17.0.0",
     "@tailwindcss/postcss": "^4.0.14",
     "cross-env": "^7.0.3",
     "jwt-decode": "^4.0.0",
