@@ -77,8 +77,8 @@
             }
           },
           "options": {
-            "sslKey": "ssl/server.key",
-            "sslCert": "ssl/server.crt",
+            "sslKey": "ssl/localhost.key",
+            "sslCert": "ssl/localhost.crt",
             "ssl": true
           },
           "defaultConfiguration": "development"
@@ -122,7 +122,8 @@
   "cli": {
     "schematicCollections": [
       "angular-eslint"
-    ]
+    ],
+    "analytics": false
   },
   "schematics": {
     "@schematics/angular:component": {

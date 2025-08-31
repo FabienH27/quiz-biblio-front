@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, finalize, of, tap } from 'rxjs';
+import { BehaviorSubject, catchError, delay, finalize, of, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Quiz } from '../types/quiz';
 import { QuizInfo } from '../types/quiz-info';
@@ -26,7 +26,7 @@ export class QuizService {
     this.httpClient.get<QuizInfo[]>(`${this.baseUrl}/quizzes/`, { withCredentials: true })
       .pipe(
         catchError(err => { console.error(err); return of([]) }),
-        finalize(() => this.loadingSubject.next(false))
+        finalize(() => this.loadingSubject.next(false)),
       )
       .subscribe(data => this.quizItemsSubject.next(data));
   }

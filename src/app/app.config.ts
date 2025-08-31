@@ -11,6 +11,7 @@ import { provideTransloco } from '@jsverse/transloco';
 import { provideTranslocoPersistLang } from '@jsverse/transloco-persist-lang';
 import { errorInterceptor } from './interceptor/error.interceptor';
 import { routes } from './app.routes';
+import { provideNgxSkeletonLoader } from 'ngx-skeleton-loader';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -34,6 +35,7 @@ export const appConfig: ApplicationConfig = {
       storage: {
         useValue: localStorage
       }
-    })
+    }),
+    provideNgxSkeletonLoader()
   ],
 };
