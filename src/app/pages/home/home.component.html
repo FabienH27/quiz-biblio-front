@@ -21,6 +21,7 @@
   </section>
 </section>
 
+
 <section class="bg-slate-700 pt-8 pb-52 mx-auto">
   <div class="container mx-auto">
     <h1 class="text-xl text-center" id="quiz-list">
@@ -28,7 +29,9 @@
     </h1>
     <div class="md:flex gap-8 mt-8 justify-center mx-auto text-center flex-wrap ">
       @if (loading$ | async) {
-        <p>{{'loading' | transloco }}...</p>
+        <ngx-skeleton-loader appearance="custom-content" animation="pulse">
+          <app-quiz-item-skeleton />
+        </ngx-skeleton-loader>
       } @else {
         @for (quiz of quizzes$ | async; track $index) {
           <app-quiz-list-item [quiz]="quiz" [targetRoute]="['/play',quiz.id]" color="dark">
