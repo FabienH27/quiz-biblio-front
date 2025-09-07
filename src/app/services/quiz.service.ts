@@ -26,6 +26,7 @@ export class QuizService {
     this.httpClient.get<QuizInfo[]>(`${this.baseUrl}/quizzes/`, { withCredentials: true })
       .pipe(
         catchError(err => { console.error(err); return of([]) }),
+        delay(1000),
         finalize(() => this.loadingSubject.next(false)),
       )
       .subscribe(data => this.quizItemsSubject.next(data));

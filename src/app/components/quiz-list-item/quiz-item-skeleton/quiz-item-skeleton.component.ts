@@ -4,8 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-quiz-item-skeleton',
   imports: [],
   templateUrl: './quiz-item-skeleton.component.html',
-  styleUrl: './quiz-item-skeleton.component.css'
 })
 export class QuizItemSkeletonComponent {
-
+  protected fakeArray = Array(5);
 }
