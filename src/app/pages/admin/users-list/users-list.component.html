@@ -1,4 +1,8 @@
-<section class="mx-32 my-12">
-    <h2 class="text-3xl">Users</h2>
-    <p class="text-slate-500 text-sm">Manage users</p>
+<section class="mx-32 h-2/3">
+    <section class="my-12">
+        <h2 class="text-3xl">Users</h2>
+        <p class="text-slate-500 text-sm">Manage users</p>
+    </section>
+
+    <app-datagrid [rowData]="rowData$ | async"></app-datagrid>
 </section>
