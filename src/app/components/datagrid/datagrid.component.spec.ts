@@ -14,6 +14,14 @@ describe('DatagridComponent', () => {
 
     fixture = TestBed.createComponent(DatagridComponent);
     component = fixture.componentInstance;
+
+    const rowData = [
+      {score: 10, userId: '1', userName: 'Alice', role: 'ADMIN'},
+      {score: 20, userId: '2', userName: 'Bob', role: 'USER'}
+    ];
+
+    fixture.componentRef.setInput('rowData', rowData);
+
     fixture.detectChanges();
   });
 
