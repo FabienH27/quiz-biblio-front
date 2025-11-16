@@ -19,7 +19,7 @@ describe('ScoreTableComponent', () => {
     fixture = TestBed.createComponent(ScoreTableComponent);
     component = fixture.componentInstance;
     
-    const scores : UserScore[] = [{score: 1, userId: 'abc', userName: 'test'}]
+    const scores : UserScore[] = [{score: 1, userId: 'abc', userName: 'test', role: 'USER'}];
     fixture.componentRef.setInput('scores', scores);
     fixture.detectChanges();
 
