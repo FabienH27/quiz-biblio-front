@@ -13,8 +13,6 @@ describe('ScoreTableComponent', () => {
       imports: [ScoreTableComponent, getTranslocoModule()]
     })
     .compileComponents();
-
-    
     
     fixture = TestBed.createComponent(ScoreTableComponent);
     component = fixture.componentInstance;

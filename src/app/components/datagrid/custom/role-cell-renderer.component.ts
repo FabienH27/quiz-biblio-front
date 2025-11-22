@@ -9,13 +9,13 @@ import { ICellRendererParams } from "ag-grid-community";
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
     template: `
-        <span class="px-4 py-1 rounded-lg border-2 bg-cyan-900 border-cyan-700" [ngClass]="{ 'bg-red-900 border-red-700': value()?.toLowerCase() == 'admin'}">{{ value() }}</span>    
+        <span class="px-4 py-1 rounded-lg border-2 bg-cyan-900 border-cyan-700" [ngClass]="{ 'bg-red-900 border-red-700': value().toLowerCase() == 'admin'}">{{ value() }}</span>    
     `,
     imports: [NgClass]
 })
 export class RoleCellRenderer implements ICellRendererAngularComp {
     
-    value = signal<string | undefined>(undefined);
+    value = signal<string>('USER');
     
     agInit(params: ICellRendererParams<any, any, any>): void {
         this.refresh(params);

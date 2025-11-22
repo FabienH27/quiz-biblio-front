@@ -2,8 +2,7 @@ import { Component, input } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { themeQuartz, type ColDef, type GridOptions, type Theme } from 'ag-grid-community';
 import { RoleCellRenderer } from './custom/role-cell-renderer.component';
-import { ScoreRow } from '../../types/users/score-row';
-import { UserScore } from '../../types/user-score';
+import { User } from '../../types/user';
 
 @Component({
   selector: 'app-datagrid',
@@ -14,12 +13,12 @@ import { UserScore } from '../../types/user-score';
 })
 export class DatagridComponent {
 
-  rowData = input.required<UserScore[] | null>();
+  rowData = input.required<User[] | null>();
 
   colDefs: ColDef[] = [
     { field: "userName", headerName: 'Nom du joueur'  },
+    { field: "email", headerName: 'Email'  },
     { field: "role", headerName: 'Role', cellRenderer: RoleCellRenderer },
-    { field: "score", headerName: 'Score' },
   ];
   
   gridOptions: GridOptions = {

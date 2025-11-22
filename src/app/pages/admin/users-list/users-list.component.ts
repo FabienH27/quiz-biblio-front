@@ -1,8 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { DatagridComponent } from "../../../components/datagrid/datagrid.component";
-import { UserScoreService } from '../../../services/user-score.service';
 import { AsyncPipe } from '@angular/common';
-import { of } from 'rxjs';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-users-list',
@@ -12,8 +11,8 @@ import { of } from 'rxjs';
 })
 export class UsersListComponent {
 
-  scoreService = inject(UserScoreService);
+  userService = inject(UserService);
 
-  rowData$ = this.scoreService.getScores() ?? of([]);
+  rowData$ = this.userService.getUsers();
 
 }
