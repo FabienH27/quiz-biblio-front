@@ -19,7 +19,7 @@
     "@angular-eslint/eslint-plugin": "^20.2.0",
     "@angular/animations": "^20.2.4",
     "@angular/common": "^20.2.4",
-    "@angular/compiler": "^20.2.4",
+    "@angular/compiler": "^20.3.16",
     "@angular/core": "^20.2.4",
     "@angular/fire": "^20.0.1",
     "@angular/forms": "^20.2.4",
